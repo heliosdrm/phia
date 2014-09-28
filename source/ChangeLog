@@ -1,0 +1,76 @@
+2013-10-12 Helios De Rosario-Martinez<helios.derosario@ibv.upv.es>
+
+* R/contrastCoefficients.R: Calculate vectors of contrast coefficients.
+
+* R/ctb.R: Contributed code that cannot be imported from other packages.
+
+* R/getElements.R (getPredictors): new function to manage models with offset
+(getXLevels.list): new method.
+
+* R/interactionMeans.R (plot.interactionMeans): fixed bug for some glm families
+(interactionMeans): use new function getPredictors
+
+* R/testFactors.R
+(setNumericPredictors, testFactors.mlm, testFactors.default):
+Refactorized functions, with support for calculated predictors and offset.
+Removed calls to "stats:::" functions.
+
+* man: Documentation updated.
+
+* vignette: Vignette updated
+
+* DESCRIPTION: remove "car" from Imports.
+Authors redefined as Authors@R
+
+* Version 0.1-4.
+
+2013-07-04 Helios De Rosario-Martinez <helios.derosario@ibv.upv.es>
+
+* R/testFactors.R (testFactors.merMod): New method.
+(testFactors.mer): Changed to remove call to isGLMM, avoid namespace confusion.
+
+* R/getElements.R: New methods for merMod objects.
+(getFamily.mer): Changed to remove call to isGLMM, avoid namespace confusion.
+
+* NAMESPACE: remove importFrom(lme4, "isGLMM")
+S3method(testFactors, merMod)
+
+* Version 0.1-3.
+
+2013-05-22 Helios De Rosario-Martinez <helios.derosario@ibv.upv.es>
+
+* R/testFactors.R: Fixed bug of testFactors.default for mixed models
+
+* R/getElements.R: Fixed bug of getFamily.mer
+
+* Version 0.1-2.
+
+2013-05-11 Helios De Rosario-Martinez <helios.derosario@ibv.upv.es>
+
+* vignettes/phia.Rnw: Analysis of AMSsurvey adapted to data of pkg car 2.0-17.
+
+* Version 0.1-1.
+
+2012-12-27 Helios De Rosario-Martinez <helios.derosario@ibv.upv.es>
+
+* R/getElements.R: New common internal methods for getting model objects.
+
+* R/interactionMeans.R: Modified to use the methods defined in getElements.R.
+
+* R/testFactors.R (testFactors.lme, testFactors.mer): New methods.
+(testFactors.default): Modified to accept lme and mer objects.
+(addPredictorsToFrame, defineLHT): New internal functions.
+Solved wrong table labels in glm tests.
+
+* R/testInteractions.R: Modified to use the methods defined in getElements.R
+
+* man: Documentation updated and revised.
+
+* vignettes (phia.Rnw): Added section on mixed-effects models. Revised.
+(bibliography.bib): New references
+
+* NAMESPACE: importFrom(lme4, "isGLMM")
+S3method(testFactors, lme)
+S3method(testFactors, mer)
+
+* Version 0.1-0.
