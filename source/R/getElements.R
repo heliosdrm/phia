@@ -17,7 +17,8 @@ getModelMatrix <- function(model){UseMethod("getModelMatrix")}
 
 # Method analogous to coef.lm
 getCoef.default <- function(model){coef(model)}
-getCoef.merMod <- getCoef.mer <- getCoef.lme <- function(model){fixef(model)}
+getCoef.merMod <- getCoef.mer <- getCoef.lme <- function(model){lme4::fixef(model)}
+getCoef.lme <- function(model){nlme::fixef(model)}
 getCoef <- function(model){UseMethod("getCoef")}
 
 # Method for obtaning factor levels from model
@@ -68,7 +69,7 @@ getPredictors <- function(model){
 # get offset variable, if any
 getOffset.lm <- getOffset.glm <- function(model){model$offset}
 getOffset.mer <- function(model){model@offset}
-getOffset.merMod <- function(model){getME(model,"offset")}
+getOffset.merMod <- function(model){lme4::getME(model,"offset")}
 getOffset.default <- function(model){
 	modterms <- terms(model)
 	if (!is.null(offpos <- attr(modterms, "offset"))){

@@ -1,3 +1,9 @@
+2015-01-04 Helios De Rosario-Martinez<helios.derosario@gmail.com>
+
+* R/getElements.R (getCoef methods, getOffset.merMod): added package prefixes
+
+* R/contrastCoefficients.R: bug fix; return list of matrices, not data frames
+
 2013-10-12 Helios De Rosario-Martinez<helios.derosario@ibv.upv.es>
 
 * R/contrastCoefficients.R: Calculate vectors of contrast coefficients.

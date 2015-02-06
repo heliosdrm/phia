@@ -31,7 +31,7 @@ contrastCoefficients <- function(..., contrast.definitions, data=parent.frame(),
 	# Delete ignored, and group vectors of the same name
 	coefvectors[ignored] <- NULL
 	coefmatrices <- sapply(unique(names(coefvectors)),
-		function(n) as.data.frame(coefvectors[names(coefvectors)==n]),
+		function(n) as.matrix(coefvectors[names(coefvectors)==n]),
 		simplify=FALSE, USE.NAMES=TRUE)
 	# Return combined list
 	c(coefmatrices, contrast.definitions[ignored])
