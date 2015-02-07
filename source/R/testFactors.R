@@ -398,13 +398,20 @@ testFactorsOnTerm.mlm <- function(model,term,numeric.predictors,between.frame,wi
 	# 4. Result, consisting in:
 	#   levels: numeric matrix values of levels
 	#   adjusted.values: table of adjusted means for the tested interactions
+	#   std.error: table of standard errors associated to the adjusted values
 	#   test: test value, from LinearHypothesis
 	adjusted.values <- L %*% model$coefficients + offset_effect
+	Ln <- diag(ncol(model$coefficients)) %x% L
+	vcm <- Ln %*% vcov(model) %*% t(Ln)
 	if (!is.null(P)){
 		adjusted.values <- adjusted.values %*% P
+		Pm <- t(P) %x% diag(nrow(L))
+		vcm <- Pm %*% vcm %*% t(Pm)
 		rownames(P) <- colnames(model$coefficients)
 	}
-	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,P=P,adjusted.values=adjusted.values)
+	std.error <- matrix(diag(sqrt(vcm)),ncol=ncol(adjusted.values))
+	dimnames(std.error)=dimnames(adjusted.values)
+	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,P=P,adjusted.values=adjusted.values,std.error=std.error)
 	if (lht) result <- c(result,list(test=try(linearHypothesis(model,L,P=P,...),silent=TRUE)))
 	return(result)
 }
@@ -547,9 +554,12 @@ testFactorsOnTerm.default <- function(model,term,numeric.predictors,factor.frame
 	# 4. Result, consisting in:
 	#   levels: numeric matrix values of levels
 	#   adjusted.values: table of adjusted means for the tested interactions
+	#   std.error: table of standard errors associated to the adjusted values
 	#   test: test value, from LinearHypothesis
 	adjusted.values <- L %*% getCoef(model) + offset_effect
-	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,adjusted.values=adjusted.values)
+	std.error <- matrix(diag(sqrt(L %*% vcov(model) %*% t(L))), ncol=ncol(adjusted.values))
+	dimnames(std.error) <- dimnames(adjusted.values)
+	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,adjusted.values=adjusted.values,std.error=std.error)
 	if (lht) result <- c(result,list(test=try(linearHypothesis(model,L,...),silent=TRUE)))
 	return(result)
 }
@@ -633,6 +643,9 @@ print.testFactors <- function(x,digits=getOption("digits"),...){
 		cat(":\n")
 		if (dim(term$adjusted.values)[2]==1) dimnames(term$adjusted.values)[2] <- list("")
 		print(drop(term$adjusted.values),digits=digits,...)
+		cat("\nStd. Error:\n")
+		if (dim(term$std.error)[2]==1) dimnames(term$std.error)[2] <- list("")
+		print(drop(term$std.error),digits=digits,...)
 		if ("test" %in% names(term) && class(term$test)[1] != "try-error"){
 			cat("\n") #cat("\nLinear hypothesis test:\n")
 			print(term$test,digits=digits,...)
@@ -687,6 +700,7 @@ summary.testFactors.mlm <- function(object,predictors=TRUE,matrices=TRUE,...){
 
 	# Build list of adjusted values and ANOVA table
 	adjusted.values <- lapply(object$terms,"[[","adjusted.values")
+	std.error <- lapply(object$terms,"[[","std.error")
 	tests <- lapply(object$terms,"[[","test")
 	# The ANOVA table will be built for terms where linearHypothesis was successfully used
 	successful.tests <- sapply(tests,function(x) !is.null(x) && class(x)[1]!="try-error")
@@ -710,6 +724,7 @@ summary.testFactors.mlm <- function(object,predictors=TRUE,matrices=TRUE,...){
 		}
 	}
 	sobject$adjusted.values <- adjusted.values
+	sobject$std.error <- std.error
 	# Complete ANOVA table, like in print.linearHypothesis.mlm
 	if (nrow(anova.table) > 0){
 		ok <- anova.table[, 2] >= 0 & anova.table[, 3] > 0 & anova.table[, 4] > 0
@@ -754,6 +769,7 @@ summary.testFactors <- function(object,predictors=TRUE,matrices=TRUE,...){
 	
 	# Build list of adjusted values and ANOVA table
 	adjusted.values <- lapply(object$terms,"[[","adjusted.values")
+	std.error <- lapply(object$terms,"[[","std.error")
 	tests <- lapply(object$terms,"[[","test")
 	# The ANOVA table will be built for terms where linearHypothesis was successfully used
 	successful.tests <- sapply(tests,function(x) !is.null(x) && class(x)[1]!="try-error")
@@ -770,6 +786,7 @@ summary.testFactors <- function(object,predictors=TRUE,matrices=TRUE,...){
 		}
 	}
 	sobject$adjusted.values <- adjusted.values
+	sobject$std.error <- std.error
 	if (nrow(anova.table) > 0){
 		# Add a row with Df of the residual if the information is available
 		if (ncol(lht.result) > 3) {anova.table <- rbind(anova.table, Residual=c(lht.result[[2,1]],NA,NA))}
@@ -810,6 +827,7 @@ summary.testFactors.lm <- function(object,predictors=TRUE,matrices=TRUE,...){
 	
 	# Build list of adjusted values and ANOVA table
 	adjusted.values <- lapply(object$terms,"[[","adjusted.values")
+	std.error <- lapply(object$terms,"[[","std.error")
 	tests <- lapply(object$terms,"[[","test")
 	# The ANOVA table will be built for terms where linearHypothesis was successfully used
 	successful.tests <- sapply(tests,function(x) !is.null(x) && class(x)[1]!="try-error")
@@ -826,6 +844,7 @@ summary.testFactors.lm <- function(object,predictors=TRUE,matrices=TRUE,...){
 		}
 	}
 	sobject$adjusted.values <- adjusted.values
+	sobject$std.error <- std.error
 	if (nrow(anova.table) > 0){
 		# Add a row with Df of the residual
 		anova.table <- rbind(anova.table,
@@ -888,7 +907,7 @@ print.summary.testFactors <- function(x,digits=getOption("digits"),...){
 		print(x$P)
 		cat("\n")
 	}
-	# Adjusted values
+	# Adjusted values and standard errors
 	cat("------\n\nAdjusted values\n")
 	mean.label <- if (as.character(x$model.call)[1]=="glm" && attr(x,"means")=="link") "link function" else "mean"
 	for (n in names(x$adjusted.values)){
@@ -899,6 +918,10 @@ print.summary.testFactors <- function(x,digits=getOption("digits"),...){
 		cat(":\n")
 		attr(mat,"numeric.variables")<-NULL
 		attr(mat,"factor.variables")<-NULL
+		if (dim(mat)[2]==1) dimnames(mat)[2] <- list("")
+		print(drop(mat),digits=digits,...)
+		cat("\nStandard error:\n")
+		mat <- x$std.error[[n]]
 		if (dim(mat)[2]==1) dimnames(mat)[2] <- list("")
 		print(drop(mat),digits=digits,...)
 		cat("---\n")
