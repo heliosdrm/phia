@@ -27,9 +27,10 @@ interactionMeans <- function(model, factors=names(xlevels), slope=NULL, ...){
 		slope.term <- term.label <- value.label <- paste(slope,collapse=":")
 		terms.formula <- as.formula(paste("~0 +",slope.term))
 	}
-	# Create data frame with values
+	# Create data frame with values and standard errors
 	tf <- testFactors(model,fdiags,terms.formula=terms.formula,lht=FALSE,...)
 	interactions.table <- tf$terms[[1]]$adjusted.values
+	se.table <- tf$terms[[1]]$std.error
 	interactions.dataframe <- if (is.null(factors)) as.data.frame(matrix(,nrow=1,ncol=0)) else expand.grid(xlevels)
 	# Define what term is represented in the data frame
 	# (and redefine if it is the link function in a glm)
@@ -46,18 +47,25 @@ interactionMeans <- function(model, factors=names(xlevels), slope=NULL, ...){
 	nf <- length(xlevels)
 	if (length(interactions.table)==nrow(interactions.dataframe)){
 		interactions.dataframe[nf+1] <- as.numeric(interactions.table)
-		names(interactions.dataframe)[nf+1] <- value.label
+		interactions.dataframe[nf+2] <- as.numeric(se.table)
+		names(interactions.dataframe)[nf+(1:2)] <- c(value.label, "std. error")
 	}else{
 		# The calculated interactions are in several variables
 		if (nrow(interactions.table)==nrow(interactions.dataframe)){
-			rownames(interactions.table)<-NULL
+			rownames(interactions.table) <- NULL
 			if (!is.null(slope.term)) colnames(interactions.table) <- paste(value.label,colnames(interactions.table),sep=".")
+			rownames(se.table) <- NULL
+			colnames(se.table) <- paste("SE",colnames(se.table),sep=".")
+			ix <- (1:ncol(interactions.table))
+			ix <- rbind(ix,ix+length(ix))
+			interactions.table <- cbind(interactions.table,se.table)[,ix]
 			interactions.dataframe <- cbind(interactions.dataframe,interactions.table)
 		}else stop("Incompatible dimensions of the intra-subjects design")
 	}
 	# Assign more attributes and class for further methods on this object
 	attr(interactions.dataframe,"factors") <- names(interactions.dataframe)[1:nf]
-	attr(interactions.dataframe,"values") <- names(interactions.dataframe)[(nf+1):ncol(interactions.dataframe)]
+	attr(interactions.dataframe,"values") <- names(interactions.dataframe)[seq(nf+1,ncol(interactions.dataframe),by=2)]
+	attr(interactions.dataframe,"se") <- names(interactions.dataframe)[seq(nf+2,ncol(interactions.dataframe),by=2)]
 	class(interactions.dataframe) <- c("interactionMeans","data.frame")
 	return(interactions.dataframe)
 }
@@ -94,7 +102,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 	# Loop over the numeric columns
 	for (y in attr(x,"values")){
 		# List of data values for plots,
-		# setting legend to FALSE if are not traces
+		# setting legend to FALSE if there are no traces
 		if (is.null(traces)){
 			legend <- FALSE
 			nr <- 1

@@ -409,7 +409,7 @@ testFactorsOnTerm.mlm <- function(model,term,numeric.predictors,between.frame,wi
 		vcm <- Pm %*% vcm %*% t(Pm)
 		rownames(P) <- colnames(model$coefficients)
 	}
-	std.error <- matrix(diag(sqrt(vcm)),ncol=ncol(adjusted.values))
+	std.error <- matrix(sqrt(diag(vcm)),ncol=ncol(adjusted.values))
 	dimnames(std.error)=dimnames(adjusted.values)
 	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,P=P,adjusted.values=adjusted.values,std.error=std.error)
 	if (lht) result <- c(result,list(test=try(linearHypothesis(model,L,P=P,...),silent=TRUE)))
@@ -557,7 +557,7 @@ testFactorsOnTerm.default <- function(model,term,numeric.predictors,factor.frame
 	#   std.error: table of standard errors associated to the adjusted values
 	#   test: test value, from LinearHypothesis
 	adjusted.values <- L %*% getCoef(model) + offset_effect
-	std.error <- matrix(diag(sqrt(L %*% vcov(model) %*% t(L))), ncol=ncol(adjusted.values))
+	std.error <- matrix(sqrt(diag(L %*% vcov(model) %*% t(L))), ncol=ncol(adjusted.values))
 	dimnames(std.error) <- dimnames(adjusted.values)
 	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,adjusted.values=adjusted.values,std.error=std.error)
 	if (lht) result <- c(result,list(test=try(linearHypothesis(model,L,...),silent=TRUE)))
