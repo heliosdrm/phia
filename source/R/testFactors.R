@@ -398,20 +398,22 @@ testFactorsOnTerm.mlm <- function(model,term,numeric.predictors,between.frame,wi
 	# 4. Result, consisting in:
 	#   levels: numeric matrix values of levels
 	#   adjusted.values: table of adjusted means for the tested interactions
-	#   std.error: table of standard errors associated to the adjusted values
+	#   covmat: covariance matrix the adjusted values
+    #   std.error: standard error of adjusted values (from covmat)
 	#   test: test value, from LinearHypothesis
 	adjusted.values <- L %*% model$coefficients + offset_effect
 	Ln <- diag(ncol(model$coefficients)) %x% L
-	vcm <- Ln %*% vcov(model) %*% t(Ln)
+	covmat <- Ln %*% vcov(model) %*% t(Ln)
 	if (!is.null(P)){
 		adjusted.values <- adjusted.values %*% P
 		Pm <- t(P) %x% diag(nrow(L))
-		vcm <- Pm %*% vcm %*% t(Pm)
+		covmat <- Pm %*% covmat %*% t(Pm)
 		rownames(P) <- colnames(model$coefficients)
 	}
-	std.error <- matrix(sqrt(diag(vcm)),ncol=ncol(adjusted.values))
-	dimnames(std.error)=dimnames(adjusted.values)
-	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,P=P,adjusted.values=adjusted.values,std.error=std.error)
+	dimnames(covmat)=list(colnames(adjusted.values), colnames(adjusted.values))
+	std.error <- matrix(sqrt(diag(covmat)),ncol=ncol(adjusted.values))
+	dimnames(std.error) <- dimnames(adjusted.values)
+    result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,P=P,adjusted.values=adjusted.values,covmat=covmat,std.error=std.error)
 	if (lht) result <- c(result,list(test=try(linearHypothesis(model,L,P=P,...),silent=TRUE)))
 	return(result)
 }
@@ -554,12 +556,15 @@ testFactorsOnTerm.default <- function(model,term,numeric.predictors,factor.frame
 	# 4. Result, consisting in:
 	#   levels: numeric matrix values of levels
 	#   adjusted.values: table of adjusted means for the tested interactions
-	#   std.error: table of standard errors associated to the adjusted values
+	#   covmat: covariance matrix the adjusted values
+    #   std.error: standard error of adjusted values (from covmat)
 	#   test: test value, from LinearHypothesis
 	adjusted.values <- L %*% getCoef(model) + offset_effect
-	std.error <- matrix(sqrt(diag(L %*% vcov(model) %*% t(L))), ncol=ncol(adjusted.values))
-	dimnames(std.error) <- dimnames(adjusted.values)
-	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,adjusted.values=adjusted.values,std.error=std.error)
+    covmat <- L %*% vcov(model) %*% t(L)
+	dimnames(covmat) <- list(colnames(adjusted.values),colnames(adjusted.values))
+	std.error <- matrix(sqrt(diag(covmat)), ncol=ncol(adjusted.values))
+    dimnames(std.error) <- dimnames(adjusted.values)
+	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,adjusted.values=adjusted.values,covmat=covmat,std.error=std.error)
 	if (lht) result <- c(result,list(test=try(linearHypothesis(model,L,...),silent=TRUE)))
 	return(result)
 }
@@ -655,9 +660,10 @@ print.testFactors <- function(x,digits=getOption("digits"),...){
     invisible(x)
 }
 
-summary.testFactors.mlm <- function(object,predictors=TRUE,matrices=TRUE,...){
+summary.testFactors <- function(object,predictors=TRUE,matrices=TRUE,covmat=FALSE,...){
 	sobject <- list()
 	sobject$model.call <- object$model.call
+	attr(sobject,"means") <- attr(object,"means")
 	# Define values of predictors, if requested
 	if (predictors){
 		sobject$levels <- object$levels
@@ -697,19 +703,73 @@ summary.testFactors.mlm <- function(object,predictors=TRUE,matrices=TRUE,...){
 			}
 		}
 	}
-
 	# Build list of adjusted values and ANOVA table
-	adjusted.values <- lapply(object$terms,"[[","adjusted.values")
-	std.error <- lapply(object$terms,"[[","std.error")
+	sobject$adjusted.values <- lapply(object$terms,"[[","adjusted.values")
+	sobject$std.error <- lapply(object$terms,"[[","std.error")
+    if (covmat) sobject$covmat <- lapply(object$terms,"[[","covmat")
+	for (term.label in names(object$terms)){
+		# The numeric and factor variables referred by the adjusted values are assigned to attributes
+		attr(sobject$adjusted.values[[term.label]],"numeric.variables") <- object$terms[[term.label]]$numeric.variables
+		attr(sobject$adjusted.values[[term.label]],"factor.variables") <- object$terms[[term.label]]$factor.variables
+	}
+    sobject$anova.table <- anova(object)
+	class(sobject) <- "summary.testFactors"
+	return(sobject)
+}
+
+anova.testFactors <- function(object,...){
+	tests <- lapply(object$terms,"[[","test")
+	# The ANOVA table will be built for terms where linearHypothesis was successfully used
+	successful.tests <- sapply(tests,function(x) !is.null(x) && class(x)[1]!="try-error")
+	anova.table <- matrix(NA,sum(successful.tests),3)
+	rownames(anova.table) <- names(object$terms[successful.tests])
+	for (term.label in names(object$terms)){
+		# Create ANOVA table, copying values (Df, Chisq/F statistic, and P) from the test result
+		if (successful.tests[term.label]){
+			lht.result <- object$terms[[term.label]]$test
+			anova.table[term.label,1:3] <- as.matrix(lht.result[2, seq(to=ncol(lht.result),length=3)])
+		}
+	}
+	if (nrow(anova.table) > 0){
+		# Add a row with Df of the residual if the information is available
+		if (ncol(lht.result) > 3) {anova.table <- rbind(anova.table, Residual=c(lht.result[[2,1]],NA,NA))}
+		colnames(anova.table) <- colnames(lht.result)[seq(to=ncol(lht.result),length=3)]
+		anova.table <- structure(as.data.frame(anova.table),
+			heading = paste(colnames(anova.table)[ncol(anova.table)-1], " Test: ", sep = ""), class = c("anova", "data.frame"))
+	}
+    return(anova.table)
+}
+
+anova.testFactors.lm <- function(object,predictors=TRUE,matrices=TRUE,...){
 	tests <- lapply(object$terms,"[[","test")
 	# The ANOVA table will be built for terms where linearHypothesis was successfully used
 	successful.tests <- sapply(tests,function(x) !is.null(x) && class(x)[1]!="try-error")
 	anova.table <- matrix(NA,sum(successful.tests),4)
 	rownames(anova.table) <- names(object$terms[successful.tests])
 	for (term.label in names(object$terms)){
-		# The numeric and factor variables referred by the adjusted values are assigned to attributes
-		attr(adjusted.values[[term.label]],"numeric.variables") <- object$terms[[term.label]]$numeric.variables
-		attr(adjusted.values[[term.label]],"factor.variables") <- object$terms[[term.label]]$factor.variables
+		# Create ANOVA table, copying values (Df, SS, F/Chisq statistic, and P) from the test result
+		if (successful.tests[term.label]){
+			lht.result <- object$terms[[term.label]]$test
+			anova.table[term.label,1:4] <- as.matrix(lht.result[2,3:6])
+		}
+	}
+	if (nrow(anova.table) > 0){
+		# Add a row with Df of the residual
+		anova.table <- rbind(anova.table,
+			Residual=c(as.matrix(lht.result[2,1:2]),NA,NA))
+		colnames(anova.table) <- colnames(lht.result)[3:6]
+		anova.table <- structure(as.data.frame(anova.table), heading = paste(colnames(anova.table)[3], " Test: ", sep = ""), class = c("anova", "data.frame"))
+	}
+	return(anova.table)
+}
+
+anova.testFactors.mlm <- function(object,...){
+	tests <- lapply(object$terms,"[[","test")
+	# The ANOVA table will be built for terms where linearHypothesis was successfully used
+	successful.tests <- sapply(tests,function(x) !is.null(x) && class(x)[1]!="try-error")
+	anova.table <- matrix(NA,sum(successful.tests),4)
+	rownames(anova.table) <- names(object$terms[successful.tests])
+	for (term.label in names(object$terms)){
 		# Create ANOVA table, copied from print.linearHypothesis.mlm
 		if (successful.tests[term.label]){
 			lht.result <- object$terms[[term.label]]$test
@@ -723,8 +783,6 @@ summary.testFactors.mlm <- function(object,predictors=TRUE,matrices=TRUE,...){
 				"Roy" = stats_Roy(eigs, lht.result$df, lht.result$df.residual))
 		}
 	}
-	sobject$adjusted.values <- adjusted.values
-	sobject$std.error <- std.error
 	# Complete ANOVA table, like in print.linearHypothesis.mlm
 	if (nrow(anova.table) > 0){
 		ok <- anova.table[, 2] >= 0 & anova.table[, 3] > 0 & anova.table[, 4] > 0
@@ -734,127 +792,7 @@ summary.testFactors.mlm <- function(object,predictors=TRUE,matrices=TRUE,...){
         "den Df", "Pr(>F)")
 		anova.table <- structure(as.data.frame(anova.table), heading = paste("Multivariate Test", if (nrow(anova.table) > 1) "s", ": ", test, " test statistic", sep = ""), class = c("anova", "data.frame"))
 	}
-    sobject$anova.table <- anova.table
-	class(sobject) <- "summary.testFactors"
-	return(sobject)
-}
-
-summary.testFactors <- function(object,predictors=TRUE,matrices=TRUE,...){
-	sobject <- list()
-	sobject$model.call <- object$model.call
-	attr(sobject,"means") <- attr(object,"means")
-	# Define values of predictors, if requested
-	if (predictors){
-		sobject$levels <- object$levels
-		sobject$factor.contrasts <- object$factor.contrasts
-		sobject$covariates <- object$covariates
-	}
-	# Define test details (matrices L), if requested
-	if (matrices){
-		# Matrices L, bound by rows
-		lh.matrices <- lapply(object$terms,"[[","hypothesis.matrix")
-		lh.labels1 <- rep(names(lh.matrices), sapply(lh.matrices,"nrow"))
-		lh.matrices <- do.call("rbind",lh.matrices)
-		# If the original matrices have row names (there are various contrasts), copy those names in the labels
-		lh.labels2 <- rownames(lh.matrices)
-		rownames(lh.matrices) <- NULL
-		if (length(lh.labels2)>0){
-			# In secondary labels, append "|" to separate from the primary label
-			lh.labels2[nchar(lh.labels2)>0] <- paste("|",lh.labels2[nchar(lh.labels2)>0])
-			sobject$hypothesis.matrix <- as.data.frame(lh.matrices,row.names=paste(lh.labels1,lh.labels2))
-		}else{
-			sobject$hypothesis.matrix <- as.data.frame(lh.matrices,row.names=lh.labels1)
-		}
-	}
-	
-	# Build list of adjusted values and ANOVA table
-	adjusted.values <- lapply(object$terms,"[[","adjusted.values")
-	std.error <- lapply(object$terms,"[[","std.error")
-	tests <- lapply(object$terms,"[[","test")
-	# The ANOVA table will be built for terms where linearHypothesis was successfully used
-	successful.tests <- sapply(tests,function(x) !is.null(x) && class(x)[1]!="try-error")
-	anova.table <- matrix(NA,sum(successful.tests),3)
-	rownames(anova.table) <- names(object$terms[successful.tests])
-	for (term.label in names(object$terms)){
-		# The numeric and factor variables referred by the adjusted values are assigned to attributes
-		attr(adjusted.values[[term.label]],"numeric.variables") <- object$terms[[term.label]]$numeric.variables
-		attr(adjusted.values[[term.label]],"factor.variables") <- object$terms[[term.label]]$factor.variables
-		# Create ANOVA table, copying values (Df, Chisq/F statistic, and P) from the test result
-		if (successful.tests[term.label]){
-			lht.result <- object$terms[[term.label]]$test
-			anova.table[term.label,1:3] <- as.matrix(lht.result[2, seq(to=ncol(lht.result),length=3)])
-		}
-	}
-	sobject$adjusted.values <- adjusted.values
-	sobject$std.error <- std.error
-	if (nrow(anova.table) > 0){
-		# Add a row with Df of the residual if the information is available
-		if (ncol(lht.result) > 3) {anova.table <- rbind(anova.table, Residual=c(lht.result[[2,1]],NA,NA))}
-		colnames(anova.table) <- colnames(lht.result)[seq(to=ncol(lht.result),length=3)]
-		anova.table <- structure(as.data.frame(anova.table),
-			heading = paste(colnames(anova.table)[ncol(anova.table)-1], " Test: ", sep = ""), class = c("anova", "data.frame"))
-	}
-    sobject$anova.table <- anova.table
-	class(sobject) <- "summary.testFactors"
-	return(sobject)
-}
-
-summary.testFactors.lm <- function(object,predictors=TRUE,matrices=TRUE,...){
-	sobject <- list()
-	sobject$model.call <- object$model.call
-	# Define values of predictors, if requested
-	if (predictors){
-		sobject$levels <- object$levels
-		sobject$factor.contrasts <- object$factor.contrasts
-		sobject$covariates <- object$covariates
-	}
-	# Define test details (matrices L), if requested
-	if (matrices){
-		lh.matrices <- lapply(object$terms,"[[","hypothesis.matrix")
-		lh.labels1 <- rep(names(lh.matrices), sapply(lh.matrices,"nrow"))
-		lh.matrices <- do.call("rbind",lh.matrices)
-		# If the original matrices have row names (there are various contrasts), copy those names in the labels
-		lh.labels2 <- rownames(lh.matrices)
-		rownames(lh.matrices) <- NULL
-		if (length(lh.labels2)>0){
-			# In secondary labels, append "|" to separate from the primary label
-			lh.labels2[nchar(lh.labels2)>0] <- paste("|",lh.labels2[nchar(lh.labels2)>0])
-			sobject$hypothesis.matrix <- as.data.frame(lh.matrices,row.names=paste(lh.labels1,lh.labels2))
-		}else{
-			sobject$hypothesis.matrix <- as.data.frame(lh.matrices,row.names=lh.labels1)
-		}
-	}
-	
-	# Build list of adjusted values and ANOVA table
-	adjusted.values <- lapply(object$terms,"[[","adjusted.values")
-	std.error <- lapply(object$terms,"[[","std.error")
-	tests <- lapply(object$terms,"[[","test")
-	# The ANOVA table will be built for terms where linearHypothesis was successfully used
-	successful.tests <- sapply(tests,function(x) !is.null(x) && class(x)[1]!="try-error")
-	anova.table <- matrix(NA,sum(successful.tests),4)
-	rownames(anova.table) <- names(object$terms[successful.tests])
-	for (term.label in names(object$terms)){
-		# The numeric and factor variables referred by the adjusted values are assigned to attributes
-		attr(adjusted.values[[term.label]],"numeric.variables") <- object$terms[[term.label]]$numeric.variables
-		attr(adjusted.values[[term.label]],"factor.variables") <- object$terms[[term.label]]$factor.variables
-		# Create ANOVA table, copying values (Df, SS, F/Chisq statistic, and P) from the test result
-		if (successful.tests[term.label]){
-			lht.result <- object$terms[[term.label]]$test
-			anova.table[term.label,1:4] <- as.matrix(lht.result[2,3:6])
-		}
-	}
-	sobject$adjusted.values <- adjusted.values
-	sobject$std.error <- std.error
-	if (nrow(anova.table) > 0){
-		# Add a row with Df of the residual
-		anova.table <- rbind(anova.table,
-			Residual=c(as.matrix(lht.result[2,1:2]),NA,NA))
-		colnames(anova.table) <- colnames(lht.result)[3:6]
-		anova.table <- structure(as.data.frame(anova.table), heading = paste(colnames(anova.table)[3], " Test: ", sep = ""), class = c("anova", "data.frame"))
-	}
-    sobject$anova.table <- anova.table
-	class(sobject) <- "summary.testFactors"
-	return(sobject)
+    return(anova.table)
 }
 
 print.summary.testFactors <- function(x,digits=getOption("digits"),...){
@@ -907,7 +845,7 @@ print.summary.testFactors <- function(x,digits=getOption("digits"),...){
 		print(x$P)
 		cat("\n")
 	}
-	# Adjusted values and standard errors
+	# Adjusted values and standard errors (plus covariance matrices, if requested and exist)
 	cat("------\n\nAdjusted values\n")
 	mean.label <- if (as.character(x$model.call)[1]=="glm" && attr(x,"means")=="link") "link function" else "mean"
 	for (n in names(x$adjusted.values)){
@@ -924,6 +862,12 @@ print.summary.testFactors <- function(x,digits=getOption("digits"),...){
 		mat <- x$std.error[[n]]
 		if (dim(mat)[2]==1) dimnames(mat)[2] <- list("")
 		print(drop(mat),digits=digits,...)
+		if ("covmat" %in% elements){
+            cat("\nVariance-covariance matrix:\n")
+            mat <- x$covmat[[n]]
+            if (dim(mat)[2]==1) dimnames(mat)[2] <- list("")
+            print(drop(mat),digits=digits,...)
+        }
 		cat("---\n")
 	}
 	# ANOVA table (if exists)
