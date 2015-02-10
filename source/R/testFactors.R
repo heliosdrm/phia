@@ -399,7 +399,7 @@ testFactorsOnTerm.mlm <- function(model,term,numeric.predictors,between.frame,wi
 	#   levels: numeric matrix values of levels
 	#   adjusted.values: table of adjusted means for the tested interactions
 	#   covmat: covariance matrix the adjusted values
-    #   std.error: standard error of adjusted values (from covmat)
+	#   std.error: standard error of adjusted values (from covmat)
 	#   test: test value, from LinearHypothesis
 	adjusted.values <- L %*% model$coefficients + offset_effect
 	Ln <- diag(ncol(model$coefficients)) %x% L
@@ -413,7 +413,7 @@ testFactorsOnTerm.mlm <- function(model,term,numeric.predictors,between.frame,wi
 	dimnames(covmat)=list(colnames(adjusted.values), colnames(adjusted.values))
 	std.error <- matrix(sqrt(diag(covmat)),ncol=ncol(adjusted.values))
 	dimnames(std.error) <- dimnames(adjusted.values)
-    result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,P=P,adjusted.values=adjusted.values,covmat=covmat,std.error=std.error)
+	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,P=P,adjusted.values=adjusted.values,covmat=covmat,std.error=std.error)
 	if (lht) result <- c(result,list(test=try(linearHypothesis(model,L,P=P,...),silent=TRUE)))
 	return(result)
 }
@@ -557,13 +557,13 @@ testFactorsOnTerm.default <- function(model,term,numeric.predictors,factor.frame
 	#   levels: numeric matrix values of levels
 	#   adjusted.values: table of adjusted means for the tested interactions
 	#   covmat: covariance matrix the adjusted values
-    #   std.error: standard error of adjusted values (from covmat)
+	#   std.error: standard error of adjusted values (from covmat)
 	#   test: test value, from LinearHypothesis
 	adjusted.values <- L %*% getCoef(model) + offset_effect
-    covmat <- L %*% vcov(model) %*% t(L)
+	covmat <- L %*% vcov(model) %*% t(L)
 	dimnames(covmat) <- list(colnames(adjusted.values),colnames(adjusted.values))
 	std.error <- matrix(sqrt(diag(covmat)), ncol=ncol(adjusted.values))
-    dimnames(std.error) <- dimnames(adjusted.values)
+	dimnames(std.error) <- dimnames(adjusted.values)
 	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,adjusted.values=adjusted.values,covmat=covmat,std.error=std.error)
 	if (lht) result <- c(result,list(test=try(linearHypothesis(model,L,...),silent=TRUE)))
 	return(result)
@@ -657,7 +657,7 @@ print.testFactors <- function(x,digits=getOption("digits"),...){
 		}
 		cat("------\n")
 	}
-    invisible(x)
+	invisible(x)
 }
 
 summary.testFactors <- function(object,predictors=TRUE,matrices=TRUE,covmat=FALSE,...){
@@ -706,13 +706,13 @@ summary.testFactors <- function(object,predictors=TRUE,matrices=TRUE,covmat=FALS
 	# Build list of adjusted values and ANOVA table
 	sobject$adjusted.values <- lapply(object$terms,"[[","adjusted.values")
 	sobject$std.error <- lapply(object$terms,"[[","std.error")
-    if (covmat) sobject$covmat <- lapply(object$terms,"[[","covmat")
+	if (covmat) sobject$covmat <- lapply(object$terms,"[[","covmat")
 	for (term.label in names(object$terms)){
 		# The numeric and factor variables referred by the adjusted values are assigned to attributes
 		attr(sobject$adjusted.values[[term.label]],"numeric.variables") <- object$terms[[term.label]]$numeric.variables
 		attr(sobject$adjusted.values[[term.label]],"factor.variables") <- object$terms[[term.label]]$factor.variables
 	}
-    sobject$anova.table <- anova(object)
+	sobject$anova.table <- anova(object)
 	class(sobject) <- "summary.testFactors"
 	return(sobject)
 }
@@ -737,7 +737,7 @@ anova.testFactors <- function(object,...){
 		anova.table <- structure(as.data.frame(anova.table),
 			heading = paste(colnames(anova.table)[ncol(anova.table)-1], " Test: ", sep = ""), class = c("anova", "data.frame"))
 	}
-    return(anova.table)
+	return(anova.table)
 }
 
 anova.testFactors.lm <- function(object,predictors=TRUE,matrices=TRUE,...){
@@ -789,10 +789,10 @@ anova.testFactors.mlm <- function(object,...){
 		ok <- !is.na(ok) & ok
 		anova.table <- cbind(lht.result$df, anova.table, pf(anova.table[ok, 2], anova.table[ok, 3], anova.table[ok, 4], lower.tail = FALSE))
 		colnames(anova.table) <- c("Df", "test stat", "approx F", "num Df", 
-        "den Df", "Pr(>F)")
+		"den Df", "Pr(>F)")
 		anova.table <- structure(as.data.frame(anova.table), heading = paste("Multivariate Test", if (nrow(anova.table) > 1) "s", ": ", test, " test statistic", sep = ""), class = c("anova", "data.frame"))
 	}
-    return(anova.table)
+	return(anova.table)
 }
 
 print.summary.testFactors <- function(x,digits=getOption("digits"),...){
@@ -863,11 +863,11 @@ print.summary.testFactors <- function(x,digits=getOption("digits"),...){
 		if (dim(mat)[2]==1) dimnames(mat)[2] <- list("")
 		print(drop(mat),digits=digits,...)
 		if ("covmat" %in% elements){
-            cat("\nVariance-covariance matrix:\n")
-            mat <- x$covmat[[n]]
-            if (dim(mat)[2]==1) dimnames(mat)[2] <- list("")
-            print(drop(mat),digits=digits,...)
-        }
+			cat("\nVariance-covariance matrix:\n")
+			mat <- x$covmat[[n]]
+			if (dim(mat)[2]==1) dimnames(mat)[2] <- list("")
+			print(drop(mat),digits=digits,...)
+		}
 		cat("---\n")
 	}
 	# ANOVA table (if exists)
@@ -876,5 +876,5 @@ print.summary.testFactors <- function(x,digits=getOption("digits"),...){
 		print(x$anova.table)
 	}
 	cat("------------\n")
-    invisible(x)
+	invisible(x)
 }

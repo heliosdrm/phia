@@ -66,8 +66,25 @@ interactionMeans <- function(model, factors=names(xlevels), slope=NULL, ...){
 	attr(interactions.dataframe,"factors") <- names(interactions.dataframe)[1:nf]
 	attr(interactions.dataframe,"values") <- names(interactions.dataframe)[seq(nf+1,ncol(interactions.dataframe),by=2)]
 	attr(interactions.dataframe,"se") <- names(interactions.dataframe)[seq(nf+2,ncol(interactions.dataframe),by=2)]
+	# Create a list of covariance matrices for each variable
+	mix <- array(1L:length(se.table), dim=dim(se.table), dimnames=list(NULL,attr(interactions.dataframe,"values")))
+	covmatlist <- lapply(as.data.frame(mix), function(ix) tf$terms[[1]]$covmat[ix,ix])
+	attr(interactions.dataframe,"covmat") <- covmatlist
 	class(interactions.dataframe) <- c("interactionMeans","data.frame")
 	return(interactions.dataframe)
+}
+
+# Auxiliar function to get pooled standard errors from covariance matrices
+# x: interactionMeans object
+# y: outcome variable of x
+# f: 1 or 2 factor names of x
+poolse <- function(x,y,f){
+	vcf <- split.data.frame(attr(x,"covmat")[[y]], x[f])
+	vcf <- sapply(vcf, function(M) split.data.frame(t(M), x[f]))
+	se <- sqrt(sapply(diag(vcf), function(M) sum(M)/nrow(M)))
+	nlev <- sapply(x[f], nlevels)
+	if (!is.list(levnames <- sapply(x[f], levels))) levnames <- list(levnames)
+	array(se, dim=nlev, dimnames=levnames)
 }
 
 plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2, cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, ...){
@@ -108,7 +125,8 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 			nr <- 1
 			nc <- length(atx)
 			atx.pattern <- atx
-			plotdata <- lapply(atx,function(margin) tapply(x[,y],x[margin],mean))
+			plotdata <- lapply(atx, function(margin) tapply(x[,y],x[margin],mean))
+			se <- lapply(atx, function(margin) poolse(x,y,margin))
 		}else{
 			nr <- length(traces)
 			nc <- length(atx)
@@ -121,6 +139,10 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					tapply(x[,y],x[margins],mean)
 					},
 				atx.pattern,traces.pattern,USE.NAMES=FALSE,SIMPLIFY=FALSE)
+			sedata <- mapply(function(xf,lf){
+				margins <- unique(c(xf,lf))
+				poolse(x,y,margins)
+				},atx.pattern, traces.pattern,USE.NAMES=FALSE,SIMPLIFY=FALSE)
 		}
 		# Re-transform data if suitable (glm)
 		# if (transform) plotdata <- lapply(plotdata,fam$linkinv)
