@@ -83,7 +83,7 @@ poolse <- function(x,y,f){
 	vcf <- sapply(vcf, function(M) split.data.frame(t(M), x[f]))
 	se <- sqrt(sapply(diag(vcf), function(M) sum(M)/nrow(M)))
 	nlev <- sapply(x[f], nlevels)
-	if (!is.list(levnames <- sapply(x[f], levels))) levnames <- list(levnames)
+	levnames <- lapply(x[f], levels)
 	array(se, dim=nlev, dimnames=levnames)
 }
 
