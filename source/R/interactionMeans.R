@@ -113,16 +113,16 @@ cimse <- function(m,se,ci){
     list(m+q*se, m-q*se)
 }
 
-plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2, cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, errorbar="se",...){
+plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2, cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, errorbar,...){
 	# Define function for limits of the errorbars
+	if (missing(errorbar)) errorbar <- function(m,se) list(m-se,m+se)
 	ferrbar <- if(is.null(errorbar)) function(m,se) list(m,m) else errorbar
 	if (is.character(ferrbar)){
-    	if (ferrbar=="se") ferrbar <- function(m,se) list(m-se, m+se) else
 	    if (grepl("[0-9]{1,2}", ci <- sub("^ci","",ferrbar))){
 	        ci <- 0.01*as.numeric(ci)
 	        ferrbar <- function(m,se) cimse(m,se,ci)
-	    }else stop("Invalid errorbar function")
-    }else if (!is.function(ferrbar) || length(formals(ferrbar))!=2) stop("errorbar must be a function or a string")
+	    }else stop("Invalid errorbar definition")
+    }
 	# Check consistency between x and atx, traces
 	if (!("interactionMeans" %in% class(x))) stop("The first argument must be an interactionMeans object.")
 	valid.atx <- (atx %in% attr(x,"factors"))
