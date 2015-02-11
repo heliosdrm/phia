@@ -410,7 +410,7 @@ testFactorsOnTerm.mlm <- function(model,term,numeric.predictors,between.frame,wi
 		covmat <- Pm %*% covmat %*% t(Pm)
 		rownames(P) <- colnames(model$coefficients)
 	}
-	dimnames(covmat)=list(colnames(adjusted.values), colnames(adjusted.values))
+	# define dimnames(covmat)?
 	std.error <- matrix(sqrt(diag(covmat)),ncol=ncol(adjusted.values))
 	dimnames(std.error) <- dimnames(adjusted.values)
 	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,P=P,adjusted.values=adjusted.values,covmat=covmat,std.error=std.error)
@@ -561,7 +561,7 @@ testFactorsOnTerm.default <- function(model,term,numeric.predictors,factor.frame
 	#   test: test value, from LinearHypothesis
 	adjusted.values <- L %*% getCoef(model) + offset_effect
 	covmat <- L %*% vcov(model) %*% t(L)
-	dimnames(covmat) <- list(colnames(adjusted.values),colnames(adjusted.values))
+	# define dimnames(covmat)?
 	std.error <- matrix(sqrt(diag(covmat)), ncol=ncol(adjusted.values))
 	dimnames(std.error) <- dimnames(adjusted.values)
 	result <- list(numeric.variables=paste(term$num.vars,sep=":"),factor.variables=term$fac.vars,hypothesis.matrix=L,adjusted.values=adjusted.values,covmat=covmat,std.error=std.error)
