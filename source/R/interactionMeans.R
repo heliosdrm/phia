@@ -108,9 +108,21 @@ matploterrorbars <- function(lower, upper, barwidth=0.25,...){
 	do.call(matplot,c(list(xcross,ycross),dots))
 }
 
-plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2, cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, ...){
+cimse <- function(m,se,ci){
+    q <- qnorm((1-ci)/2)
+    list(m+q*se, m-q*se)
+}
+
+plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2, cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, errorbar="se",...){
 	# Define function for limits of the errorbars
-	errorbar <- function(m,se) list(m-se,m+se)
+	ferrbar <- if(is.null(errorbar)) function(m,se) list(m,m) else errorbar
+	if (is.character(ferrbar)){
+    	if (ferrbar=="se") ferrbar <- function(m,se) list(m-se, m+se) else
+	    if (grepl("[0-9]{1,2}", ci <- sub("^ci","",ferrbar))){
+	        ci <- 0.01*as.numeric(ci)
+	        ferrbar <- function(m,se) cimse(m,se,ci)
+	    }else stop("Invalid errorbar function")
+    }else if (!is.function(ferrbar) || length(formals(ferrbar))!=2) stop("errorbar must be a function or a string")
 	# Check consistency between x and atx, traces
 	if (!("interactionMeans" %in% class(x))) stop("The first argument must be an interactionMeans object.")
 	valid.atx <- (atx %in% attr(x,"factors"))
@@ -168,7 +180,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 				},atx.pattern, traces.pattern,USE.NAMES=FALSE,SIMPLIFY=FALSE)
 		}
 		# Data of the errorbars (first row, lower limit; second row, upper limit)
-		errbardata <- mapply(errorbar, plotdata, sedata)
+		errbardata <- mapply(ferrbar, plotdata, sedata)
 		# Re-transform data if suitable (glm)
 		# if (transform) plotdata <- lapply(plotdata,fam$linkinv)
 		# Define figures
@@ -224,7 +236,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					matplot(means,type=type,pch=pch,
 						axes=FALSE,xlab="",ylab="",
 						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,...)
-					matploterrorbars(lower,upper,...)
+					if (!is.null(errorbar)) matploterrorbars(lower,upper,...)
 					box()
 					# Draw x axis, with labels if it is the last row
 					axis(1,at=1:nrow(means),labels=if (row==nr) rownames(means) else FALSE,...)
@@ -267,7 +279,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					matplot(means,type=type,pch=pch,
 						xaxt="n",yaxt="n",xlab=atx.pattern[f],ylab="",
 						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,main=y,...)
-					matploterrorbars(lower,upper,...)
+					if (!is.null(errorbar)) matploterrorbars(lower,upper,...)
 					axis(1,at=1:nrow(means),labels=rownames(means),...)
 					axis(2,at=yaxis$at,labels=yaxis$labels,...)
 					plot.new()
@@ -278,7 +290,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					matplot(means,type=type,pch=pch,
 						xaxt="n",yaxt="n",xlab=atx.pattern[f],ylab="",
 						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,main=y,...)
-					matploterrorbar(lower,upper,...)
+					if (!is.null(errorbar)) matploterrorbar(lower,upper,...)
 					axis(1,at=1:nrow(means),labels=rownames(means),...)
 					axis(2,at=yaxis$at,labels=yaxis$labels,...)
 				}
