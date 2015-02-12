@@ -26,7 +26,7 @@ Calculates and tests the adjusted mean value of the response and other terms of 
 \method{testFactors}{lme}(model, \dots)
 \method{testFactors}{mer}(model, \dots, link=FALSE)
 \method{testFactors}{merMod}(model, ..., link=FALSE)
-\method{summary}{testFactors}(object, predictors=TRUE, matrices=TRUE, \dots)
+\method{summary}{testFactors}(object, predictors=TRUE, matrices=TRUE, covmat=FALSE, \dots)
 }
 \arguments{
   \item{model}{fitted model. Currently supported classes include \code{"lm"}, \code{"glm"}, \code{"mlm"}, \code{"lme"}, and \code{"mer"} or \code{"merMod"} (excluding models fitted by \code{nlmer}).}
@@ -43,6 +43,7 @@ Calculates and tests the adjusted mean value of the response and other terms of 
   \item{object}{object returned by \code{\link{testFactors}}.}
   \item{predictors}{logical value: should \code{\link{summary}} return the values of the predictor values used in the calculations?}
   \item{matrices}{logical value: should \code{\link{summary}} return the matrices used for testing by \code{\link{linearHypothesis}}?}
+  \item{covmat}{logical value: should \code{\link{summary}} return the covariance matrix of the adjusted values?}
   \item{\dots}{other arguments passed down to \code{\link{linearHypothesis}}.}
 }
 \details{
@@ -70,7 +71,7 @@ For multivariate models, the arguments \code{idata}, and \code{icontrasts} may b
 The significance of adjusted values is tested by a call to \code{\link{linearHypothesis}} for each term, unless \code{lht} is set to \code{FALSE}.  Extra arguments may be passed down to that function, for instance to specify the test statistic that will be evaluated.
 }
 \value{
-An object of class \code{"testFactors"}, that contains the adjusted values of each term and the otuput of the test, plus other variables used in the calculations.  The \code{\link{summary}} method for this object will display those variables, unless they be omitted by setting the optional arguments \code{predictors} or \code{matrices} to \code{FALSE}.  The argument \code{predictors} refers to the coefficients of specified combinations of factor levels, the values of covariates, and the contrast matrices used for terms that include factors; \code{matrices} refers to the \dQuote{linear hypothesis matrix} used by \code{\link{linearHypothesis}}, and in multivariate linear models, to the \dQuote{response transformation matrix} as well --- if it exists.
+An object of class \code{"testFactors"}, that contains the adjusted values and their standard errors for each term, and the otuput of the test, plus other variables used in the calculations.  The \code{\link{summary}} method for this object will display those variables, unless they be omitted by setting the optional arguments \code{predictors}, \code{matrices} or \code{covmat} to \code{FALSE}.  The argument \code{predictors} refers to the coefficients of specified combinations of factor levels, the values of covariates, and the contrast matrices used for terms that include factors; \code{matrices} refers to the \dQuote{linear hypothesis matrix} used by \code{\link{linearHypothesis}}, and in multivariate linear models, to the \dQuote{response transformation matrix} as well --- if it exists; \code{covmat} refers to the variance-covariance matrix of the adjusted values.
 
 Moreover, \code{\link{summary}} groups the results of the tests for all terms in one table.  By default this table shows the test statistics, their degrees of freedom, and the \emph{p}-values.  If the model is of class \code{"lm"}, it also shows the sums of squares; and if it is of class \code{"mlm"}, only the first type of test statistic returned by \code{\link{linearHypothesis}} (by default \dQuote{Pillai}) is shown.  This variable shape of the ANOVA table is controlled by additional classes assigned to the object (either \code{"testFactors.lm"} or \code{"testFactors.mlm"}, as suitable).
 }
