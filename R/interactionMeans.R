@@ -290,7 +290,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					matplot(means,type=type,pch=pch,
 						xaxt="n",yaxt="n",xlab=atx.pattern[f],ylab="",
 						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,main=y,...)
-					if (!is.null(errorbar)) matploterrorbar(lower,upper,...)
+					if (!is.null(errorbar)) matploterrorbars(lower,upper,...)
 					axis(1,at=1:nrow(means),labels=rownames(means),...)
 					axis(2,at=yaxis$at,labels=yaxis$labels,...)
 				}
