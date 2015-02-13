@@ -11,5 +11,6 @@ Description: Analysis of terms in linear, generalized and mixed linear models,
 	for the analysis of interaction terms.
 Depends: car, graphics, stats
 Suggests: nlme, lme4
+Imports: Matrix
 License: GPL (>= 3)
 LazyData: yes
