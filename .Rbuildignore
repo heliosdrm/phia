@@ -1,6 +1,6 @@
+tests
 ^\.travis\.yml$
 .git
 .gitignore
 LICENSE
 README.md
-tests
