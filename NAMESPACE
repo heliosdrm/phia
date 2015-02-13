@@ -1,5 +1,7 @@
 export(contrastCoefficients, interactionMeans, testFactors, testInteractions)
 import(car)
+## To run vignette succesfully
+importFrom(lme4, diag)
 S3method(testFactors, lm)
 S3method(testFactors, mlm)
 S3method(testFactors, glm)
