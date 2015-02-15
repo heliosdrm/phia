@@ -270,8 +270,8 @@ table, where the rows and columns are related to the different levels
 of both treatments, and each cell contains the adjusted mean of the
 response for the corresponding interaction of factors.
 When there is an interaction effect, the cell means are taken as the
-most straightforward way of representing this effect. These values
-can be obtained from the model coefficients with the function
+most straightforward way of representing this effect. These values and their
+standard errors can be obtained from the model coefficients with the function
 \code{interactionMeans} in the package \pkg{phia}, using the fitted
 model as first (and in this case only) argument:
 
@@ -355,14 +355,13 @@ interactions).
 
 A suitable alternative for representing higher-order interactions
 are the functions \code{effect} and\\ \code{allEffects} from the package
-\pkg{effects} \cite{Fox:Hong:2009:JSSOBK:v32i01}. For factorial
+\pkg{effects} \cite{Fox:Hong:2009:JSSOBK:v32i01}.  Those functions
+are specially devised to analyse and plot the interactions of highest
+order in the model. For factorial
 models, their outputs contain the same type of data as \code{interactionMeans},
 although they handle the numeric predictors of the model in another
 way, and the types of models that can be analysed is different (see
-sections \ref{sec:repeated-measures} and \ref{sec:covariates}). Those functions
-are specially devised to analyse and plot the interactions of highest
-order in the model, through more sophisticated graphic tools, and
-they also calculate and plot confidence intervals of the means.
+sections \ref{sec:repeated-measures} and \ref{sec:covariates}).
 
 
 \subsection{Testing simple effects}
@@ -721,17 +720,27 @@ let us suppose that we have reasons to be more liberal, and want to
 investigate the interaction \code{treatment:phase} that is near
 the $\alpha$ level of significance. (The main effect \code{treatment}
 is also near that level, but we may ignore it since we will focus
-on its interaction with another factor). First we may explore and
+on its interaction with another factor).
+The operations previously presented for univariate linear models can also be
+used in this case, as convenient wrappers of the procedures recommended for
+the \emph{post-hoc} analysis of multivariate models \cite{R-help:141760,R-help:235586}.
+
+First we may explore and
 plot the cell means of this interaction with \code{interactionMeans},
 using the auxiliary data frame \code{idata} to specify the within-subjects
-model (\code{idesign} is not needed). We will only plot the panel
-with phase in the \emph{X}\nobreakdash-axis and different lines for
-each treatment, using the optional arguments \code{atx} and \code{traces}:
+model (\code{idesign} is not needed). We will use the argument \code{errorbar}
+to draw the asymptotic $95\%$ confidence intervals of the adjusted means,
+instead of their standard errors.%
+\footnote{These confidence intervals are not exact, but an approximation assuming that
+the parameters of the model are random results, normally distributed around their
+``true'' values --- an assumption that is asymptotically met if the samples
+of data are large enough.%
+}
 
 %
 <<okplot>>=
-ok.means <- interactionMeans(mod.ok, c("hour","treatment","phase"), idata=idata)
-plot(ok.means, atx="phase", traces="treatment")
+ok.means <- interactionMeans(mod.ok, c("treatment","phase"), idata=idata)
+plot(ok.means, errorbar="ci95")
 @
 \begin{figure}
 \begin{centering}
@@ -747,11 +756,11 @@ and Kaiser model\label{fig:ok-treatmentxphase}}
 The plot of figure \ref{fig:ok-treatmentxphase} shows that in the
 post-test and follow-up phases, the response of the control group
 more or less remains at the same level as in the pre-test phase, whereas
-the response for the other treatments increases. However, this plot
-does not show the confidence intervals for those means, so we need
-to test those differences to know if they are significant. An analysis
+the response for the other treatments increases. However, the confidence
+intervals are relatively large, compared with the variations between adjusted
+means, and there is a lot of overlap. An analysis
 of all the possible interaction pairwise contratsts between \code{treatment}
-and \code{phase} gives the following result:
+and \code{phase} help us tell what differences are really significant:
 
 <<>>=
 testInteractions(mod.ok, pairwise=c("treatment", "phase"), idata=idata)
@@ -766,18 +775,11 @@ Given the similarity betwen the means of treatments \code{A} and \code{B},
 we could have expected a significant difference between controls and
 treatment \code{A} as well, but the test does not reject the null
 hypothesis in that case, because the number of observations for treatment
-\code{A} is lower, and therefore the size of the effect is relatively
-smaller.
+\code{A} is lower, and therefore the confidence intervals for the estimations
+are greater.
 
-The main effect of \code{hour} could be analysed similarly. As told
-above, there are other packages that handle main effects efficiently;
-however, the most typical procedures are designed for univariate analyses,
-and the recommended solution for \emph{post-hoc} of this kind of multivariate models
-is using \code{linearHypothesis} from \pkg{car} \cite{R-help:141760,R-help:235586}.
-The function, \code{testInteractions} actually is wrapper for \code{linearHypothesis},
-that does the required operations with a convenient user interface.
-
-There are other possible ways of analysing this interaction, using
+The main effect of \code{hour} could be analysed similarly. And 
+there are other possible ways of analysing this interaction, using
 other options of \code{testInteractions}, or by other methods
 as proposed by Keselman \cite{keselman_testing_1998}. The reader
 is encouraged to try these alternatives.
@@ -794,11 +796,11 @@ of the response can be evaluated, but the possible values of a covariate
 are infinite. Therefore, the effects of covariates are usually represented
 as continuous functions within the range of their observed values
 (the model may allow the calculation of effects beyond that range,
-but such predictions would normally have little reliability). For
-instance, the functions \code{effect} and \code{allEffects} from the
-package \pkg{effects} evaluate the adjusted mean of the response
-at a sample of values of the covariates, either automatically calculated
-by the function or specified by the user.
+but such predictions would normally have little reliability).
+% For instance, the functions \code{effect} and \code{allEffects} from the
+% package \pkg{effects} evaluate the adjusted mean of the response
+% at a sample of values of the covariates, either automatically calculated
+% by the function or specified by the user.
 
 We have seen that in factorial models, the effects of factors may be analysed
 by the contrasts between their levels. Obviously, the number of ``contrasts''
@@ -826,8 +828,9 @@ by the values of their corresponding model coefficients. They are
 a measure of the ``slope'' along the covariate, or the increment
 in the expected value of the response, when the covariate increases
 in one unit. Thus, if the researcher also wants the adjusted value
-of the response for different values of the covariate, as given by
-the functions of \pkg{effects}, the only additional information
+of the response for different values of the covariate, 
+% as given by the functions of \pkg{effects},
+the only additional information
 that he or she needs is the adjusted mean at an arbitrary point.
 
 The functions of the package \pkg{phia} can report the values of those
@@ -858,10 +861,13 @@ This analysis detects significant main effects of all the predictors, plus a
 significant interaction between \code{log2(income)} and the factor \code{type}.
 This interaction can explored with \code{interactionMeans} (see figure \ref{fig:interaction-covariates})
 and tested with \code{testInteractions}, by just giving the name of the
-relevant covariate(s) in the argument \code{slope}.
+relevant covariate(s) in the argument \code{slope}. 
+We also tell the name of the factor plotted at the \emph{X}\nobreakdash-axis
+and for which the pairwise contrasts are calculated (\code{type}), although
+it might be ommited in this case because there is no other factor in the model.
 
 <<prestigeplot>>=
-plot(interactionMeans(mod.prestige, "type", slope="log2(income)"))
+plot(interactionMeans(mod.prestige, atx="type", slope="log2(income)"))
 testInteractions(mod.prestige, pairwise="type", slope="log2(income)")
 @
 %
@@ -1050,7 +1056,10 @@ Anova(mod.ams)
 
 The terms of interest are the interactions of \code{type} with \code{sex}
 and \code{citizen}. We may have a look on the adjusted means with
-\code{interactionMeans}, as in other models:
+\code{interactionMeans}, as in other models.
+We tell that we want \code{type} in the \emph{X}\nobreakdash-axis, and
+the other factors coded as lines, with the arguments \code{atx} and
+\code{traces}, respectively:
 
 <<amsplot>>=
 ams.means <- interactionMeans(mod.ams)
@@ -1225,7 +1234,7 @@ for the conclusions of the study, and that is in fact why their effect is
 generally simplified as a set of random values.
 Accordingly, the parameters that are fitted in the model are not the specific
 values of the random effects, but their covariances or other parameters that
-define their distribution. In other wordks: the model does not really tell
+define their distribution. In other words: the model does not really tell
 anything of those specific values, so we should not interrogate it about them.
 
 Although the level of abstraction needed to understand this principle may be
