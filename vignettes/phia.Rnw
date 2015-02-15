@@ -12,9 +12,12 @@
 
 \begin{document}
 \setkeys{Gin}{height=0.4\textheight, keepaspectratio=true}
+\DefineVerbatimEnvironment{Sinput}{Verbatim}{fontsize=\small,fontshape=sl}
+\DefineVerbatimEnvironment{Soutput}{Verbatim}{fontsize=\small,fontshape=n}
+\DefineVerbatimEnvironment{Scode}{Verbatim}{fontsize=\small,fontshape=n}
 
 <<echo=FALSE>>=
-options(useFancyQuotes = FALSE)
+options(useFancyQuotes = FALSE, width=85)
 @
 
 \title{Analysing interactions of fitted models}
@@ -721,6 +724,7 @@ investigate the interaction \code{treatment:phase} that is near
 the $\alpha$ level of significance. (The main effect \code{treatment}
 is also near that level, but we may ignore it since we will focus
 on its interaction with another factor).
+
 The operations previously presented for univariate linear models can also be
 used in this case, as convenient wrappers of the procedures recommended for
 the \emph{post-hoc} analysis of multivariate models \cite{R-help:141760,R-help:235586}.
@@ -733,9 +737,10 @@ to draw the asymptotic $95\%$ confidence intervals of the adjusted means,
 instead of their standard errors.%
 \footnote{These confidence intervals are not exact, but an approximation assuming that
 the parameters of the model are random results, normally distributed around their
-``true'' values --- an assumption that is asymptotically met if the samples
+``true'' values. This assumption is  met asymptotically, if the samples
 of data are large enough.%
-}
+} The figure in the string \code{"ci95"} might be changed to calculate other confidence
+intervals, like \code{"ci90"}, \code{"ci99"} for $90\%$, $99\%$, etc.
 
 %
 <<okplot>>=
@@ -758,8 +763,9 @@ post-test and follow-up phases, the response of the control group
 more or less remains at the same level as in the pre-test phase, whereas
 the response for the other treatments increases. However, the confidence
 intervals are relatively large, compared with the variations between adjusted
-means, and there is a lot of overlap. An analysis
-of all the possible interaction pairwise contratsts between \code{treatment}
+means, and there is a lot of overlap.
+
+An analysis of all the possible interaction pairwise contratsts between \code{treatment}
 and \code{phase} help us tell what differences are really significant:
 
 <<>>=
