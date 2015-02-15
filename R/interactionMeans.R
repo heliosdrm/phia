@@ -81,7 +81,7 @@ interactionMeans <- function(model, factors=names(xlevels), slope=NULL, ...){
 poolse <- function(x,y,f){
 	vcf <- split.data.frame(attr(x,"covmat")[[y]], x[f])
 	vcf <- sapply(vcf, function(M) split.data.frame(t(M), x[f]))
-	se <- sqrt(sapply(diag(vcf), function(M) sum(M)/nrow(M)))
+	se <- sqrt(sapply(diag(vcf), mean))
 	nlev <- sapply(x[f], nlevels)
 	levnames <- lapply(x[f], levels)
 	array(se, dim=nlev, dimnames=levnames)
