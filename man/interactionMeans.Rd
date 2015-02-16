@@ -5,13 +5,13 @@
 Calculate and Plot Adjusted Means for Interactions
 }
 \description{
-Creates a data frame with the adjusted means of a fitted model or the slopes associated to its covariates, for all the interactions of given factors, including intra-subjects factors in multivariate linear models with intra-subjects designs.  These interactions may be plotted by pairs of factors.
+Creates a data frame with the adjusted means of a fitted model or the slopes associated to its covariates, plus the standard error of those values, for all the interactions of given factors, including intra-subjects factors in multivariate linear models with intra-subjects designs.  These interactions may be plotted by pairs of factors.
 }
 \usage{
 interactionMeans(model, factors=names(xlevels), slope=NULL, \dots)
 \method{plot}{interactionMeans}(x, atx=attr(x,"factors"), traces=atx,
   multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2,
-  cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, \dots)
+  cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, errorbar, \dots)
 }
 \arguments{
   \item{model}{fitted model. Currently supported classes include \code{"lm"}, \code{"glm"}, \code{"mlm"}, \code{"lme"}, and \code{"mer"} or \code{"merMod"} (excluding models fitted by \code{nlmer}).}
@@ -27,6 +27,7 @@ interactionMeans(model, factors=names(xlevels), slope=NULL, \dots)
   \item{cex.legend}{character expansion for the legend, relative to the value of \code{\link{par}("cex")}.}
   \item{abbrev.levels}{A logical indicating whether the factor levels are to be abbreviated in the plot, or an integer that specifies the minimum length of such abbreviations. See \code{\link{abbreviate}}.}
   \item{type, pch}{type of plot and point characters, as used by \code{\link{matplot}}.}
+  \item{errorbar}{definition of the error bars in the plots (see \emph{Details}).}
   \item{\dots}{further arguments passed to \code{\link{testFactors}} or \code{\link{matplot}}.}
 }
 \details{
@@ -34,7 +35,11 @@ This function calculates the adjusted values of the model for interactions betwe
 
 In multivariate linear models, the adjusted means or slopes are calculated separately for each column by default, but it is possible to define an intra-subjects design of factors across columns, and put all columns in one.  This may be defined by the argument \code{idata} passed down to \code{\link{testFactors}} (see \code{\link{Anova}} or \code{\link{linearHypothesis}} in package \pkg{car} for further details).  If such transformation is done, it is also possible to include the factors of the intra-subjects design in \code{factors}, for calculating their main effects or interactions. 
 
-The generic \code{plot} function creates matrices of interaction plots, with the main effects of each factor represented in the diagonal, and the interactions between each pair of factors in the rest of panels.  For multivariate models without intra-subjects design, a new device for each variable will be created.  The adjusted means of generalized models (fitted with \code{glm} or \code{glmer}) are plotted on the scale of the link function, although the y-axis is labelled on the scale of the response (unless the link function had been forced in the calculation of the means).  If the interactions involve many factors, it may be convenient to plot each panel in a different device (with \code{multiple=FALSE}), or select a subset of factors to be plotted with the arguments \code{atx} and \code{traces}.  A panel will be plotted for each pair of factors defined by crossing these arguments; if the crossed factors are the same one, that panel will show its main effect.
+The generic \code{plot} function creates matrices of interaction plots, with the main effects of each factor represented in the diagonal, and the interactions between each pair of factors in the rest of panels.  For multivariate models without intra-subjects design, a new device for each variable will be created.  The adjusted means of generalized models (fitted with \code{glm} or \code{glmer}) are plotted on the scale of the link function, although the y-axis is labelled on the scale of the response (unless the link function had been forced in the calculation of the means).
+
+By default it also prints error bars around the means, plus/minus their standard errors.  The size of the error bars can be adjusted by the argument \code{errorbar}.  Currently supported definitions are strings with the pattern \code{ciXX}, where \code{XX} is a number between 01 and 99, standing for the $XX%$ asymptotic confidence intervals of the means.  Alternatively, \code{errorbar} can be a function of the form \code{function(mean,std.err)}, returning a 2-element list with the lower and upper values of the bars.
+
+If the interactions involve many factors, it may be convenient to plot each panel in a different device (with \code{multiple=FALSE}), or select a subset of factors to be plotted with the arguments \code{atx} and \code{traces}.  A panel will be plotted for each pair of factors defined by crossing these arguments; if the crossed factors are the same one, that panel will show its main effect.
 }
 \value{
 \code{interactionMeans} returns an object of class \code{"interactionMeans"}, that contains a data frame with the factor interactions and the means or slopes of the model adjusted to them, and some attributes used for plotting.

@@ -1,6 +1,6 @@
 Package: phia
-Version: 0.1-5
-Date: 2013-10-12
+Version: 0.2-0
+Date: 2015-02-16
 Title: Post-Hoc Interaction Analysis
 Authors@R: c(person("Helios", "De Rosario-Martinez", role=c("aut", "cre"), 
 	email="helios.derosario@gmail.com"), 
@@ -11,5 +11,7 @@ Description: Analysis of terms in linear, generalized and mixed linear models,
 	for the analysis of interaction terms.
 Depends: car, graphics, stats
 Suggests: nlme, lme4
+Imports: Matrix
 License: GPL (>= 3)
+URL: https://github.com/heliosdrm/phia
 LazyData: yes

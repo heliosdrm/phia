@@ -1,3 +1,16 @@
+2015-02-16 Helios De Rosario-Martinez <helios.derosario@gmail.com>
+
+* man, R: masssive changes in testFactors, interactioMeans, and related functions.
+New feature: show standard errors of adjusted values and draw error bars in plots.
+
+* vignette: Vignette updated.
+
+* DESCRIPITON: new link to Github development repository
+
+* NAMESPACE: import from Matrix to allow vignette creation
+
+* Version 0.2-0
+
 2015-01-04 Helios De Rosario-Martinez<helios.derosario@gmail.com>
 
 * R/getElements.R (getCoef methods, getOffset.merMod): added package prefixes

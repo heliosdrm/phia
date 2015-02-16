@@ -27,9 +27,10 @@ interactionMeans <- function(model, factors=names(xlevels), slope=NULL, ...){
 		slope.term <- term.label <- value.label <- paste(slope,collapse=":")
 		terms.formula <- as.formula(paste("~0 +",slope.term))
 	}
-	# Create data frame with values
+	# Create data frame with values and standard errors
 	tf <- testFactors(model,fdiags,terms.formula=terms.formula,lht=FALSE,...)
 	interactions.table <- tf$terms[[1]]$adjusted.values
+	se.table <- tf$terms[[1]]$std.error
 	interactions.dataframe <- if (is.null(factors)) as.data.frame(matrix(,nrow=1,ncol=0)) else expand.grid(xlevels)
 	# Define what term is represented in the data frame
 	# (and redefine if it is the link function in a glm)
@@ -46,23 +47,82 @@ interactionMeans <- function(model, factors=names(xlevels), slope=NULL, ...){
 	nf <- length(xlevels)
 	if (length(interactions.table)==nrow(interactions.dataframe)){
 		interactions.dataframe[nf+1] <- as.numeric(interactions.table)
-		names(interactions.dataframe)[nf+1] <- value.label
+		interactions.dataframe[nf+2] <- as.numeric(se.table)
+		names(interactions.dataframe)[nf+(1:2)] <- c(value.label, "std. error")
 	}else{
 		# The calculated interactions are in several variables
 		if (nrow(interactions.table)==nrow(interactions.dataframe)){
-			rownames(interactions.table)<-NULL
+			rownames(interactions.table) <- NULL
 			if (!is.null(slope.term)) colnames(interactions.table) <- paste(value.label,colnames(interactions.table),sep=".")
+			rownames(se.table) <- NULL
+			colnames(se.table) <- paste("SE",colnames(se.table),sep=".")
+			ix <- (1:ncol(interactions.table))
+			ix <- rbind(ix,ix+length(ix))
+			interactions.table <- cbind(interactions.table,se.table)[,ix]
 			interactions.dataframe <- cbind(interactions.dataframe,interactions.table)
 		}else stop("Incompatible dimensions of the intra-subjects design")
 	}
 	# Assign more attributes and class for further methods on this object
 	attr(interactions.dataframe,"factors") <- names(interactions.dataframe)[1:nf]
-	attr(interactions.dataframe,"values") <- names(interactions.dataframe)[(nf+1):ncol(interactions.dataframe)]
+	attr(interactions.dataframe,"values") <- names(interactions.dataframe)[seq(nf+1,ncol(interactions.dataframe),by=2)]
+	attr(interactions.dataframe,"se") <- names(interactions.dataframe)[seq(nf+2,ncol(interactions.dataframe),by=2)]
+	# Create a list of covariance matrices for each variable
+	mix <- matrix(1L:length(se.table), nrow=nrow(interactions.dataframe), dimnames=list(NULL,attr(interactions.dataframe,"values")))
+	covmatlist <- lapply(as.data.frame(mix), function(ix) tf$terms[[1]]$covmat[ix,ix])
+	attr(interactions.dataframe,"covmat") <- covmatlist
 	class(interactions.dataframe) <- c("interactionMeans","data.frame")
 	return(interactions.dataframe)
 }
 
-plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2, cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, ...){
+# Auxiliar function to get pooled standard errors from covariance matrices
+# x: interactionMeans object
+# y: outcome variable of x
+# f: 1 or 2 factor names of x
+poolse <- function(x,y,f){
+	vcf <- split.data.frame(attr(x,"covmat")[[y]], x[f])
+	vcf <- sapply(vcf, function(M) split.data.frame(t(M), x[f]))
+	se <- sqrt(sapply(diag(vcf), mean))
+	nlev <- sapply(x[f], nlevels)
+	levnames <- lapply(x[f], levels)
+	array(se, dim=nlev, dimnames=levnames)
+}
+
+matploterrorbars <- function(lower, upper, barwidth=0.25,...){
+	# upper and lower are matrice of the same size
+	nr <- nrow(lower)
+	nc <- ncol(lower)
+	nr3 <- nr*3L
+	xlow <- xup <- xcross <- ylow <- yup <- ycross <- matrix(nrow=nr3,ncol=nc)
+	xlow[seq(1,nr3,by=3),] <- xup[seq(1,nr3,by=3),] <- (1:nr)-barwidth/2
+	xlow[seq(2,nr3,by=3),] <- xup[seq(2,nr3,by=3),] <- (1:nr)+barwidth/2
+	xcross[seq(1,nr3,by=3),] <- xcross[seq(2,nr3,by=3),] <- (1:nr)
+	ylow[seq(1,nr3,by=3),] <- ylow[seq(2,nr3,by=3),] <- ycross[seq(1,nr3,by=3),] <- lower
+	yup[seq(1,nr3,by=3),] <- yup[seq(2,nr3,by=3),] <- ycross[seq(2,nr3,by=3),] <- upper
+	# Force solid line type and overplot
+	dots <- list(...)
+	dots$type <- "l"
+	dots$lty <- "solid"
+	dots$add <- TRUE
+	do.call(matplot,c(list(xlow,ylow),dots))
+	do.call(matplot,c(list(xup,yup),dots))
+	do.call(matplot,c(list(xcross,ycross),dots))
+}
+
+cimse <- function(m,se,ci){
+    q <- qnorm((1-ci)/2)
+    list(m+q*se, m-q*se)
+}
+
+plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2, cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, errorbar,...){
+	# Define function for limits of the errorbars
+	if (missing(errorbar)) errorbar <- function(m,se) list(m-se,m+se)
+	ferrbar <- if(is.null(errorbar)) function(m,se) list(m,m) else errorbar
+	if (is.character(ferrbar)){
+	    if (grepl("[0-9]{1,2}", ci <- sub("^ci","",ferrbar))){
+	        ci <- 0.01*as.numeric(ci)
+	        ferrbar <- function(m,se) cimse(m,se,ci)
+	    }else stop("Invalid errorbar definition")
+    }
 	# Check consistency between x and atx, traces
 	if (!("interactionMeans" %in% class(x))) stop("The first argument must be an interactionMeans object.")
 	valid.atx <- (atx %in% attr(x,"factors"))
@@ -94,13 +154,14 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 	# Loop over the numeric columns
 	for (y in attr(x,"values")){
 		# List of data values for plots,
-		# setting legend to FALSE if are not traces
+		# setting legend to FALSE if there are no traces
 		if (is.null(traces)){
 			legend <- FALSE
 			nr <- 1
 			nc <- length(atx)
 			atx.pattern <- atx
-			plotdata <- lapply(atx,function(margin) tapply(x[,y],x[margin],mean))
+			plotdata <- lapply(atx, function(margin) tapply(x[,y],x[margin],mean))
+			sedata <- lapply(atx, function(margin) poolse(x,y,margin))
 		}else{
 			nr <- length(traces)
 			nc <- length(atx)
@@ -113,7 +174,13 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					tapply(x[,y],x[margins],mean)
 					},
 				atx.pattern,traces.pattern,USE.NAMES=FALSE,SIMPLIFY=FALSE)
+			sedata <- mapply(function(xf,lf){
+				margins <- unique(c(xf,lf))
+				poolse(x,y,margins)
+				},atx.pattern, traces.pattern,USE.NAMES=FALSE,SIMPLIFY=FALSE)
 		}
+		# Data of the errorbars (first row, lower limit; second row, upper limit)
+		errbardata <- mapply(ferrbar, plotdata, sedata)
 		# Re-transform data if suitable (glm)
 		# if (transform) plotdata <- lapply(plotdata,fam$linkinv)
 		# Define figures
@@ -144,7 +211,8 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					c(rep(1,nr),xax.margin))
 			}
 			# Get y limits to set common values
-			ylim.all <- sapply(plotdata,range)
+			# ylim.all <- sapply(plotdata,range)
+			ylim.all <- rbind(sapply(errbardata[1,],min), sapply(errbardata[2,], max))
 			f <- 0L
 			# Start plotting by rows
 			for (row in 1:nr){
@@ -163,9 +231,12 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					f <- f+1
 					means <- plotdata[[f]]
 					if (is.matrix(means)) legend.labels <- colnames(means) else means <- as.matrix(means)
+					lower <- as.matrix(errbardata[[1,f]])
+					upper <- as.matrix(errbardata[[2,f]])
 					matplot(means,type=type,pch=pch,
 						axes=FALSE,xlab="",ylab="",
 						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,...)
+					if (!is.null(errorbar)) matploterrorbars(lower,upper,...)
 					box()
 					# Draw x axis, with labels if it is the last row
 					axis(1,at=1:nrow(means),labels=if (row==nr) rownames(means) else FALSE,...)
@@ -188,6 +259,8 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 		}else{
 			for (f in 1:length(plotdata)){
 				means <- plotdata[[f]]
+				lower <- as.matrix(errbardata[[1,f]])
+				upper <- as.matrix(errbardata[[2,f]])
 				if (f > 1L) dev.new()
 				ylim <- if (y.equal) range(ylim.all) else range(means)
 				if (transform){
@@ -206,6 +279,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					matplot(means,type=type,pch=pch,
 						xaxt="n",yaxt="n",xlab=atx.pattern[f],ylab="",
 						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,main=y,...)
+					if (!is.null(errorbar)) matploterrorbars(lower,upper,...)
 					axis(1,at=1:nrow(means),labels=rownames(means),...)
 					axis(2,at=yaxis$at,labels=yaxis$labels,...)
 					plot.new()
@@ -216,6 +290,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					matplot(means,type=type,pch=pch,
 						xaxt="n",yaxt="n",xlab=atx.pattern[f],ylab="",
 						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,main=y,...)
+					if (!is.null(errorbar)) matploterrorbars(lower,upper,...)
 					axis(1,at=1:nrow(means),labels=rownames(means),...)
 					axis(2,at=yaxis$at,labels=yaxis$labels,...)
 				}
