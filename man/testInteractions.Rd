@@ -42,7 +42,7 @@ In multivariate linear models it is possible to define an intra-subjects design,
 An anova table with one row for each different combination of levels and contrasts defined in \code{pairwise}, \code{fixed}, \code{across}, and \code{custom}.  The rownames represent the specific levels or contrasts used for the different factors, separated by \sQuote{:}. These names can be tweaked by the arguments \code{label.factors} and \code{abbrev.levels}, as done by \code{termMeans} in package \pkg{heplots}.
 }
 \author{
-Helios De Rosario-Martinez, \email{helios.derosario@ibv.upv.es}
+Helios De Rosario-Martinez, \email{helios.derosario@gmail.com}
 }
 \seealso{
 \code{\link{testFactors}}, \code{\link{interactionMeans}}.

@@ -76,7 +76,7 @@ An object of class \code{"testFactors"}, that contains the adjusted values and t
 Moreover, \code{\link{summary}} groups the results of the tests for all terms in one table.  By default this table shows the test statistics, their degrees of freedom, and the \emph{p}-values.  If the model is of class \code{"lm"}, it also shows the sums of squares; and if it is of class \code{"mlm"}, only the first type of test statistic returned by \code{\link{linearHypothesis}} (by default \dQuote{Pillai}) is shown.  This variable shape of the ANOVA table is controlled by additional classes assigned to the object (either \code{"testFactors.lm"} or \code{"testFactors.mlm"}, as suitable).
 }
 \author{
-Helios De Rosario-Martinez, \email{helios.derosario@ibv.upv.es}
+Helios De Rosario-Martinez, \email{helios.derosario@gmail.com}
 }
 \seealso{
 \code{\link{linearHypothesis}} in package \pkg{car}.

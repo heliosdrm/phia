@@ -45,7 +45,7 @@ If the interactions involve many factors, it may be convenient to plot each pane
 \code{interactionMeans} returns an object of class \code{"interactionMeans"}, that contains a data frame with the factor interactions and the means or slopes of the model adjusted to them, and some attributes used for plotting.
 }
 \author{
-Helios De Rosario-Martinez, \email{helios.derosario@ibv.upv.es}
+Helios De Rosario-Martinez, \email{helios.derosario@gmail.com}
 }
 \note{
 The purpose of the \code{plot} method is similar to the function \code{\link{interaction.plot}}, but it uses the lower-level function \code{\link{matplot}}, so the aspect of the plots is different.
