@@ -31,4 +31,4 @@ library(phia)
 
 For further details about how to use the package, read the [vignette](http://cran.r-project.org/web/packages/phia/vignettes/phia.pdf) that comes with it.
 
-And feel free to comment on any issues, file bugs or suggest improvements. All contributions are welcome!
+And feel free to comment on any issues, file bugs or suggest improvements. All contributions are welcome! If you don't have a GitHub account, try submitting your issues through [Git Reports](https://gitreports.com/issue/heliosdrm/phia).
