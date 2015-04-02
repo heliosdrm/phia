@@ -10,15 +10,29 @@
 \newcommand{\R}{\textsf{R}}
 \newcommand{\code}[1]{{\texttt{#1}}}
 
+<<echo=FALSE>>=
+options(useFancyQuotes = FALSE, width=85)
+car.citation <- citation("car")
+car.citation$key <- "Fox-CAR2011"
+nlme.citation <- citation("nlme")[1]
+nlme.citation$key <- "Pinheiro-nlme"
+lme4.citation <- citation("lme4")[1]
+lme4.citation$key <- "Bates-lme4"
+@
+
+\begin{filecontents}{bibextra.bib}
+<<echo=FALSE, results=tex>>=
+toBibtex(car.citation)
+toBibtex(nlme.citation)
+toBibtex(lme4.citation)
+@
+\end{filecontents}
+
 \begin{document}
 \setkeys{Gin}{height=0.4\textheight, keepaspectratio=true}
 \DefineVerbatimEnvironment{Sinput}{Verbatim}{fontsize=\small,fontshape=sl}
 \DefineVerbatimEnvironment{Soutput}{Verbatim}{fontsize=\small,fontshape=n}
 \DefineVerbatimEnvironment{Scode}{Verbatim}{fontsize=\small,fontshape=n}
-
-<<echo=FALSE>>=
-options(useFancyQuotes = FALSE, width=85)
-@
 
 \title{Analysing interactions of fitted models}
 
@@ -1461,7 +1475,7 @@ and advise in the creation of the functions of \pkg{phia}.
 
 
 \bibliographystyle{ieeetr}
-\bibliography{bibliography}
+\bibliography{bibliography,bibextra}
 
 \end{document}
 <<>>=
