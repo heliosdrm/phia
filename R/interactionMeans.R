@@ -35,12 +35,15 @@ interactionMeans <- function(model, factors=names(xlevels), slope=NULL, ...){
 	# Define what term is represented in the data frame
 	# (and redefine if it is the link function in a glm)
 	attr(interactions.dataframe,"term") <- term.label
+	se.label <- "std. error"
 	fam <- getFamily(model)
 	if (!is.null(fam)){
 		attr(interactions.dataframe,"family") <- fam
-		if (attr(tf,"means")=="link" && is.null(slope.term)){
-			attr(interactions.dataframe,"term") <- "(Link)"
-			value.label <- "adjusted link"
+		if (is.null(slope.term)){
+			if (attr(tf,"means")=="link"){
+				attr(interactions.dataframe,"term") <- "(Link)"
+				value.label <- "adjusted link"
+			}else se.label <- "SE of link"
 		}
 	}
 	# The calculated interactions are in just one variable (after possible response transformation)
@@ -48,7 +51,7 @@ interactionMeans <- function(model, factors=names(xlevels), slope=NULL, ...){
 	if (length(interactions.table)==nrow(interactions.dataframe)){
 		interactions.dataframe[nf+1] <- as.numeric(interactions.table)
 		interactions.dataframe[nf+2] <- as.numeric(se.table)
-		names(interactions.dataframe)[nf+(1:2)] <- c(value.label, "std. error")
+		names(interactions.dataframe)[nf+(1:2)] <- c(value.label, se.label)
 	}else{
 		# The calculated interactions are in several variables
 		if (nrow(interactions.table)==nrow(interactions.dataframe)){
@@ -68,7 +71,7 @@ interactionMeans <- function(model, factors=names(xlevels), slope=NULL, ...){
 	attr(interactions.dataframe,"se") <- names(interactions.dataframe)[seq(nf+2,ncol(interactions.dataframe),by=2)]
 	# Create a list of covariance matrices for each variable
 	mix <- matrix(1L:length(se.table), nrow=nrow(interactions.dataframe), dimnames=list(NULL,attr(interactions.dataframe,"values")))
-	covmatlist <- lapply(as.data.frame(mix), function(ix) tf$terms[[1]]$covmat[ix,ix])
+	covmatlist <- lapply(as.data.frame(mix), function(ix) as.matrix(tf$terms[[1]]$covmat[ix,ix]))
 	attr(interactions.dataframe,"covmat") <- covmatlist
 	class(interactions.dataframe) <- c("interactionMeans","data.frame")
 	return(interactions.dataframe)

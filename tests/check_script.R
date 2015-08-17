@@ -1,3 +1,4 @@
+Sys.setlocale("LC_NUMERIC","C")
 library(car)
 
 measure <- function(gender,treatment,age,weight,phase,hour){

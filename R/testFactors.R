@@ -639,7 +639,7 @@ testFactors <- function(model,...){UseMethod("testFactors")}
 
 print.testFactors <- function(x,digits=getOption("digits"),...){
 	cat("\nCall:",deparse(x$call),"\n")
-	mean.label <- if (as.character(x$model.call)[1]=="glm" && attr(x,"means")=="link") "link function" else "mean"
+	mean.label <- if (as.character(x$model.call)[1] %in% c("glm", "glmer") && attr(x,"means")=="link") "link function" else "mean"
 	for (i in seq(length(x$terms))){
 		cat("\nTerm",names(x$terms)[i],"\n")
 		term <- x$terms[[i]]
@@ -648,7 +648,11 @@ print.testFactors <- function(x,digits=getOption("digits"),...){
 		cat(":\n")
 		if (dim(term$adjusted.values)[2]==1) dimnames(term$adjusted.values)[2] <- list("")
 		print(drop(term$adjusted.values),digits=digits,...)
-		cat("\nStd. Error:\n")
+		cat("\nStd. Error")
+		if (as.character(x$model.call)[1] %in% c("glm", "glmer") && term$numeric.variables[1] == "(Intercept)"){
+			cat(" of link function")
+		}
+		cat(":\n")
 		if (dim(term$std.error)[2]==1) dimnames(term$std.error)[2] <- list("")
 		print(drop(term$std.error),digits=digits,...)
 		if ("test" %in% names(term) && class(term$test)[1] != "try-error"){
@@ -847,18 +851,23 @@ print.summary.testFactors <- function(x,digits=getOption("digits"),...){
 	}
 	# Adjusted values and standard errors (plus covariance matrices, if requested and exist)
 	cat("------\n\nAdjusted values\n")
-	mean.label <- if (as.character(x$model.call)[1]=="glm" && attr(x,"means")=="link") "link function" else "mean"
+	mean.label <- if (as.character(x$model.call)[1] %in% c("glm", "glmer") && attr(x,"means")=="link") "link function" else "mean"
 	for (n in names(x$adjusted.values)){
 		cat("\nTerm",n,"\n")
 		mat <- x$adjusted.values[[n]]
-		if (attr(mat,"numeric.variables")[1] == "(Intercept)") cat("\nAdjusted",mean.label) else cat("\nAdjusted slope for",paste(attr(mat,"numeric.variables"),collapse=":"))
+		term_name <- attr(mat,"numeric.variables")[1]
+		if (term_name == "(Intercept)") cat("\nAdjusted",mean.label) else cat("\nAdjusted slope for",paste(attr(mat,"numeric.variables"),collapse=":"))
 		if (length(attr(mat,"factor.variables"))>0) cat(" at contrasts of",paste(attr(mat,"factor.variables"),collapse=", "))
 		cat(":\n")
 		attr(mat,"numeric.variables")<-NULL
 		attr(mat,"factor.variables")<-NULL
 		if (dim(mat)[2]==1) dimnames(mat)[2] <- list("")
 		print(drop(mat),digits=digits,...)
-		cat("\nStandard error:\n")
+		cat("\nStandard error")
+		if (as.character(x$model.call)[1] %in% c("glm", "glmer") && term_name == "(Intercept)"){
+			cat(" of link function")
+		}
+		cat(":\n")
 		mat <- x$std.error[[n]]
 		if (dim(mat)[2]==1) dimnames(mat)[2] <- list("")
 		print(drop(mat),digits=digits,...)
