@@ -1,3 +1,14 @@
+2015-08-18 Helios De Rosario-Martinez <helios.derosario@gmail.com>
+
+* man, R: clarify that std. errors reported in testFactors and interactionMeans
+are reported in the domain of the link function.
+
+* R/interactionMeans.R (interactionMeans): fixed bug for plotting error bars.
+
+* vignette: automatic generation of Bibtex references to packages.
+
+* README.md: reference to Git Reports
+
 2015-02-25 Helios De Rosario-Martinez <helios.derosario@gmail.com>
 
 * man: updated links to author's e-mail.
