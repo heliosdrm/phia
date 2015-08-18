@@ -30,7 +30,7 @@ In case of having the contrast definitions stored in a list, that list can be en
 A named list, where each element has the name of a factor, and contains a numeric matrix with the contrast coefficients. Each row of such matrices is associated to a level of the factor, in the order given by \code{\link{levels}}.
 }
 \author{
-Helios De Rosario-Martinez, \email{helios.derosario@ibv.upv.es}
+Helios De Rosario-Martinez, \email{helios.derosario@gmail.com}
 }
 \seealso{
 \code{\link{testFactors}}, \code{\link{interactionMeans}}.

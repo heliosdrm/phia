@@ -1,3 +1,9 @@
+2015-02-25 Helios De Rosario-Martinez <helios.derosario@gmail.com>
+
+* man: updated links to author's e-mail.
+
+* README.md: information to get started for GitHub presentation.
+
 2015-02-16 Helios De Rosario-Martinez <helios.derosario@gmail.com>
 
 * man, R: masssive changes in testFactors, interactioMeans, and related functions.

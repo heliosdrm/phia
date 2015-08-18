@@ -64,7 +64,7 @@ To analyse terms other than the adjusted mean value of the response, use the arg
 
 If any of the variables in the term is a factor, the function analyses a full set of contrasts for that factor of the remaining part of the term; for instance if \code{var1} were a factor, the term \code{var1} would stand for the contrasts of the intercept, and \code{var1:var2} would stand for the contrasts of the slope \code{var2}, across the levels of \code{var1}.  The set of contrasts used in the analysis is normally defined by the argument \code{default.contrasts}: by default, if the factor is ordered it will be a set of \dQuote{polynomial contrasts}, and otherwise \dQuote{sum contrasts}; however, if \code{inherit.contrasts} is \code{TRUE} the contrasts will directly be copied from the ones used to define the model.  Factors that have explicit contrasts defined in the model data frame will use those contrasts, regardless of the values defined for \code{default.contrasts} and \code{inherit.contrasts}.  The analysis assumes that the contrasts are orthogonal to the intercept, which is the usual case if the default arguments are provided, and a warning will be issued if non-orthogonal contrasts are used; take special care of not using \dQuote{treatment contrats} if \code{inherit.contrasts} is set to \code{TRUE} or \code{default.contrasts} is changed. 
 
-In generalized linear models, the adjusted means represent the expected values of the response by default, but the expected value of the link function may be shown by setting the argument \code{link=FALSE}.  On the other hand, slope values always refer to the link function.
+In generalized linear models, the adjusted means represent the expected values of the response by default, but the expected value of the link function may be shown by setting the argument \code{link=FALSE}.  On the other hand, slope values and standard errors always refer to the link function.
 
 For multivariate models, the arguments \code{idata}, and \code{icontrasts} may be used to define an intra-subjects model for multivariate repeated-measures data, as described for \code{\link{Anova}} or \code{\link{linearHypothesis}} in package \pkg{car}.  Note, however, that the combinations of intra-subjects factor levels are defined in \code{levels}, and other arguments defined in those functions like \code{idesign}, \code{imatrix} or \code{iterms} will have no effect in \code{testFactors}.
 
@@ -76,7 +76,7 @@ An object of class \code{"testFactors"}, that contains the adjusted values and t
 Moreover, \code{\link{summary}} groups the results of the tests for all terms in one table.  By default this table shows the test statistics, their degrees of freedom, and the \emph{p}-values.  If the model is of class \code{"lm"}, it also shows the sums of squares; and if it is of class \code{"mlm"}, only the first type of test statistic returned by \code{\link{linearHypothesis}} (by default \dQuote{Pillai}) is shown.  This variable shape of the ANOVA table is controlled by additional classes assigned to the object (either \code{"testFactors.lm"} or \code{"testFactors.mlm"}, as suitable).
 }
 \author{
-Helios De Rosario-Martinez, \email{helios.derosario@ibv.upv.es}
+Helios De Rosario-Martinez, \email{helios.derosario@gmail.com}
 }
 \seealso{
 \code{\link{linearHypothesis}} in package \pkg{car}.
