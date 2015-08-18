@@ -1,0 +1,5998 @@
+> #1
+> (x <- testFactors(models[[1]]))
+
+Call: testFactors(model = models[[1]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.30572 
+
+Std. Error:
+        
+2.62192 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept) = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ 1
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     40 301806.82                                     
+2     39  10724.16  1  291082.7 1058.565 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)
+(Intercept)           1
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.30572 
+
+Standard error:
+        
+2.62192 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F    Pr(>F)    
+(Intercept)  1    291083 1058.6 < 2.2e-16 ***
+Residual    39     10724                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #2
+> (x <- testFactors(models[[2]]))
+
+Call: testFactors(model = models[[2]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.30572 
+
+Std. Error:
+         
+2.633784 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 0.5 genderM = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender
+
+  Res.Df       RSS Df Sum of Sq       F     Pr(>F)    
+1     39 301626.62                                    
+2     38  10543.96  1  291082.7 1049.05 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM
+(Intercept)           1     0.5
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.30572 
+
+Standard error:
+         
+2.633784 
+---
+
+------
+F Test: 
+            Df Sum of Sq    F    Pr(>F)    
+(Intercept)  1    291083 1049 < 2.2e-16 ***
+Residual    38     10544                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #3
+> (x <- testFactors(models[[3]]))
+
+Call: testFactors(model = models[[3]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.30572 
+
+Std. Error:
+        
+2.29268 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 35.829684110002 age = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ age
+
+  Res.Df      RSS Df Sum of Sq        F     Pr(>F)    
+1     39 299072.4                                     
+2     38   7989.7  1  291082.7 1384.425 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)      age
+(Intercept)           1 35.82968
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.30572 
+
+Standard error:
+        
+2.29268 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F    Pr(>F)    
+(Intercept)  1    291083 1384.4 < 2.2e-16 ***
+Residual    38      7990                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #4
+> (x <- testFactors(models[[4]],levelslm))
+
+Call: testFactors(model = models[[4]], levels = levelslm) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+-21.3553 
+
+Std. Error:
+         
+4.064181 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     37 10506.812                                     
+2     36  5946.325  1  4560.487 27.60992 6.8889e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX genderM:treatmentX
+(Intercept)           0       0          1                0.5
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+-21.3553 
+
+Standard error:
+         
+4.064181 
+---
+
+------
+F Test: 
+            Df Sum of Sq     F    Pr(>F)    
+(Intercept)  1    4560.5 27.61 6.889e-06 ***
+Residual    36    5946.3                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #5
+> (x <- testFactors(models[[5]]))
+
+Call: testFactors(model = models[[5]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+84.52768 
+
+Std. Error:
+         
+1.785033 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 35.829684110002 age  + 75.8060280820043 weight  + 2716.10603981215 age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ age * weight
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     37 283147.33                                     
+2     36   4473.96  1  278673.4 2242.361 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)      age   weight age:weight
+(Intercept)           1 35.82968 75.80603   2716.106
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+84.52768 
+
+Standard error:
+         
+1.785033 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F    Pr(>F)    
+(Intercept)  1    278673 2242.4 < 2.2e-16 ***
+Residual    36      4474                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #6
+> (x <- testFactors(models[[6]],levelslm))
+
+Call: testFactors(model = models[[6]], levels = levelslm) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-17.22023 
+
+Std. Error:
+         
+2.098875 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX  + 35.829684110002 treatmentX:age  + 75.8060280820043 treatmentX:weight  + 17.914842055001 genderM:treatmentX:age  + 37.9030140410022 genderM:treatmentX:weight  + 2716.10603981215 treatmentX:age:weight  + 1358.05301990608 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df       RSS Df Sum of Sq        F    Pr(>F)    
+1     25 2598.9861                                    
+2     24  683.0906  1  1915.896 67.31391 2.013e-08 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Specified values of covariates:
+     age   weight 
+35.82968 75.80603 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           0       0          1   0      0                0.5           0       35.82968              0          75.80603          0               17.91484
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                  37.90301                  0              2716.106                      1358.053
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-17.22023 
+
+Standard error:
+         
+2.098875 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F    Pr(>F)    
+(Intercept)  1   1915.90 67.314 2.013e-08 ***
+Residual    24    683.09                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #7
+> (x <- testFactors(models[[7]]))
+Error in defineLHT(model, term, factor.frame) : 
+  Null model (no predictors or intercept).
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Specified values of covariates:
+     age   weight 
+35.82968 75.80603 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           0       0          1   0      0                0.5           0       35.82968              0          75.80603          0               17.91484
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                  37.90301                  0              2716.106                      1358.053
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-17.22023 
+
+Standard error:
+         
+2.098875 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F    Pr(>F)    
+(Intercept)  1   1915.90 67.314 2.013e-08 ***
+Residual    24    683.09                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #8
+> (x <- testFactors(models[[8]]))
+
+Call: testFactors(model = models[[8]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.30572 
+
+Std. Error:
+         
+2.633784 
+
+Linear hypothesis test
+
+Hypothesis:
+0.5 genderF  + 0.5 genderM = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender - 1
+
+  Res.Df       RSS Df Sum of Sq       F     Pr(>F)    
+1     39 301626.62                                    
+2     38  10543.96  1  291082.7 1049.05 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+------
+
+Linear hypothesis matrix
+
+            genderF genderM
+(Intercept)     0.5     0.5
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.30572 
+
+Standard error:
+         
+2.633784 
+---
+
+------
+F Test: 
+            Df Sum of Sq    F    Pr(>F)    
+(Intercept)  1    291083 1049 < 2.2e-16 ***
+Residual    38     10544                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #9
+> (x <- testFactors(models[[9]]))
+
+Call: testFactors(model = models[[9]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.04379 
+
+Std. Error:
+         
+2.272327 
+
+Linear hypothesis test
+
+Hypothesis:
+35.829684110002 age = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ age - 1
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     40 301806.82                                     
+2     39   8175.66  1  293631.2 1400.695 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+------
+
+Linear hypothesis matrix
+
+                 age
+(Intercept) 35.82968
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.04379 
+
+Standard error:
+         
+2.272327 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F    Pr(>F)    
+(Intercept)  1    293631 1400.7 < 2.2e-16 ***
+Residual    39      8176                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #10
+> (x <- testFactors(models[[10]],levelslm))
+
+Call: testFactors(model = models[[10]], levels = levelslm) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+-21.3553 
+
+Std. Error:
+         
+4.064181 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment - 1
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     37 10506.812                                     
+2     36  5946.325  1  4560.487 27.60992 6.8889e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+------
+
+Linear hypothesis matrix
+
+            genderF genderM treatmentX genderM:treatmentX
+(Intercept)       0       0          1                0.5
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+-21.3553 
+
+Standard error:
+         
+4.064181 
+---
+
+------
+F Test: 
+            Df Sum of Sq     F    Pr(>F)    
+(Intercept)  1    4560.5 27.61 6.889e-06 ***
+Residual    36    5946.3                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #11
+> (x <- testFactors(models[[11]]))
+
+Call: testFactors(model = models[[11]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.17495 
+
+Std. Error:
+      
+1.881 
+
+Linear hypothesis test
+
+Hypothesis:
+35.829684110002 age  + 75.8060280820043 weight  + 2716.10603981215 age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ age * weight - 1
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     38 294512.12                                     
+2     37   5220.26  1  289291.9 2050.435 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+------
+
+Linear hypothesis matrix
+
+                 age   weight age:weight
+(Intercept) 35.82968 75.80603   2716.106
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+85.17495 
+
+Standard error:
+      
+1.881 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F    Pr(>F)    
+(Intercept)  1    289292 2050.4 < 2.2e-16 ***
+Residual    37      5220                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #12
+> (x <- testFactors(models[[12]],levelslm))
+
+Call: testFactors(model = models[[12]], levels = levelslm) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-17.22023 
+
+Std. Error:
+         
+2.098875 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX  + 35.829684110002 treatmentX:age  + 75.8060280820043 treatmentX:weight  + 17.914842055001 genderM:treatmentX:age  + 37.9030140410022 genderM:treatmentX:weight  + 2716.10603981215 treatmentX:age:weight  + 1358.05301990608 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight - 1
+
+  Res.Df       RSS Df Sum of Sq        F    Pr(>F)    
+1     25 2598.9861                                    
+2     24  683.0906  1  1915.896 67.31391 2.013e-08 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Specified values of covariates:
+     age   weight 
+35.82968 75.80603 
+------
+
+Linear hypothesis matrix
+
+            genderF genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)       0       0          1   0      0                0.5           0       35.82968              0          75.80603          0               17.91484
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                  37.90301                  0              2716.106                      1358.053
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-17.22023 
+
+Standard error:
+         
+2.098875 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F    Pr(>F)    
+(Intercept)  1   1915.90 67.314 2.013e-08 ***
+Residual    24    683.09                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #13
+> (x <- testFactors(models[[13]],levelslm))
+
+Call: testFactors(model = models[[13]], levels = levelslm) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.8186296 
+
+Std. Error:
+           
+0.04229554 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX  + 35.829684110002 treatmentX:age  + 75.8060280820043 treatmentX:weight  + 17.914842055001 genderM:treatmentX:age  + 37.9030140410022 genderM:treatmentX:weight  + 2716.10603981215 treatmentX:age:weight  + 1358.05301990608 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: round(Y[, 6]) ~ gender * treatment * age * weight
+
+  Res.Df Df    Chisq Pr(>Chisq)    
+1     25                           
+2     24  1 22.38759 2.2281e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ glm(formula = formulas[[13]], family = "poisson", data = dataframe) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Specified values of covariates:
+     age   weight 
+35.82968 75.80603 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           0       0          1   0      0                0.5           0       35.82968              0          75.80603          0               17.91484
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                  37.90301                  0              2716.106                      1358.053
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.8186296 
+
+Standard error:
+           
+0.04229554 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 22.388  2.228e-06 ***
+Residual    24                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #14
+> (x <- testFactors(models[[14]],levelslm))
+
+Call: testFactors(model = models[[14]], levels = levelslm) 
+
+Term (Intercept) 
+
+Adjusted mean:
+     pre.1      pre.2      pre.3     post.1     post.2     post.3 
+ -4.555241   3.338315   1.221773 -15.327052 -18.897664 -17.220229 
+
+Std. Error:
+   pre.1    pre.2    pre.3   post.1   post.2   post.3 
+1.790424 1.799078 1.945088 1.739661 1.597321 2.098875 
+
+
+Sum of squares and products for the hypothesis:
+           pre.1      pre.2       pre.3    post.1    post.2    post.3
+pre.1  134.06538  -98.25003  -35.958035  451.0908  556.1775  506.8089
+pre.2  -98.25003   72.00269   26.351904 -330.5826 -407.5956 -371.4157
+pre.3  -35.95804   26.35190    9.644401 -120.9883 -149.1739 -135.9326
+post.1 451.09078 -330.58261 -120.988272 1517.7885 1871.3747 1705.2637
+post.2 556.17752 -407.59560 -149.173870 1871.3747 2307.3328 2102.5243
+post.3 506.80889 -371.41572 -135.932578 1705.2637 2102.5243 1915.8955
+
+Sum of squares and products for error:
+            pre.1     pre.2      pre.3     post.1    post.2     post.3
+pre.1   497.06936  63.52576  124.35989 -125.57333  80.15952 -112.84348
+pre.2    63.52576 501.88629  -93.05727   22.07552  14.86801   58.29087
+pre.3   124.35989 -93.05727  586.65639  -35.89177 -83.97025 -307.78482
+post.1 -125.57333  22.07552  -35.89177  469.28265 -46.62799  -80.19215
+post.2   80.15952  14.86801  -83.97025  -46.62799 395.63040   83.62371
+post.3 -112.84348  58.29087 -307.78482  -80.19215  83.62371  683.09055
+
+Multivariate Tests: 
+                 Df test stat approx F num Df den Df     Pr(>F)    
+Pillai            1  0.941139 50.63208      6     19 1.1136e-10 ***
+Wilks             1  0.058861 50.63208      6     19 1.1136e-10 ***
+Hotelling-Lawley  1 15.989076 50.63208      6     19 1.1136e-10 ***
+Roy               1 15.989076 50.63208      6     19 1.1136e-10 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Specified values of covariates:
+     age   weight 
+35.82968 75.80603 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           0       0          1   0      0                0.5           0       35.82968              0          75.80603          0               17.91484
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                  37.90301                  0              2716.106                      1358.053
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+     pre.1      pre.2      pre.3     post.1     post.2     post.3 
+ -4.555241   3.338315   1.221773 -15.327052 -18.897664 -17.220229 
+
+Standard error:
+   pre.1    pre.2    pre.3   post.1   post.2   post.3 
+1.790424 1.799078 1.945088 1.739661 1.597321 2.098875 
+---
+
+------
+Multivariate Test: Pillai test statistic
+            Df test stat approx F num Df den Df    Pr(>F)    
+(Intercept)  1   0.94114   50.632      6     19 1.114e-10 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #15
+> (x <- testFactors(models[[15]],levelsmlm,idata=idata,idesign=~phase*hour))
+
+Call: testFactors(model = models[[15]], levels = levelsmlm, idata = idata,      idesign = ~phase * hour) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-1.606514 
+
+Std. Error:
+         
+2.051848 
+
+
+ Response transformation matrix:
+       [,1]
+pre.1     0
+pre.2     0
+pre.3     0
+post.1    1
+post.2    0
+post.3   -1
+
+Sum of squares and products for the hypothesis:
+         [,1]
+[1,] 33.53141
+
+Sum of squares and products for error:
+         [,1]
+[1,] 1312.757
+
+Multivariate Tests: 
+                 Df test stat  approx F num Df den Df  Pr(>F)
+Pillai            1 0.0249065 0.6130255      1     24 0.44131
+Wilks             1 0.9750935 0.6130255      1     24 0.44131
+Hotelling-Lawley  1 0.0255427 0.6130255      1     24 0.44131
+Roy               1 0.0255427 0.6130255      1     24 0.44131
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1       1 0
+
+       pre post
+phase1   0    1
+
+      1 2  3
+hour1 1 0 -1
+
+---
+ 
+Specified values of covariates:
+     age   weight 
+35.82968 75.80603 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX      age   weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight
+(Intercept)           1     0.5          0 35.82968 75.80603                  0    17.91484              0       37.90301                 0   2716.106
+            genderM:treatmentX:age genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                      0                         0           1358.053                     0                             0
+
+
+---
+Response transformation matrix
+
+            pre.1 pre.2 pre.3 post.1 post.2 post.3
+(Intercept)     0     0     0      1      0     -1
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-1.606514 
+
+Standard error:
+         
+2.051848 
+---
+
+------
+Multivariate Test: Pillai test statistic
+            Df test stat approx F num Df den Df Pr(>F)
+(Intercept)  1  0.024907  0.61303      1     24 0.4413
+------------
+> #16
+> (x <- testFactors(models[[16]],levelslm,terms.formula=~age*gender))
+
+Call: testFactors(model = models[[16]], levels = levelslm, terms.formula = ~age *      gender) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-17.22023 
+
+Std. Error:
+         
+2.098875 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX  + 35.829684110002 treatmentX:age  + 75.8060280820043 treatmentX:weight  + 17.914842055001 genderM:treatmentX:age  + 37.9030140410022 genderM:treatmentX:weight  + 2716.10603981215 treatmentX:age:weight  + 1358.05301990608 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df       RSS Df Sum of Sq        F    Pr(>F)    
+1     25 2598.9861                                    
+2     24  683.0906  1  1915.896 67.31391 2.013e-08 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term age 
+
+Adjusted slope for age:
+           
+-0.9792577 
+
+Std. Error:
+          
+0.5340957 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX:age  + 0.5 genderM:treatmentX:age  + 75.8060280820043 treatmentX:age:weight  + 37.9030140410022 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq       F   Pr(>F)  
+1     25 778.7709                                
+2     24 683.0906  1  95.68038 3.36168 0.079162 .
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term gender 
+
+Adjusted mean at contrasts of gender:
+          
+-1.213918 
+
+Std. Error:
+        
+4.19775 
+
+Linear hypothesis test
+
+Hypothesis:
+- genderM:treatmentX - 35.829684110002 genderM:treatmentX:age - 75.8060280820043 genderM:treatmentX:weight - 2716.10603981215 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq       F  Pr(>F)
+1     25 685.4707                             
+2     24 683.0906  1  2.380197 0.08363 0.77492
+------
+
+Term age:gender 
+
+Adjusted slope for age at contrasts of gender:
+          
+0.1063525 
+
+Std. Error:
+         
+1.068191 
+
+Linear hypothesis test
+
+Hypothesis:
+- genderM:treatmentX:age - 75.8060280820043 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq       F  Pr(>F)
+1     25 683.3727                             
+2     24 683.0906  1   0.28214 0.00991 0.92152
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Default list of factor contrasts:
+   gender 
+contr.sum 
+
+---
+ 
+Specified values of covariates:
+     age   weight 
+35.82968 75.80603 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           0       0          1   0      0                0.5           0       35.82968              0          75.80603          0               17.91484
+age                   0       0          0   0      0                0.0           0        1.00000              0           0.00000          0                0.50000
+gender                0       0          0   0      0               -1.0           0        0.00000              0           0.00000          0              -35.82968
+age:gender            0       0          0   0      0                0.0           0        0.00000              0           0.00000          0               -1.00000
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                  37.90301                  0            2716.10604                    1358.05302
+age                           0.00000                  0              75.80603                      37.90301
+gender                      -75.80603                  0               0.00000                   -2716.10604
+age:gender                    0.00000                  0               0.00000                     -75.80603
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-17.22023 
+
+Standard error:
+         
+2.098875 
+---
+
+Term age 
+
+Adjusted slope for age:
+           
+-0.9792577 
+
+Standard error:
+          
+0.5340957 
+---
+
+Term gender 
+
+Adjusted mean at contrasts of gender:
+          
+-1.213918 
+
+Standard error:
+        
+4.19775 
+---
+
+Term age:gender 
+
+Adjusted slope for age at contrasts of gender:
+          
+0.1063525 
+
+Standard error:
+         
+1.068191 
+---
+
+------
+F Test: 
+            Df Sum of Sq       F    Pr(>F)    
+(Intercept)  1   1915.90 67.3139 2.013e-08 ***
+age          1     95.68  3.3617   0.07916 .  
+gender       1      2.38  0.0836   0.77492    
+age:gender   1      0.28  0.0099   0.92152    
+Residual    24    683.09                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #17
+> (x <- testFactors(models[[17]],levelsmlm,idata=idata,idesign=~phase*hour,terms.formula=~age*hour))
+
+Call: testFactors(model = models[[17]], levels = levelsmlm, terms.formula = ~age *      hour, idata = idata, idesign = ~phase * hour) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-1.606514 
+
+Std. Error:
+         
+2.051848 
+
+
+ Response transformation matrix:
+       [,1]
+pre.1     0
+pre.2     0
+pre.3     0
+post.1    1
+post.2    0
+post.3   -1
+
+Sum of squares and products for the hypothesis:
+         [,1]
+[1,] 33.53141
+
+Sum of squares and products for error:
+         [,1]
+[1,] 1312.757
+
+Multivariate Tests: 
+                 Df test stat  approx F num Df den Df  Pr(>F)
+Pillai            1 0.0249065 0.6130255      1     24 0.44131
+Wilks             1 0.9750935 0.6130255      1     24 0.44131
+Hotelling-Lawley  1 0.0255427 0.6130255      1     24 0.44131
+Roy               1 0.0255427 0.6130255      1     24 0.44131
+------
+
+Term age 
+
+Adjusted slope for age:
+           
+-0.3289022 
+
+Std. Error:
+          
+0.5762829 
+
+
+ Response transformation matrix:
+       [,1]
+pre.1     0
+pre.2     0
+pre.3     0
+post.1    1
+post.2    0
+post.3   -1
+
+Sum of squares and products for the hypothesis:
+         [,1]
+[1,] 17.81704
+
+Sum of squares and products for error:
+         [,1]
+[1,] 1312.757
+
+Multivariate Tests: 
+                 Df test stat  approx F num Df den Df  Pr(>F)
+Pillai            1 0.0133905 0.3257333      1     24 0.57349
+Wilks             1 0.9866095 0.3257333      1     24 0.57349
+Hotelling-Lawley  1 0.0135722 0.3257333      1     24 0.57349
+Roy               1 0.0135722 0.3257333      1     24 0.57349
+------
+
+Term hour 
+
+Adjusted mean at contrasts of hour:
+    hour1     hour2 
+-1.606514 25.252284 
+
+Std. Error:
+   hour1    hour2 
+2.051848 1.709720 
+
+
+ Response transformation matrix:
+       hour1 hour2
+pre.1      0     0
+pre.2      0     0
+pre.3      0     0
+post.1     1     0
+post.2     0     1
+post.3    -1    -1
+
+Sum of squares and products for the hypothesis:
+           hour1     hour2
+hour1   33.53141 -527.0696
+hour2 -527.06960 8284.8403
+
+Sum of squares and products for error:
+         hour1    hour2
+hour1 1312.757 633.0310
+hour2  633.031 911.4735
+
+Multivariate Tests: 
+                 Df test stat approx F num Df den Df     Pr(>F)    
+Pillai            1  0.935664  167.249      2     23 1.9826e-14 ***
+Wilks             1  0.064336  167.249      2     23 1.9826e-14 ***
+Hotelling-Lawley  1 14.543387  167.249      2     23 1.9826e-14 ***
+Roy               1 14.543387  167.249      2     23 1.9826e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term age:hour 
+
+Adjusted slope for age at contrasts of hour:
+     hour1      hour2 
+-0.3289022 -0.4653075 
+
+Std. Error:
+    hour1     hour2 
+0.5762829 0.4801926 
+
+
+ Response transformation matrix:
+       hour1 hour2
+pre.1      0     0
+pre.2      0     0
+pre.3      0     0
+post.1     1     0
+post.2     0     1
+post.3    -1    -1
+
+Sum of squares and products for the hypothesis:
+         hour1    hour2
+hour1 17.81704 25.20628
+hour2 25.20628 35.66006
+
+Sum of squares and products for error:
+         hour1    hour2
+hour1 1312.757 633.0310
+hour2  633.031 911.4735
+
+Multivariate Tests: 
+                 Df test stat approx F num Df den Df  Pr(>F)
+Pillai            1 0.0376563 0.449992      2     23 0.64313
+Wilks             1 0.9623437 0.449992      2     23 0.64313
+Hotelling-Lawley  1 0.0391297 0.449992      2     23 0.64313
+Roy               1 0.0391297 0.449992      2     23 0.64313
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1       1 0
+
+       pre post
+phase1   0    1
+
+      1 2  3
+hour1 1 0 -1
+
+---
+ 
+Default list of factor contrasts:
+     hour 
+contr.sum 
+
+---
+ 
+Specified values of covariates:
+     age   weight 
+35.82968 75.80603 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX      age   weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight
+(Intercept)           1     0.5          0 35.82968 75.80603                  0    17.91484              0       37.90301                 0 2716.10604
+age                   0     0.0          0  1.00000  0.00000                  0     0.50000              0        0.00000                 0   75.80603
+hour                  1     0.5          0 35.82968 75.80603                  0    17.91484              0       37.90301                 0 2716.10604
+age:hour              0     0.0          0  1.00000  0.00000                  0     0.50000              0        0.00000                 0   75.80603
+            genderM:treatmentX:age genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                      0                         0         1358.05302                     0                             0
+age                              0                         0           37.90301                     0                             0
+hour                             0                         0         1358.05302                     0                             0
+age:hour                         0                         0           37.90301                     0                             0
+
+
+---
+Response transformation matrix
+
+                 pre.1 pre.2 pre.3 post.1 post.2 post.3
+(Intercept)          0     0     0      1      0     -1
+age                  0     0     0      1      0     -1
+hour | hour1         0     0     0      1      0     -1
+hour | hour2         0     0     0      0      1     -1
+age:hour | hour1     0     0     0      1      0     -1
+age:hour | hour2     0     0     0      0      1     -1
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-1.606514 
+
+Standard error:
+         
+2.051848 
+---
+
+Term age 
+
+Adjusted slope for age:
+           
+-0.3289022 
+
+Standard error:
+          
+0.5762829 
+---
+
+Term hour 
+
+Adjusted mean at contrasts of hour:
+    hour1     hour2 
+-1.606514 25.252284 
+
+Standard error:
+   hour1    hour2 
+2.051848 1.709720 
+---
+
+Term age:hour 
+
+Adjusted slope for age at contrasts of hour:
+     hour1      hour2 
+-0.3289022 -0.4653075 
+
+Standard error:
+    hour1     hour2 
+0.5762829 0.4801926 
+---
+
+------
+Multivariate Tests: Pillai test statistic
+            Df test stat approx F num Df den Df    Pr(>F)    
+(Intercept)  1   0.02491    0.613      1     24    0.4413    
+age          1   0.01339    0.326      1     24    0.5735    
+hour         1   0.93566  167.249      2     23 1.983e-14 ***
+age:hour     1   0.03766    0.450      2     23    0.6431    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #18
+> (x <- testFactors(models[[18]],levelslm,terms.formula=~age*gender,inherit.contrasts=TRUE))
+
+Call: testFactors(model = models[[18]], levels = levelslm, terms.formula = ~age *      gender, inherit.contrasts = TRUE) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-17.22023 
+
+Std. Error:
+         
+2.098875 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX  + 35.829684110002 treatmentX:age  + 75.8060280820043 treatmentX:weight  + 17.914842055001 genderM:treatmentX:age  + 37.9030140410022 genderM:treatmentX:weight  + 2716.10603981215 treatmentX:age:weight  + 1358.05301990608 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df       RSS Df Sum of Sq        F    Pr(>F)    
+1     25 2598.9861                                    
+2     24  683.0906  1  1915.896 67.31391 2.013e-08 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term age 
+
+Adjusted slope for age:
+           
+-0.9792577 
+
+Std. Error:
+          
+0.5340957 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX:age  + 0.5 genderM:treatmentX:age  + 75.8060280820043 treatmentX:age:weight  + 37.9030140410022 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq       F   Pr(>F)  
+1     25 778.7709                                
+2     24 683.0906  1  95.68038 3.36168 0.079162 .
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term gender 
+
+Adjusted mean at contrasts of gender:
+          
+-16.61327 
+
+Std. Error:
+        
+2.92576 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + genderM:treatmentX  + 35.829684110002 treatmentX:age  + 75.8060280820043 treatmentX:weight  + 35.829684110002 genderM:treatmentX:age  + 75.8060280820043 genderM:treatmentX:weight  + 2716.10603981215 treatmentX:age:weight  + 2716.10603981215 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     25 1600.7889                                     
+2     24  683.0906  1  917.6984 32.24281 7.5536e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term age:gender 
+
+Adjusted slope for age at contrasts of gender:
+          
+-1.032434 
+
+Std. Error:
+          
+0.8148042 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX:age  + genderM:treatmentX:age  + 75.8060280820043 treatmentX:age:weight  + 75.8060280820043 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq       F  Pr(>F)
+1     25 728.7873                             
+2     24 683.0906  1  45.69673 1.60553 0.21728
+------
+Warning message:
+In testFactors.default(model, ...) :
+  Contrasts are not orthogonal for factor(s): treatment
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Default list of factor contrasts:
+         gender 
+contr.treatment 
+
+---
+ 
+Specified values of covariates:
+     age   weight 
+35.82968 75.80603 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           0       0          1   0      0                0.5           0       35.82968              0          75.80603          0               17.91484
+age                   0       0          0   0      0                0.0           0        1.00000              0           0.00000          0                0.50000
+gender                0       0          1   0      0                1.0           0       35.82968              0          75.80603          0               35.82968
+age:gender            0       0          0   0      0                0.0           0        1.00000              0           0.00000          0                1.00000
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                  37.90301                  0            2716.10604                    1358.05302
+age                           0.00000                  0              75.80603                      37.90301
+gender                       75.80603                  0            2716.10604                    2716.10604
+age:gender                    0.00000                  0              75.80603                      75.80603
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-17.22023 
+
+Standard error:
+         
+2.098875 
+---
+
+Term age 
+
+Adjusted slope for age:
+           
+-0.9792577 
+
+Standard error:
+          
+0.5340957 
+---
+
+Term gender 
+
+Adjusted mean at contrasts of gender:
+          
+-16.61327 
+
+Standard error:
+        
+2.92576 
+---
+
+Term age:gender 
+
+Adjusted slope for age at contrasts of gender:
+          
+-1.032434 
+
+Standard error:
+          
+0.8148042 
+---
+
+------
+F Test: 
+            Df Sum of Sq       F    Pr(>F)    
+(Intercept)  1   1915.90 67.3139 2.013e-08 ***
+age          1     95.68  3.3617   0.07916 .  
+gender       1    917.70 32.2428 7.554e-06 ***
+age:gender   1     45.70  1.6055   0.21728    
+Residual    24    683.09                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> 
+> #12.b
+> (x <- testFactors(models[[12]]))
+
+Call: testFactors(model = models[[12]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+84.71032 
+
+Std. Error:
+         
+1.049437 
+
+Linear hypothesis test
+
+Hypothesis:
+0.5 genderF  + 0.5 genderM  + 0.5 treatmentX  + 35.829684110002 age  + 75.8060280820043 weight  + 0.25 genderM:treatmentX  + 17.914842055001 genderM:age  + 17.914842055001 treatmentX:age  + 37.9030140410022 genderM:weight  + 37.9030140410022 treatmentX:weight  + 2716.10603981215 age:weight  + 8.9574210275005 genderM:treatmentX:age  + 18.9515070205011 genderM:treatmentX:weight  + 1358.05301990608 genderM:age:weight  + 1358.05301990608 treatmentX:age:weight  + 679.026509953039 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight - 1
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     25 186132.98                                     
+2     24    683.09  1  185449.9 6515.677 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+------
+
+Linear hypothesis matrix
+
+            genderF genderM treatmentX      age   weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight
+(Intercept)     0.5     0.5        0.5 35.82968 75.80603               0.25    17.91484       17.91484       37.90301          37.90301   2716.106
+            genderM:treatmentX:age genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)               8.957421                  18.95151           1358.053              1358.053                      679.0265
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+84.71032 
+
+Standard error:
+         
+1.049437 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F    Pr(>F)    
+(Intercept)  1    185450 6515.7 < 2.2e-16 ***
+Residual    24       683                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #13.b
+> (x <- testFactors(models[[13]]))
+
+Call: testFactors(model = models[[13]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+83.81975 
+
+Std. Error:
+           
+0.02114777 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 0.5 genderM  + 0.5 treatmentX  + 35.829684110002 age  + 75.8060280820043 weight  + 0.25 genderM:treatmentX  + 17.914842055001 genderM:age  + 17.914842055001 treatmentX:age  + 37.9030140410022 genderM:weight  + 37.9030140410022 treatmentX:weight  + 2716.10603981215 age:weight  + 8.9574210275005 genderM:treatmentX:age  + 18.9515070205011 genderM:treatmentX:weight  + 1358.05301990608 genderM:age:weight  + 1358.05301990608 treatmentX:age:weight  + 679.026509953039 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: round(Y[, 6]) ~ gender * treatment * age * weight
+
+  Res.Df Df   Chisq Pr(>Chisq)    
+1     25                          
+2     24  1 43854.8 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ glm(formula = formulas[[13]], family = "poisson", data = dataframe) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX      age   weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight
+(Intercept)           1     0.5        0.5 35.82968 75.80603               0.25    17.91484       17.91484       37.90301          37.90301   2716.106
+            genderM:treatmentX:age genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)               8.957421                  18.95151           1358.053              1358.053                      679.0265
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+83.81975 
+
+Standard error:
+           
+0.02114777 
+---
+
+------
+Chisq Test: 
+            Df Chisq Pr(>Chisq)    
+(Intercept)  1 43855  < 2.2e-16 ***
+Residual    24                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #16.b
+> (x <- testFactors(models[[16]],terms.formula=~age*gender))
+
+Call: testFactors(model = models[[16]], terms.formula = ~age * gender) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+84.71032 
+
+Std. Error:
+         
+1.049437 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 0.5 genderM  + 0.5 treatmentX  + 35.829684110002 age  + 75.8060280820043 weight  + 0.25 genderM:treatmentX  + 17.914842055001 genderM:age  + 17.914842055001 treatmentX:age  + 37.9030140410022 genderM:weight  + 37.9030140410022 treatmentX:weight  + 2716.10603981215 age:weight  + 8.9574210275005 genderM:treatmentX:age  + 18.9515070205011 genderM:treatmentX:weight  + 1358.05301990608 genderM:age:weight  + 1358.05301990608 treatmentX:age:weight  + 679.026509953039 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     25 186132.98                                     
+2     24    683.09  1  185449.9 6515.677 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term age 
+
+Adjusted slope for age:
+         
+1.472094 
+
+Std. Error:
+          
+0.2670478 
+
+Linear hypothesis test
+
+Hypothesis:
+age  + 0.5 genderM:age  + 0.5 treatmentX:age  + 75.8060280820043 age:weight  + 0.25 genderM:treatmentX:age  + 37.9030140410022 genderM:age:weight  + 37.9030140410022 treatmentX:age:weight  + 18.9515070205011 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     25 1547.9783                                     
+2     24  683.0906  1  864.8877 30.38734 1.1426e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term gender 
+
+Adjusted mean at contrasts of gender:
+           
+-0.1659242 
+
+Std. Error:
+         
+2.098875 
+
+Linear hypothesis test
+
+Hypothesis:
+- genderM - 0.5 genderM:treatmentX - 35.829684110002 genderM:age - 75.8060280820043 genderM:weight - 17.914842055001 genderM:treatmentX:age - 37.9030140410022 genderM:treatmentX:weight - 2716.10603981215 genderM:age:weight - 1358.05301990608 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq       F  Pr(>F)
+1     25 683.2684                             
+2     24 683.0906  1 0.1778744 0.00625 0.93765
+------
+
+Term age:gender 
+
+Adjusted slope for age at contrasts of gender:
+           
+0.03244725 
+
+Std. Error:
+          
+0.5340957 
+
+Linear hypothesis test
+
+Hypothesis:
+- genderM:age - 0.5 genderM:treatmentX:age - 75.8060280820043 genderM:age:weight - 37.9030140410022 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq       F  Pr(>F)
+1     25 683.1956                             
+2     24 683.0906  1 0.1050473 0.00369 0.95206
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX      age   weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight
+(Intercept)           1     0.5        0.5 35.82968 75.80603               0.25    17.91484       17.91484       37.90301          37.90301 2716.10604
+age                   0     0.0        0.0  1.00000  0.00000               0.00     0.50000        0.50000        0.00000           0.00000   75.80603
+gender                0    -1.0        0.0  0.00000  0.00000              -0.50   -35.82968        0.00000      -75.80603           0.00000    0.00000
+age:gender            0     0.0        0.0  0.00000  0.00000               0.00    -1.00000        0.00000        0.00000           0.00000    0.00000
+            genderM:treatmentX:age genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)               8.957421                  18.95151         1358.05302            1358.05302                     679.02651
+age                       0.250000                   0.00000           37.90301              37.90301                      18.95151
+gender                  -17.914842                 -37.90301        -2716.10604               0.00000                   -1358.05302
+age:gender               -0.500000                   0.00000          -75.80603               0.00000                     -37.90301
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+84.71032 
+
+Standard error:
+         
+1.049437 
+---
+
+Term age 
+
+Adjusted slope for age:
+         
+1.472094 
+
+Standard error:
+          
+0.2670478 
+---
+
+Term gender 
+
+Adjusted mean at contrasts of gender:
+           
+-0.1659242 
+
+Standard error:
+         
+2.098875 
+---
+
+Term age:gender 
+
+Adjusted slope for age at contrasts of gender:
+           
+0.03244725 
+
+Standard error:
+          
+0.5340957 
+---
+
+------
+F Test: 
+            Df Sum of Sq         F    Pr(>F)    
+(Intercept)  1    185450 6515.6769 < 2.2e-16 ***
+age          1       865   30.3873 1.143e-05 ***
+gender       1         0    0.0062    0.9376    
+age:gender   1         0    0.0037    0.9521    
+Residual    24       683                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #17.b
+> (x <- testFactors(models[[15]],idata=idata,idesign=~phase*hour,terms.formula=~age*hour))
+
+Call: testFactors(model = models[[15]], terms.formula = ~age * hour,      idata = idata, idesign = ~phase * hour) 
+
+Term (Intercept) 
+
+Adjusted mean:
+        
+95.9666 
+
+Std. Error:
+          
+0.3178275 
+
+
+ Response transformation matrix:
+            [,1]
+pre.1  0.1666667
+pre.2  0.1666667
+pre.3  0.1666667
+post.1 0.1666667
+post.2 0.1666667
+post.3 0.1666667
+
+Sum of squares and products for the hypothesis:
+         [,1]
+[1,] 238009.5
+
+Sum of squares and products for error:
+         [,1]
+[1,] 62.65389
+
+Multivariate Tests: 
+                 Df test stat approx F num Df den Df     Pr(>F)    
+Pillai            1     1.000 91171.15      1     24 < 2.22e-16 ***
+Wilks             1     0.000 91171.15      1     24 < 2.22e-16 ***
+Hotelling-Lawley  1  3798.798 91171.15      1     24 < 2.22e-16 ***
+Roy               1  3798.798 91171.15      1     24 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term age 
+
+Adjusted slope for age:
+         
+1.238885 
+
+Std. Error:
+          
+0.0808768 
+
+
+ Response transformation matrix:
+            [,1]
+pre.1  0.1666667
+pre.2  0.1666667
+pre.3  0.1666667
+post.1 0.1666667
+post.2 0.1666667
+post.3 0.1666667
+
+Sum of squares and products for the hypothesis:
+         [,1]
+[1,] 612.5635
+
+Sum of squares and products for error:
+         [,1]
+[1,] 62.65389
+
+Multivariate Tests: 
+                 Df test stat approx F num Df den Df     Pr(>F)    
+Pillai            1  0.907209 234.6466      1     24 6.8678e-14 ***
+Wilks             1  0.092791 234.6466      1     24 6.8678e-14 ***
+Hotelling-Lawley  1  9.776943 234.6466      1     24 6.8678e-14 ***
+Roy               1  9.776943 234.6466      1     24 6.8678e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term hour 
+
+Adjusted mean at contrasts of hour:
+   hour1    hour2 
+-1.24687 24.86708 
+
+Std. Error:
+    hour1     hour2 
+0.7976495 0.8159193 
+
+
+ Response transformation matrix:
+       hour1 hour2
+pre.1    0.5   0.0
+pre.2    0.0   0.5
+pre.3   -0.5  -0.5
+post.1   0.5   0.0
+post.2   0.0   0.5
+post.3  -0.5  -0.5
+
+Sum of squares and products for the hypothesis:
+           hour1      hour2
+hour1   40.17873  -801.3087
+hour2 -801.30872 15980.9853
+
+Sum of squares and products for error:
+         hour1    hour2
+hour1 394.6294 228.2476
+hour2 228.2476 412.9140
+
+Multivariate Tests: 
+                 Df test stat approx F num Df den Df     Pr(>F)    
+Pillai            1   0.98370 693.9308      2     23 < 2.22e-16 ***
+Wilks             1   0.01630 693.9308      2     23 < 2.22e-16 ***
+Hotelling-Lawley  1  60.34181 693.9308      2     23 < 2.22e-16 ***
+Roy               1  60.34181 693.9308      2     23 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term age:hour 
+
+Adjusted slope for age at contrasts of hour:
+     hour1      hour2 
+-0.2932602 -0.1942269 
+
+Std. Error:
+   hour1    hour2 
+0.202976 0.207625 
+
+
+ Response transformation matrix:
+       hour1 hour2
+pre.1    0.5   0.0
+pre.2    0.0   0.5
+pre.3   -0.5  -0.5
+post.1   0.5   0.0
+post.2   0.0   0.5
+post.3  -0.5  -0.5
+
+Sum of squares and products for the hypothesis:
+         hour1    hour2
+hour1 34.32379 22.73272
+hour2 22.73272 15.05593
+
+Sum of squares and products for error:
+         hour1    hour2
+hour1 394.6294 228.2476
+hour2 228.2476 412.9140
+
+Multivariate Tests: 
+                 Df test stat approx F num Df den Df  Pr(>F)
+Pillai            1 0.0807453 1.010134      2     23 0.37976
+Wilks             1 0.9192547 1.010134      2     23 0.37976
+Hotelling-Lawley  1 0.0878378 1.010134      2     23 0.37976
+Roy               1 0.0878378 1.010134      2     23 0.37976
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX      age   weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight
+(Intercept)           1     0.5        0.5 35.82968 75.80603               0.25    17.91484       17.91484       37.90301          37.90301 2716.10604
+age                   0     0.0        0.0  1.00000  0.00000               0.00     0.50000        0.50000        0.00000           0.00000   75.80603
+hour                  1     0.5        0.5 35.82968 75.80603               0.25    17.91484       17.91484       37.90301          37.90301 2716.10604
+age:hour              0     0.0        0.0  1.00000  0.00000               0.00     0.50000        0.50000        0.00000           0.00000   75.80603
+            genderM:treatmentX:age genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)               8.957421                  18.95151         1358.05302            1358.05302                     679.02651
+age                       0.250000                   0.00000           37.90301              37.90301                      18.95151
+hour                      8.957421                  18.95151         1358.05302            1358.05302                     679.02651
+age:hour                  0.250000                   0.00000           37.90301              37.90301                      18.95151
+
+
+---
+Response transformation matrix
+
+                     pre.1     pre.2      pre.3    post.1    post.2     post.3
+(Intercept)      0.1666667 0.1666667  0.1666667 0.1666667 0.1666667  0.1666667
+age              0.1666667 0.1666667  0.1666667 0.1666667 0.1666667  0.1666667
+hour | hour1     0.5000000 0.0000000 -0.5000000 0.5000000 0.0000000 -0.5000000
+hour | hour2     0.0000000 0.5000000 -0.5000000 0.0000000 0.5000000 -0.5000000
+age:hour | hour1 0.5000000 0.0000000 -0.5000000 0.5000000 0.0000000 -0.5000000
+age:hour | hour2 0.0000000 0.5000000 -0.5000000 0.0000000 0.5000000 -0.5000000
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+        
+95.9666 
+
+Standard error:
+          
+0.3178275 
+---
+
+Term age 
+
+Adjusted slope for age:
+         
+1.238885 
+
+Standard error:
+          
+0.0808768 
+---
+
+Term hour 
+
+Adjusted mean at contrasts of hour:
+   hour1    hour2 
+-1.24687 24.86708 
+
+Standard error:
+    hour1     hour2 
+0.7976495 0.8159193 
+---
+
+Term age:hour 
+
+Adjusted slope for age at contrasts of hour:
+     hour1      hour2 
+-0.2932602 -0.1942269 
+
+Standard error:
+   hour1    hour2 
+0.202976 0.207625 
+---
+
+------
+Multivariate Tests: Pillai test statistic
+            Df test stat approx F num Df den Df    Pr(>F)    
+(Intercept)  1   0.99974    91171      1     24 < 2.2e-16 ***
+age          1   0.90721      235      1     24 6.868e-14 ***
+hour         1   0.98370      694      2     23 < 2.2e-16 ***
+age:hour     1   0.08075        1      2     23    0.3798    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #12.c
+> (x <- testFactors(models[[12]],levelslm,covariates=c(weight=75,age=35)))
+
+Call: testFactors(model = models[[12]], levels = levelslm, covariates = c(weight = 75,      age = 35)) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-16.20151 
+
+Std. Error:
+         
+2.024329 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX  + 35 treatmentX:age  + 75 treatmentX:weight  + 17.5 genderM:treatmentX:age  + 37.5 genderM:treatmentX:weight  + 2625 treatmentX:age:weight  + 1312.5 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight - 1
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     25 2506.2114                                     
+2     24  683.0906  1  1823.121 64.05432 3.1324e-08 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Specified values of covariates:
+   age weight 
+    35     75 
+------
+
+Linear hypothesis matrix
+
+            genderF genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)       0       0          1   0      0                0.5           0             35              0                75          0                   17.5
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                      37.5                  0                  2625                        1312.5
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-16.20151 
+
+Standard error:
+         
+2.024329 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F    Pr(>F)    
+(Intercept)  1   1823.12 64.054 3.132e-08 ***
+Residual    24    683.09                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #13.c
+> (x <- testFactors(models[[13]],levelslm,covariates=c(weight=75,age=35)))
+
+Call: testFactors(model = models[[13]], levels = levelslm, covariates = c(weight = 75,      age = 35)) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.8246233 
+
+Std. Error:
+           
+0.04137269 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX  + 35 treatmentX:age  + 75 treatmentX:weight  + 17.5 genderM:treatmentX:age  + 37.5 genderM:treatmentX:weight  + 2625 treatmentX:age:weight  + 1312.5 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: round(Y[, 6]) ~ gender * treatment * age * weight
+
+  Res.Df Df    Chisq Pr(>Chisq)    
+1     25                           
+2     24  1 21.72277 3.1503e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ glm(formula = formulas[[13]], family = "poisson", data = dataframe) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Specified values of covariates:
+   age weight 
+    35     75 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           0       0          1   0      0                0.5           0             35              0                75          0                   17.5
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                      37.5                  0                  2625                        1312.5
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.8246233 
+
+Standard error:
+           
+0.04137269 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 21.723   3.15e-06 ***
+Residual    24                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #16.c
+> (x <- testFactors(models[[16]],levelslm,terms.formula=~age*gender,covariates=c(weight=75,age=35)))
+
+Call: testFactors(model = models[[16]], levels = levelslm, covariates = c(weight = 75,      age = 35), terms.formula = ~age * gender) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-16.20151 
+
+Std. Error:
+         
+2.024329 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX  + 35 treatmentX:age  + 75 treatmentX:weight  + 17.5 genderM:treatmentX:age  + 37.5 genderM:treatmentX:weight  + 2625 treatmentX:age:weight  + 1312.5 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df       RSS Df Sum of Sq        F     Pr(>F)    
+1     25 2506.2114                                     
+2     24  683.0906  1  1823.121 64.05432 3.1324e-08 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term age 
+
+Adjusted slope for age:
+           
+-0.8383107 
+
+Std. Error:
+          
+0.5570198 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX:age  + 0.5 genderM:treatmentX:age  + 75 treatmentX:age:weight  + 37.5 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq     F  Pr(>F)
+1     25 747.5573                           
+2     24 683.0906  1  64.46675 2.265 0.14537
+------
+
+Term gender 
+
+Adjusted mean at contrasts of gender:
+          
+-1.764866 
+
+Std. Error:
+         
+4.048659 
+
+Linear hypothesis test
+
+Hypothesis:
+- genderM:treatmentX - 35 genderM:treatmentX:age - 75 genderM:treatmentX:weight - 2625 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq       F Pr(>F)
+1     25 688.4989                            
+2     24 683.0906  1  5.408394 0.19002 0.6668
+------
+
+Term age:gender 
+
+Adjusted slope for age at contrasts of gender:
+          
+0.2292657 
+
+Std. Error:
+        
+1.11404 
+
+Linear hypothesis test
+
+Hypothesis:
+- genderM:treatmentX:age - 75 genderM:treatmentX:age:weight = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq       F  Pr(>F)
+1     25 684.2960                             
+2     24 683.0906  1  1.205435 0.04235 0.83869
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Default list of factor contrasts:
+   gender 
+contr.sum 
+
+---
+ 
+Specified values of covariates:
+   age weight 
+    35     75 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           0       0          1   0      0                0.5           0             35              0                75          0                   17.5
+age                   0       0          0   0      0                0.0           0              1              0                 0          0                    0.5
+gender                0       0          0   0      0               -1.0           0              0              0                 0          0                  -35.0
+age:gender            0       0          0   0      0                0.0           0              0              0                 0          0                   -1.0
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                      37.5                  0                  2625                        1312.5
+age                               0.0                  0                    75                          37.5
+gender                          -75.0                  0                     0                       -2625.0
+age:gender                        0.0                  0                     0                         -75.0
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-16.20151 
+
+Standard error:
+         
+2.024329 
+---
+
+Term age 
+
+Adjusted slope for age:
+           
+-0.8383107 
+
+Standard error:
+          
+0.5570198 
+---
+
+Term gender 
+
+Adjusted mean at contrasts of gender:
+          
+-1.764866 
+
+Standard error:
+         
+4.048659 
+---
+
+Term age:gender 
+
+Adjusted slope for age at contrasts of gender:
+          
+0.2292657 
+
+Standard error:
+        
+1.11404 
+---
+
+------
+F Test: 
+            Df Sum of Sq       F    Pr(>F)    
+(Intercept)  1   1823.12 64.0543 3.132e-08 ***
+age          1     64.47  2.2650    0.1454    
+gender       1      5.41  0.1900    0.6668    
+age:gender   1      1.21  0.0424    0.8387    
+Residual    24    683.09                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #17.c
+> (x <- testFactors(models[[15]],levelsmlm,idata=idata,idesign=~phase*hour,terms.formula=~age*hour,covariates=c(weight=75,age=35)))
+
+Call: testFactors(model = models[[15]], levels = levelsmlm, covariates = c(weight = 75,      age = 35), terms.formula = ~age * hour, idata = idata, idesign = ~phase *      hour) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-1.241153 
+
+Std. Error:
+         
+2.014428 
+
+
+ Response transformation matrix:
+       [,1]
+pre.1     0
+pre.2     0
+pre.3     0
+post.1    1
+post.2    0
+post.3   -1
+
+Sum of squares and products for the hypothesis:
+         [,1]
+[1,] 20.76444
+
+Sum of squares and products for error:
+         [,1]
+[1,] 1312.757
+
+Multivariate Tests: 
+                 Df test stat  approx F num Df den Df  Pr(>F)
+Pillai            1 0.0155711 0.3796181      1     24 0.54361
+Wilks             1 0.9844289 0.3796181      1     24 0.54361
+Hotelling-Lawley  1 0.0158174 0.3796181      1     24 0.54361
+Roy               1 0.0158174 0.3796181      1     24 0.54361
+------
+
+Term age 
+
+Adjusted slope for age:
+           
+-0.2763961 
+
+Std. Error:
+          
+0.6276066 
+
+
+ Response transformation matrix:
+       [,1]
+pre.1     0
+pre.2     0
+pre.3     0
+post.1    1
+post.2    0
+post.3   -1
+
+Sum of squares and products for the hypothesis:
+        [,1]
+[1,] 10.6087
+
+Sum of squares and products for error:
+         [,1]
+[1,] 1312.757
+
+Multivariate Tests: 
+                 Df test stat  approx F num Df den Df  Pr(>F)
+Pillai            1 0.0080164 0.1939496      1     24 0.66359
+Wilks             1 0.9919836 0.1939496      1     24 0.66359
+Hotelling-Lawley  1 0.0080812 0.1939496      1     24 0.66359
+Roy               1 0.0080812 0.1939496      1     24 0.66359
+------
+
+Term hour 
+
+Adjusted mean at contrasts of hour:
+    hour1     hour2 
+-1.241153 25.441543 
+
+Std. Error:
+   hour1    hour2 
+2.014428 1.678540 
+
+
+ Response transformation matrix:
+       hour1 hour2
+pre.1      0     0
+pre.2      0     0
+pre.3      0     0
+post.1     1     0
+post.2     0     1
+post.3    -1    -1
+
+Sum of squares and products for the hypothesis:
+           hour1    hour2
+hour1   20.76444 -425.636
+hour2 -425.63604 8724.822
+
+Sum of squares and products for error:
+         hour1    hour2
+hour1 1312.757 633.0310
+hour2  633.031 911.4735
+
+Multivariate Tests: 
+                 Df test stat approx F num Df den Df     Pr(>F)    
+Pillai            1  0.937862 173.5715      2     23 1.3293e-14 ***
+Wilks             1  0.062138 173.5715      2     23 1.3293e-14 ***
+Hotelling-Lawley  1 15.093177 173.5715      2     23 1.3293e-14 ***
+Roy               1 15.093177 173.5715      2     23 1.3293e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term age:hour 
+
+Adjusted slope for age at contrasts of hour:
+     hour1      hour2 
+-0.2763961 -0.4046871 
+
+Std. Error:
+    hour1     hour2 
+0.6276066 0.5229586 
+
+
+ Response transformation matrix:
+       hour1 hour2
+pre.1      0     0
+pre.2      0     0
+pre.3      0     0
+post.1     1     0
+post.2     0     1
+post.3    -1    -1
+
+Sum of squares and products for the hypothesis:
+         hour1    hour2
+hour1 10.60870 15.53279
+hour2 15.53279 22.74243
+
+Sum of squares and products for error:
+         hour1    hour2
+hour1 1312.757 633.0310
+hour2  633.031 911.4735
+
+Multivariate Tests: 
+                 Df test stat  approx F num Df den Df  Pr(>F)
+Pillai            1 0.0243472 0.2869795      2     23 0.75318
+Wilks             1 0.9756528 0.2869795      2     23 0.75318
+Hotelling-Lawley  1 0.0249547 0.2869795      2     23 0.75318
+Roy               1 0.0249547 0.2869795      2     23 0.75318
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1       1 0
+
+       pre post
+phase1   0    1
+
+      1 2  3
+hour1 1 0 -1
+
+---
+ 
+Default list of factor contrasts:
+     hour 
+contr.sum 
+
+---
+ 
+Specified values of covariates:
+   age weight 
+    35     75 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           1     0.5          0  35     75                  0        17.5              0           37.5                 0       2625                      0
+age                   0     0.0          0   1      0                  0         0.5              0            0.0                 0         75                      0
+hour                  1     0.5          0  35     75                  0        17.5              0           37.5                 0       2625                      0
+age:hour              0     0.0          0   1      0                  0         0.5              0            0.0                 0         75                      0
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                         0             1312.5                     0                             0
+age                                 0               37.5                     0                             0
+hour                                0             1312.5                     0                             0
+age:hour                            0               37.5                     0                             0
+
+
+---
+Response transformation matrix
+
+                 pre.1 pre.2 pre.3 post.1 post.2 post.3
+(Intercept)          0     0     0      1      0     -1
+age                  0     0     0      1      0     -1
+hour | hour1         0     0     0      1      0     -1
+hour | hour2         0     0     0      0      1     -1
+age:hour | hour1     0     0     0      1      0     -1
+age:hour | hour2     0     0     0      0      1     -1
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-1.241153 
+
+Standard error:
+         
+2.014428 
+---
+
+Term age 
+
+Adjusted slope for age:
+           
+-0.2763961 
+
+Standard error:
+          
+0.6276066 
+---
+
+Term hour 
+
+Adjusted mean at contrasts of hour:
+    hour1     hour2 
+-1.241153 25.441543 
+
+Standard error:
+   hour1    hour2 
+2.014428 1.678540 
+---
+
+Term age:hour 
+
+Adjusted slope for age at contrasts of hour:
+     hour1      hour2 
+-0.2763961 -0.4046871 
+
+Standard error:
+    hour1     hour2 
+0.6276066 0.5229586 
+---
+
+------
+Multivariate Tests: Pillai test statistic
+            Df test stat approx F num Df den Df    Pr(>F)    
+(Intercept)  1   0.01557    0.380      1     24    0.5436    
+age          1   0.00802    0.194      1     24    0.6636    
+hour         1   0.93786  173.572      2     23 1.329e-14 ***
+age:hour     1   0.02435    0.287      2     23    0.7532    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #12.d
+> (x <- testFactors(models[[12]],levelslm,covariates=0))
+
+Call: testFactors(model = models[[12]], levels = levelslm, covariates = 0) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-426.6931 
+
+Std. Error:
+         
+233.1551 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight - 1
+
+  Res.Df      RSS Df Sum of Sq      F   Pr(>F)  
+1     25 778.4159                               
+2     24 683.0906  1  95.32533 3.3492 0.079686 .
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Specified values of covariates:
+   age weight 
+     0      0 
+------
+
+Linear hypothesis matrix
+
+            genderF genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)       0       0          1   0      0                0.5           0              0              0                 0          0                      0
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                         0                  0                     0                             0
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-426.6931 
+
+Standard error:
+         
+233.1551 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F  Pr(>F)  
+(Intercept)  1     95.33 3.3492 0.07969 .
+Residual    24    683.09                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #13.d
+> (x <- testFactors(models[[13]],levelslm,covariates=0))
+
+Call: testFactors(model = models[[13]], levels = levelslm, covariates = 0) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.0308331 
+
+Std. Error:
+         
+4.717803 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX = 0
+
+Model 1: restricted model
+Model 2: round(Y[, 6]) ~ gender * treatment * age * weight
+
+  Res.Df Df   Chisq Pr(>Chisq)
+1     25                      
+2     24  1 0.54384    0.46085
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ glm(formula = formulas[[13]], family = "poisson", data = dataframe) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Specified values of covariates:
+   age weight 
+     0      0 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           0       0          1   0      0                0.5           0              0              0                 0          0                      0
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                         0                  0                     0                             0
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.0308331 
+
+Standard error:
+         
+4.717803 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)
+(Intercept)  1 0.5438     0.4608
+Residual    24                  
+------------
+> #16.d
+> (x <- testFactors(models[[16]],levelslm,terms.formula=~age*gender,covariates=0))
+
+Call: testFactors(model = models[[16]], levels = levelslm, covariates = 0,      terms.formula = ~age * gender) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-426.6931 
+
+Std. Error:
+         
+233.1551 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX  + 0.5 genderM:treatmentX = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq      F   Pr(>F)  
+1     25 778.4159                               
+2     24 683.0906  1  95.32533 3.3492 0.079686 .
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term age 
+
+Adjusted slope for age:
+         
+12.27665 
+
+Std. Error:
+         
+6.667628 
+
+Linear hypothesis test
+
+Hypothesis:
+treatmentX:age  + 0.5 genderM:treatmentX:age = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq       F   Pr(>F)  
+1     25 779.5809                                
+2     24 683.0906  1  96.49036 3.39013 0.077982 .
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term gender 
+
+Adjusted mean at contrasts of gender:
+          
+-453.1363 
+
+Std. Error:
+         
+466.3103 
+
+Linear hypothesis test
+
+Hypothesis:
+- genderM:treatmentX = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq      F  Pr(>F)
+1     25 709.9672                            
+2     24 683.0906  1  26.87663 0.9443 0.34087
+------
+
+Term age:gender 
+
+Adjusted slope for age at contrasts of gender:
+        
+11.6662 
+
+Std. Error:
+         
+13.33526 
+
+Linear hypothesis test
+
+Hypothesis:
+- genderM:treatmentX:age = 0
+
+Model 1: restricted model
+Model 2: Y[, 6] ~ gender * treatment * age * weight
+
+  Res.Df      RSS Df Sum of Sq       F  Pr(>F)
+1     25 704.8738                             
+2     24 683.0906  1  21.78326 0.76534 0.39033
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1      -1 1
+
+---
+ 
+Default list of factor contrasts:
+   gender 
+contr.sum 
+
+---
+ 
+Specified values of covariates:
+   age weight 
+     0      0 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           0       0          1   0      0                0.5           0              0              0                 0          0                    0.0
+age                   0       0          0   0      0                0.0           0              1              0                 0          0                    0.5
+gender                0       0          0   0      0               -1.0           0              0              0                 0          0                    0.0
+age:gender            0       0          0   0      0                0.0           0              0              0                 0          0                   -1.0
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                         0                  0                     0                             0
+age                                 0                  0                     0                             0
+gender                              0                  0                     0                             0
+age:gender                          0                  0                     0                             0
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-426.6931 
+
+Standard error:
+         
+233.1551 
+---
+
+Term age 
+
+Adjusted slope for age:
+         
+12.27665 
+
+Standard error:
+         
+6.667628 
+---
+
+Term gender 
+
+Adjusted mean at contrasts of gender:
+          
+-453.1363 
+
+Standard error:
+         
+466.3103 
+---
+
+Term age:gender 
+
+Adjusted slope for age at contrasts of gender:
+        
+11.6662 
+
+Standard error:
+         
+13.33526 
+---
+
+------
+F Test: 
+            Df Sum of Sq      F  Pr(>F)  
+(Intercept)  1     95.33 3.3492 0.07969 .
+age          1     96.49 3.3901 0.07798 .
+gender       1     26.88 0.9443 0.34087  
+age:gender   1     21.78 0.7653 0.39033  
+Residual    24    683.09                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #17.d
+> (x <- testFactors(models[[15]],levelsmlm,idata=idata,idesign=~phase*hour,terms.formula=~age*hour,covariates=0))
+
+Call: testFactors(model = models[[15]], levels = levelsmlm, covariates = 0,      terms.formula = ~age * hour, idata = idata, idesign = ~phase *          hour) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-153.9597 
+
+Std. Error:
+         
+249.0226 
+
+
+ Response transformation matrix:
+       [,1]
+pre.1     0
+pre.2     0
+pre.3     0
+post.1    1
+post.2    0
+post.3   -1
+
+Sum of squares and products for the hypothesis:
+         [,1]
+[1,] 20.90789
+
+Sum of squares and products for error:
+         [,1]
+[1,] 1312.757
+
+Multivariate Tests: 
+                 Df test stat  approx F num Df den Df  Pr(>F)
+Pillai            1 0.0156770 0.3822408      1     24 0.54223
+Wilks             1 0.9843230 0.3822408      1     24 0.54223
+Hotelling-Lawley  1 0.0159267 0.3822408      1     24 0.54223
+Roy               1 0.0159267 0.3822408      1     24 0.54223
+------
+
+Term age 
+
+Adjusted slope for age:
+        
+4.60924 
+
+Std. Error:
+         
+7.197666 
+
+
+ Response transformation matrix:
+       [,1]
+pre.1     0
+pre.2     0
+pre.3     0
+post.1    1
+post.2    0
+post.3   -1
+
+Sum of squares and products for the hypothesis:
+         [,1]
+[1,] 22.43099
+
+Sum of squares and products for error:
+         [,1]
+[1,] 1312.757
+
+Multivariate Tests: 
+                 Df test stat  approx F num Df den Df  Pr(>F)
+Pillai            1 0.0167999 0.4100862      1     24 0.52799
+Wilks             1 0.9832001 0.4100862      1     24 0.52799
+Hotelling-Lawley  1 0.0170869 0.4100862      1     24 0.52799
+Roy               1 0.0170869 0.4100862      1     24 0.52799
+------
+
+Term hour 
+
+Adjusted mean at contrasts of hour:
+    hour1     hour2 
+-153.9597 -176.1296 
+
+Std. Error:
+   hour1    hour2 
+249.0226 207.5002 
+
+
+ Response transformation matrix:
+       hour1 hour2
+pre.1      0     0
+pre.2      0     0
+pre.3      0     0
+post.1     1     0
+post.2     0     1
+post.3    -1    -1
+
+Sum of squares and products for the hypothesis:
+         hour1    hour2
+hour1 20.90789 23.91858
+hour2 23.91858 27.36280
+
+Sum of squares and products for error:
+         hour1    hour2
+hour1 1312.757 633.0310
+hour2  633.031 911.4735
+
+Multivariate Tests: 
+                 Df test stat  approx F num Df den Df  Pr(>F)
+Pillai            1 0.0300975 0.3568616      2     23 0.70368
+Wilks             1 0.9699025 0.3568616      2     23 0.70368
+Hotelling-Lawley  1 0.0310314 0.3568616      2     23 0.70368
+Roy               1 0.0310314 0.3568616      2     23 0.70368
+------
+
+Term age:hour 
+
+Adjusted slope for age at contrasts of hour:
+   hour1    hour2 
+4.609240 5.235977 
+
+Std. Error:
+   hour1    hour2 
+7.197666 5.997517 
+
+
+ Response transformation matrix:
+       hour1 hour2
+pre.1      0     0
+pre.2      0     0
+pre.3      0     0
+post.1     1     0
+post.2     0     1
+post.3    -1    -1
+
+Sum of squares and products for the hypothesis:
+         hour1    hour2
+hour1 22.43099 25.48103
+hour2 25.48103 28.94579
+
+Sum of squares and products for error:
+         hour1    hour2
+hour1 1312.757 633.0310
+hour2  633.031 911.4735
+
+Multivariate Tests: 
+                 Df test stat  approx F num Df den Df  Pr(>F)
+Pillai            1 0.0318534 0.3783668      2     23 0.68916
+Wilks             1 0.9681466 0.3783668      2     23 0.68916
+Hotelling-Lawley  1 0.0329015 0.3783668      2     23 0.68916
+Roy               1 0.0329015 0.3783668      2     23 0.68916
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ FUN(formula = X[[i]], data = ..1) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+           control X
+treatment1       1 0
+
+       pre post
+phase1   0    1
+
+      1 2  3
+hour1 1 0 -1
+
+---
+ 
+Default list of factor contrasts:
+     hour 
+contr.sum 
+
+---
+ 
+Specified values of covariates:
+   age weight 
+     0      0 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) genderM treatmentX age weight genderM:treatmentX genderM:age treatmentX:age genderM:weight treatmentX:weight age:weight genderM:treatmentX:age
+(Intercept)           1     0.5          0   0      0                  0         0.0              0              0                 0          0                      0
+age                   0     0.0          0   1      0                  0         0.5              0              0                 0          0                      0
+hour                  1     0.5          0   0      0                  0         0.0              0              0                 0          0                      0
+age:hour              0     0.0          0   1      0                  0         0.5              0              0                 0          0                      0
+            genderM:treatmentX:weight genderM:age:weight treatmentX:age:weight genderM:treatmentX:age:weight
+(Intercept)                         0                  0                     0                             0
+age                                 0                  0                     0                             0
+hour                                0                  0                     0                             0
+age:hour                            0                  0                     0                             0
+
+
+---
+Response transformation matrix
+
+                 pre.1 pre.2 pre.3 post.1 post.2 post.3
+(Intercept)          0     0     0      1      0     -1
+age                  0     0     0      1      0     -1
+hour | hour1         0     0     0      1      0     -1
+hour | hour2         0     0     0      0      1     -1
+age:hour | hour1     0     0     0      1      0     -1
+age:hour | hour2     0     0     0      0      1     -1
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-153.9597 
+
+Standard error:
+         
+249.0226 
+---
+
+Term age 
+
+Adjusted slope for age:
+        
+4.60924 
+
+Standard error:
+         
+7.197666 
+---
+
+Term hour 
+
+Adjusted mean at contrasts of hour:
+    hour1     hour2 
+-153.9597 -176.1296 
+
+Standard error:
+   hour1    hour2 
+249.0226 207.5002 
+---
+
+Term age:hour 
+
+Adjusted slope for age at contrasts of hour:
+   hour1    hour2 
+4.609240 5.235977 
+
+Standard error:
+   hour1    hour2 
+7.197666 5.997517 
+---
+
+------
+Multivariate Tests: Pillai test statistic
+            Df test stat approx F num Df den Df Pr(>F)
+(Intercept)  1  0.015677  0.38224      1     24 0.5422
+age          1  0.016800  0.41009      1     24 0.5280
+hour         1  0.030097  0.35686      2     23 0.7037
+age:hour     1  0.031853  0.37837      2     23 0.6892
+------------
+> 
+> # lme and mer objects
+> Snijders <- nlme::bdf[c("langPOST",   # Outcomes
++ "pupilNR", "IQ.ver.cen", "ses", "sex",       # Student-related variables
++ "schoolNR", "schoolSES", "avg.IQ.ver.cen")]  # School-related variables
+> Snijders$sex <- factor(Snijders$sex, labels=c("F","M"))
+> names(Snijders) <-
++ c("score","student","IQ","SES","sex","school","avgSES","avgIQ")
+> 
+> # Plan of tests
+> # 1. Model with only intercept
+> # 2. Model with 1 factor
+> # 3. Model with 1 covariate
+> # 4. Model with 2 covariates
+> # 5. Full model
+> # 6-9. Same as 2-5 without intercept
+> # 10. 5 in glm (family="poisson")
+> 
+> library(nlme)
+> # Models
+> models <- vector("list",9)
+> models[[1]] <- lme(score~1,data=Snijders,random=~1|school)
+> models[[2]] <- lme(score~sex,data=Snijders,random=~1|school)
+> models[[3]] <- lme(score~IQ,data=Snijders,random=~IQ|school)
+> models[[4]] <- lme(score~SES,data=Snijders,random=~1|school)
+> models[[5]] <- lme(score~IQ*SES*sex,data=Snijders,random=~IQ|school)
+> models[[6]] <- lme(score~0+sex,data=Snijders,random=~1|school)
+> models[[7]] <- lme(score~0+IQ,data=Snijders,random=~IQ|school)
+> models[[8]] <- lme(score~0+SES,data=Snijders,random=~1|school)
+> models[[9]] <- lme(score~0+IQ*SES*sex,data=Snijders,random=~IQ|school)
+> 
+> # Fixed values of levels
+> levelslme <- list(sex=c("F","M"))
+> 
+> #1
+> (x <- testFactors(models[[1]]))
+
+Call: testFactors(model = models[[1]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.36243 
+
+Std. Error:
+          
+0.4282038 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept) = 0
+
+Model 1: restricted model
+Model 2: score ~ 1
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 8884.921 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ 1, data = Snijders, random = ~1 |      school) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)
+(Intercept)           1
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.36243 
+
+Standard error:
+          
+0.4282038 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 8884.9  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #2
+> (x <- testFactors(models[[2]],levelslme))
+
+Call: testFactors(model = models[[2]], levels = levelslme) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.567735 
+
+Std. Error:
+          
+0.3404711 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ sex
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 56.87742 4.6384e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ sex, data = Snijders, random = ~1 |      school) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+------
+
+Linear hypothesis matrix
+
+            (Intercept) sexM
+(Intercept)           0   -1
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.567735 
+
+Standard error:
+          
+0.3404711 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 56.877  4.638e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #3
+> (x <- testFactors(models[[3]]))
+
+Call: testFactors(model = models[[3]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.70921 
+
+Std. Error:
+          
+0.3055804 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 3.10687685072191e - 18 IQ = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 17747.39 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ IQ, data = Snijders, random = ~IQ |      school) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)           IQ
+(Intercept)           1 3.106877e-18
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.70921 
+
+Standard error:
+          
+0.3055804 
+---
+
+------
+Chisq Test: 
+            Df Chisq Pr(>Chisq)    
+(Intercept)  1 17747  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #4
+> (x <- testFactors(models[[4]]))
+
+Call: testFactors(model = models[[4]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.54716 
+
+Std. Error:
+          
+0.3845176 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 27.811980760822 SES = 0
+
+Model 1: restricted model
+Model 2: score ~ SES
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 11119.58 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ SES, data = Snijders, random = ~1 |      school) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)      SES
+(Intercept)           1 27.81198
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.54716 
+
+Standard error:
+          
+0.3845176 
+---
+
+------
+Chisq Test: 
+            Df Chisq Pr(>Chisq)    
+(Intercept)  1 11120  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #5
+> (x <- testFactors(models[[5]],levelslme))
+
+Call: testFactors(model = models[[5]], levels = levelslme) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.645589 
+
+Std. Error:
+          
+0.2758053 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM - 3.10687685072191e - 18 IQ:sexM - 27.811980760822 SES:sexM - 8.64083991985211e - 17 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 92.01095 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ IQ * SES * sex, data = Snijders,      random = ~IQ | school) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+
+---
+ 
+Specified values of covariates:
+          IQ          SES 
+3.106877e-18 2.781198e+01 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) IQ SES sexM IQ:SES       IQ:sexM  SES:sexM  IQ:SES:sexM
+(Intercept)           0  0   0   -1      0 -3.106877e-18 -27.81198 -8.64084e-17
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.645589 
+
+Standard error:
+          
+0.2758053 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 92.011  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #6
+> (x <- testFactors(models[[6]],levelslme))
+
+Call: testFactors(model = models[[6]], levels = levelslme) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.567735 
+
+Std. Error:
+          
+0.3404711 
+
+Linear hypothesis test
+
+Hypothesis:
+sexF - sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ 0 + sex
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 56.87742 4.6384e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ 0 + sex, data = Snijders, random = ~1 |      school) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+------
+
+Linear hypothesis matrix
+
+            sexF sexM
+(Intercept)    1   -1
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.567735 
+
+Standard error:
+          
+0.3404711 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 56.877  4.638e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #7
+> (x <- testFactors(models[[7]]))
+
+Call: testFactors(model = models[[7]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+             
+1.836409e-17 
+
+Std. Error:
+             
+2.501059e-19 
+
+Linear hypothesis test
+
+Hypothesis:
+3.10687685072191e - 18 IQ = 0
+
+Model 1: restricted model
+Model 2: score ~ 0 + IQ
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 5391.267 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ 0 + IQ, data = Snijders, random = ~IQ |      school) 
+------
+
+Linear hypothesis matrix
+
+                      IQ
+(Intercept) 3.106877e-18
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+             
+1.836409e-17 
+
+Standard error:
+             
+2.501059e-19 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 5391.3  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #8
+> (x <- testFactors(models[[8]]))
+
+Call: testFactors(model = models[[8]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+9.231344 
+
+Std. Error:
+          
+0.4841561 
+
+Linear hypothesis test
+
+Hypothesis:
+27.811980760822 SES = 0
+
+Model 1: restricted model
+Model 2: score ~ 0 + SES
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 363.5457 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ 0 + SES, data = Snijders, random = ~1 |      school) 
+------
+
+Linear hypothesis matrix
+
+                 SES
+(Intercept) 27.81198
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+9.231344 
+
+Standard error:
+          
+0.4841561 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 363.55  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #9
+> (x <- testFactors(models[[9]],levelslme))
+
+Call: testFactors(model = models[[9]], levels = levelslme) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.645589 
+
+Std. Error:
+          
+0.2758053 
+
+Linear hypothesis test
+
+Hypothesis:
+sexF - sexM - 3.10687685072191e - 18 IQ:sexM - 27.811980760822 SES:sexM - 8.64083991985211e - 17 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ 0 + IQ * SES * sex
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 92.01095 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ 0 + IQ * SES * sex, data = Snijders,      random = ~IQ | school) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+
+---
+ 
+Specified values of covariates:
+          IQ          SES 
+3.106877e-18 2.781198e+01 
+------
+
+Linear hypothesis matrix
+
+            IQ SES sexF sexM IQ:SES       IQ:sexM  SES:sexM  IQ:SES:sexM
+(Intercept)  0   0    1   -1      0 -3.106877e-18 -27.81198 -8.64084e-17
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.645589 
+
+Standard error:
+          
+0.2758053 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 92.011  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #5.b
+> (x <- testFactors(models[[5]],terms.formula=~sex*IQ))
+
+Call: testFactors(model = models[[5]], terms.formula = ~sex * IQ) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.95165 
+
+Std. Error:
+          
+0.3005848 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 3.10687685072191e - 18 IQ  + 27.811980760822 SES  + 0.5 sexM  + 8.64083991985211e - 17 IQ:SES  + 1.55343842536095e - 18 IQ:sexM  + 13.905990380411 SES:sexM  + 4.32041995992605e - 17 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 18561.31 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term sex 
+
+Adjusted mean at contrasts of sex:
+          
+-2.645589 
+
+Std. Error:
+          
+0.2758053 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM - 3.10687685072191e - 18 IQ:sexM - 27.811980760822 SES:sexM - 8.64083991985211e - 17 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 92.01095 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term IQ 
+
+Adjusted slope for IQ:
+         
+2.278547 
+
+Std. Error:
+           
+0.07954697 
+
+Linear hypothesis test
+
+Hypothesis:
+IQ  + 27.811980760822 IQ:SES  + 0.5 IQ:sexM  + 13.905990380411 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 820.4817 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term sex:IQ 
+
+Adjusted slope for IQ at contrasts of sex:
+          
+0.2806714 
+
+Std. Error:
+          
+0.1365471 
+
+Linear hypothesis test
+
+Hypothesis:
+- IQ:sexM - 27.811980760822 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex
+
+  Df   Chisq Pr(>Chisq)  
+1                        
+2  1 4.22505   0.039832 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ IQ * SES * sex, data = Snijders,      random = ~IQ | school) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)           IQ      SES sexM       IQ:SES       IQ:sexM  SES:sexM   IQ:SES:sexM
+(Intercept)           1 3.106877e-18 27.81198  0.5 8.640840e-17  1.553438e-18  13.90599  4.320420e-17
+sex                   0 0.000000e+00  0.00000 -1.0 0.000000e+00 -3.106877e-18 -27.81198 -8.640840e-17
+IQ                    0 1.000000e+00  0.00000  0.0 2.781198e+01  5.000000e-01   0.00000  1.390599e+01
+sex:IQ                0 0.000000e+00  0.00000  0.0 0.000000e+00 -1.000000e+00   0.00000 -2.781198e+01
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.95165 
+
+Standard error:
+          
+0.3005848 
+---
+
+Term sex 
+
+Adjusted mean at contrasts of sex:
+          
+-2.645589 
+
+Standard error:
+          
+0.2758053 
+---
+
+Term IQ 
+
+Adjusted slope for IQ:
+         
+2.278547 
+
+Standard error:
+           
+0.07954697 
+---
+
+Term sex:IQ 
+
+Adjusted slope for IQ at contrasts of sex:
+          
+0.2806714 
+
+Standard error:
+          
+0.1365471 
+---
+
+------
+Chisq Test: 
+            Df     Chisq Pr(>Chisq)    
+(Intercept)  1 18561.314    < 2e-16 ***
+sex          1    92.011    < 2e-16 ***
+IQ           1   820.482    < 2e-16 ***
+sex:IQ       1     4.225    0.03983 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #5.c
+> (x <- testFactors(models[[5]],levelslme,covariates=c(IQ=3,SES=20)))
+
+Call: testFactors(model = models[[5]], levels = levelslme, covariates = c(IQ = 3,      SES = 20)) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-1.751149 
+
+Std. Error:
+          
+0.6387544 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM - 3 IQ:sexM - 20 SES:sexM - 60 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex
+
+  Df   Chisq Pr(>Chisq)   
+1                         
+2  1 7.51586  0.0061158 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ IQ * SES * sex, data = Snijders,      random = ~IQ | school) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+
+---
+ 
+Specified values of covariates:
+ IQ SES 
+  3  20 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) IQ SES sexM IQ:SES IQ:sexM SES:sexM IQ:SES:sexM
+(Intercept)           0  0   0   -1      0      -3      -20         -60
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-1.751149 
+
+Standard error:
+          
+0.6387544 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)   
+(Intercept)  1 7.5159   0.006116 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #5.d
+> (x <- testFactors(models[[5]],levelslme,covariates=0))
+
+Call: testFactors(model = models[[5]], levels = levelslme, covariates = 0) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-3.044486 
+
+Std. Error:
+          
+0.7578377 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 16.13896 5.8861e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lme.formula(fixed = score ~ IQ * SES * sex, data = Snijders,      random = ~IQ | school) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+
+---
+ 
+Specified values of covariates:
+ IQ SES 
+  0   0 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) IQ SES sexM IQ:SES IQ:sexM SES:sexM IQ:SES:sexM
+(Intercept)           0  0   0   -1      0       0        0           0
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-3.044486 
+
+Standard error:
+          
+0.7578377 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 16.139  5.886e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> 
+> 
+> library(lme4)
+Loading required package: Matrix
+
+Attaching package: ‘lme4’
+
+The following object is masked from ‘package:nlme’:
+
+    lmList
+
+> # Models
+> models <- vector("list",10)
+> models[[1]] <- lmer(score~1+(1|school),data=Snijders)
+> models[[2]] <- lmer(score~sex+(1|school),data=Snijders)
+> models[[3]] <- lmer(score~IQ+(IQ|school),data=Snijders)
+> models[[4]] <- lmer(score~SES+(1|school),data=Snijders)
+> models[[5]] <- lmer(score~IQ*SES*sex+(IQ|school),data=Snijders)
+> models[[6]] <- lmer(score~0+sex+(1|school),data=Snijders)
+> models[[7]] <- lmer(score~0+IQ+(IQ|school),data=Snijders)
+> models[[8]] <- lmer(score~0+SES+(1|school),data=Snijders)
+> models[[9]] <- lmer(score~0+IQ*SES*sex+(IQ|school),data=Snijders)
+> models[[10]] <- glmer(round(score)~IQ*SES*sex+(1|school),data=Snijders,family="poisson")
+Warning messages:
+1: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.115838 (tol = 0.001, component 1)
+2: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model is nearly unidentifiable: very large eigenvalue
+ - Rescale variables?
+> 
+> # Fixed values of levels
+> levelslme <- list(sex=c("F","M"))
+> 
+> #1
+> (x <- testFactors(models[[1]]))
+
+Call: testFactors(model = models[[1]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.36243 
+
+Std. Error:
+          
+0.4282038 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept) = 0
+
+Model 1: restricted model
+Model 2: score ~ 1 + (1 | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 8884.921 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ 1 + (1 | school), data = Snijders) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)
+(Intercept)           1
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.36243 
+
+Standard error:
+          
+0.4282038 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 8884.9  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #2
+> (x <- testFactors(models[[2]],levelslme))
+
+Call: testFactors(model = models[[2]], levels = levelslme) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.567735 
+
+Std. Error:
+          
+0.3404711 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ sex + (1 | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 56.87742 4.6384e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ sex + (1 | school), data = Snijders) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+------
+
+Linear hypothesis matrix
+
+            (Intercept) sexM
+(Intercept)           0   -1
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.567735 
+
+Standard error:
+          
+0.3404711 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 56.877  4.638e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #3
+> (x <- testFactors(models[[3]]))
+
+Call: testFactors(model = models[[3]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.70921 
+
+Std. Error:
+          
+0.3055808 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 3.10687685072191e - 18 IQ = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ + (IQ | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 17747.34 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ IQ + (IQ | school), data = Snijders) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)           IQ
+(Intercept)           1 3.106877e-18
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.70921 
+
+Standard error:
+          
+0.3055808 
+---
+
+------
+Chisq Test: 
+            Df Chisq Pr(>Chisq)    
+(Intercept)  1 17747  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #4
+> (x <- testFactors(models[[4]]))
+
+Call: testFactors(model = models[[4]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.54716 
+
+Std. Error:
+          
+0.3845176 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 27.811980760822 SES = 0
+
+Model 1: restricted model
+Model 2: score ~ SES + (1 | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 11119.58 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ SES + (1 | school), data = Snijders) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)      SES
+(Intercept)           1 27.81198
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.54716 
+
+Standard error:
+          
+0.3845176 
+---
+
+------
+Chisq Test: 
+            Df Chisq Pr(>Chisq)    
+(Intercept)  1 11120  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #5
+> (x <- testFactors(models[[5]],levelslme))
+
+Call: testFactors(model = models[[5]], levels = levelslme) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.645589 
+
+Std. Error:
+          
+0.2758053 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM - 3.10687685072191e - 18 IQ:sexM - 27.811980760822 SES:sexM - 8.64083991985211e - 17 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex + (IQ | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 92.01093 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ IQ * SES * sex + (IQ | school), data = Snijders) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+
+---
+ 
+Specified values of covariates:
+          IQ          SES 
+3.106877e-18 2.781198e+01 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) IQ SES sexM IQ:SES       IQ:sexM  SES:sexM  IQ:SES:sexM
+(Intercept)           0  0   0   -1      0 -3.106877e-18 -27.81198 -8.64084e-17
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.645589 
+
+Standard error:
+          
+0.2758053 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 92.011  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #6
+> (x <- testFactors(models[[6]],levelslme))
+
+Call: testFactors(model = models[[6]], levels = levelslme) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.567735 
+
+Std. Error:
+          
+0.3404711 
+
+Linear hypothesis test
+
+Hypothesis:
+sexF - sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ 0 + sex + (1 | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 56.87742 4.6384e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ 0 + sex + (1 | school), data = Snijders) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+------
+
+Linear hypothesis matrix
+
+            sexF sexM
+(Intercept)    1   -1
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.567735 
+
+Standard error:
+          
+0.3404711 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 56.877  4.638e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #7
+> (x <- testFactors(models[[7]]))
+
+Call: testFactors(model = models[[7]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+            
+1.83641e-17 
+
+Std. Error:
+             
+2.501059e-19 
+
+Linear hypothesis test
+
+Hypothesis:
+3.10687685072191e - 18 IQ = 0
+
+Model 1: restricted model
+Model 2: score ~ 0 + IQ + (IQ | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 5391.272 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ 0 + IQ + (IQ | school), data = Snijders) 
+------
+
+Linear hypothesis matrix
+
+                      IQ
+(Intercept) 3.106877e-18
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+            
+1.83641e-17 
+
+Standard error:
+             
+2.501059e-19 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 5391.3  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #8
+> (x <- testFactors(models[[8]]))
+
+Call: testFactors(model = models[[8]]) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+9.231344 
+
+Std. Error:
+          
+0.4841561 
+
+Linear hypothesis test
+
+Hypothesis:
+27.811980760822 SES = 0
+
+Model 1: restricted model
+Model 2: score ~ 0 + SES + (1 | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 363.5457 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ 0 + SES + (1 | school), data = Snijders) 
+------
+
+Linear hypothesis matrix
+
+                 SES
+(Intercept) 27.81198
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+9.231344 
+
+Standard error:
+          
+0.4841561 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 363.55  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #9
+> (x <- testFactors(models[[9]],levelslme))
+
+Call: testFactors(model = models[[9]], levels = levelslme) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.645589 
+
+Std. Error:
+          
+0.2758053 
+
+Linear hypothesis test
+
+Hypothesis:
+sexF - sexM - 3.10687685072191e - 18 IQ:sexM - 27.811980760822 SES:sexM - 8.64083991985211e - 17 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ 0 + IQ * SES * sex + (IQ | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 92.01093 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ 0 + IQ * SES * sex + (IQ | school), data = Snijders) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+
+---
+ 
+Specified values of covariates:
+          IQ          SES 
+3.106877e-18 2.781198e+01 
+------
+
+Linear hypothesis matrix
+
+            IQ SES sexF sexM IQ:SES       IQ:sexM  SES:sexM  IQ:SES:sexM
+(Intercept)  0   0    1   -1      0 -3.106877e-18 -27.81198 -8.64084e-17
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-2.645589 
+
+Standard error:
+          
+0.2758053 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 92.011  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #10
+> (x <- testFactors(models[[10]],levelslme))
+
+Call: testFactors(model = models[[10]], levels = levelslme) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.9355205 
+
+Std. Error:
+            
+0.007019497 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM - 3.10687685072191e - 18 IQ:sexM - 27.811980760822 SES:sexM - 8.64083991985211e - 17 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: round(score) ~ IQ * SES * sex + (1 | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 90.16073 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ glmer(formula = round(score) ~ IQ * SES * sex + (1 | school),      data = Snijders, family = "poisson") 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+
+---
+ 
+Specified values of covariates:
+          IQ          SES 
+3.106877e-18 2.781198e+01 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) IQ SES sexM IQ:SES       IQ:sexM  SES:sexM  IQ:SES:sexM
+(Intercept)           0  0   0   -1      0 -3.106877e-18 -27.81198 -8.64084e-17
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.9355205 
+
+Standard error:
+            
+0.007019497 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 90.161  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #5.b
+> (x <- testFactors(models[[5]],terms.formula=~sex*IQ))
+
+Call: testFactors(model = models[[5]], terms.formula = ~sex * IQ) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.95164 
+
+Std. Error:
+          
+0.3005851 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 3.10687685072191e - 18 IQ  + 27.811980760822 SES  + 0.5 sexM  + 8.64083991985211e - 17 IQ:SES  + 1.55343842536095e - 18 IQ:sexM  + 13.905990380411 SES:sexM  + 4.32041995992605e - 17 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex + (IQ | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 18561.28 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term sex 
+
+Adjusted mean at contrasts of sex:
+          
+-2.645589 
+
+Std. Error:
+          
+0.2758053 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM - 3.10687685072191e - 18 IQ:sexM - 27.811980760822 SES:sexM - 8.64083991985211e - 17 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex + (IQ | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 92.01093 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term IQ 
+
+Adjusted slope for IQ:
+         
+2.278547 
+
+Std. Error:
+           
+0.07954675 
+
+Linear hypothesis test
+
+Hypothesis:
+IQ  + 27.811980760822 IQ:SES  + 0.5 IQ:sexM  + 13.905990380411 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex + (IQ | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 820.4859 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term sex:IQ 
+
+Adjusted slope for IQ at contrasts of sex:
+          
+0.2806705 
+
+Std. Error:
+         
+0.136547 
+
+Linear hypothesis test
+
+Hypothesis:
+- IQ:sexM - 27.811980760822 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex + (IQ | school)
+
+  Df   Chisq Pr(>Chisq)  
+1                        
+2  1 4.22502   0.039832 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ IQ * SES * sex + (IQ | school), data = Snijders) 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)           IQ      SES sexM       IQ:SES       IQ:sexM  SES:sexM   IQ:SES:sexM
+(Intercept)           1 3.106877e-18 27.81198  0.5 8.640840e-17  1.553438e-18  13.90599  4.320420e-17
+sex                   0 0.000000e+00  0.00000 -1.0 0.000000e+00 -3.106877e-18 -27.81198 -8.640840e-17
+IQ                    0 1.000000e+00  0.00000  0.0 2.781198e+01  5.000000e-01   0.00000  1.390599e+01
+sex:IQ                0 0.000000e+00  0.00000  0.0 0.000000e+00 -1.000000e+00   0.00000 -2.781198e+01
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.95164 
+
+Standard error:
+          
+0.3005851 
+---
+
+Term sex 
+
+Adjusted mean at contrasts of sex:
+          
+-2.645589 
+
+Standard error:
+          
+0.2758053 
+---
+
+Term IQ 
+
+Adjusted slope for IQ:
+         
+2.278547 
+
+Standard error:
+           
+0.07954675 
+---
+
+Term sex:IQ 
+
+Adjusted slope for IQ at contrasts of sex:
+          
+0.2806705 
+
+Standard error:
+         
+0.136547 
+---
+
+------
+Chisq Test: 
+            Df     Chisq Pr(>Chisq)    
+(Intercept)  1 18561.277    < 2e-16 ***
+sex          1    92.011    < 2e-16 ***
+IQ           1   820.486    < 2e-16 ***
+sex:IQ       1     4.225    0.03983 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #5.c
+> (x <- testFactors(models[[5]],levelslme,covariates=c(IQ=3,SES=20)))
+
+Call: testFactors(model = models[[5]], levels = levelslme, covariates = c(IQ = 3,      SES = 20)) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-1.751152 
+
+Std. Error:
+          
+0.6387544 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM - 3 IQ:sexM - 20 SES:sexM - 60 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex + (IQ | school)
+
+  Df   Chisq Pr(>Chisq)   
+1                         
+2  1 7.51588  0.0061157 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ IQ * SES * sex + (IQ | school), data = Snijders) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+
+---
+ 
+Specified values of covariates:
+ IQ SES 
+  3  20 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) IQ SES sexM IQ:SES IQ:sexM SES:sexM IQ:SES:sexM
+(Intercept)           0  0   0   -1      0      -3      -20         -60
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-1.751152 
+
+Standard error:
+          
+0.6387544 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)   
+(Intercept)  1 7.5159   0.006116 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #5.d
+> (x <- testFactors(models[[5]],levelslme,covariates=0))
+
+Call: testFactors(model = models[[5]], levels = levelslme, covariates = 0) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-3.044487 
+
+Std. Error:
+          
+0.7578377 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM = 0
+
+Model 1: restricted model
+Model 2: score ~ IQ * SES * sex + (IQ | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 16.13897  5.886e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ lmer(formula = score ~ IQ * SES * sex + (IQ | school), data = Snijders) 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+
+---
+ 
+Specified values of covariates:
+ IQ SES 
+  0   0 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) IQ SES sexM IQ:SES IQ:sexM SES:sexM IQ:SES:sexM
+(Intercept)           0  0   0   -1      0       0        0           0
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+-3.044487 
+
+Standard error:
+          
+0.7578377 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 16.139  5.886e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #10.b
+> (x <- testFactors(models[[10]],terms.formula=~sex*IQ))
+
+Call: testFactors(model = models[[10]], terms.formula = ~sex * IQ) 
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.45189 
+
+Std. Error:
+            
+0.007682844 
+
+Linear hypothesis test
+
+Hypothesis:
+(Intercept)  + 3.10687685072191e - 18 IQ  + 27.811980760822 SES  + 0.5 sexM  + 8.64083991985211e - 17 IQ:SES  + 1.55343842536095e - 18 IQ:sexM  + 13.905990380411 SES:sexM  + 4.32041995992605e - 17 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: round(score) ~ IQ * SES * sex + (1 | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 231945.5 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term sex 
+
+Adjusted mean at contrasts of sex:
+          
+0.9355205 
+
+Std. Error:
+            
+0.007019497 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM - 3.10687685072191e - 18 IQ:sexM - 27.811980760822 SES:sexM - 8.64083991985211e - 17 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: round(score) ~ IQ * SES * sex + (1 | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 90.16073 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term IQ 
+
+Adjusted slope for IQ:
+           
+0.05638468 
+
+Std. Error:
+            
+0.001795053 
+
+Linear hypothesis test
+
+Hypothesis:
+IQ  + 27.811980760822 IQ:SES  + 0.5 IQ:sexM  + 13.905990380411 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: round(score) ~ IQ * SES * sex + (1 | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 986.6604 < 2.22e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+
+Term sex:IQ 
+
+Adjusted slope for IQ at contrasts of sex:
+            
+0.008716175 
+
+Std. Error:
+            
+0.003460398 
+
+Linear hypothesis test
+
+Hypothesis:
+- IQ:sexM - 27.811980760822 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: round(score) ~ IQ * SES * sex + (1 | school)
+
+  Df   Chisq Pr(>Chisq)  
+1                        
+2  1 6.34453   0.011774 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ glmer(formula = round(score) ~ IQ * SES * sex + (1 | school),      data = Snijders, family = "poisson") 
+------
+
+Linear hypothesis matrix
+
+            (Intercept)           IQ      SES sexM       IQ:SES       IQ:sexM  SES:sexM   IQ:SES:sexM
+(Intercept)           1 3.106877e-18 27.81198  0.5 8.640840e-17  1.553438e-18  13.90599  4.320420e-17
+sex                   0 0.000000e+00  0.00000 -1.0 0.000000e+00 -3.106877e-18 -27.81198 -8.640840e-17
+IQ                    0 1.000000e+00  0.00000  0.0 2.781198e+01  5.000000e-01   0.00000  1.390599e+01
+sex:IQ                0 0.000000e+00  0.00000  0.0 0.000000e+00 -1.000000e+00   0.00000 -2.781198e+01
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+         
+40.45189 
+
+Standard error:
+            
+0.007682844 
+---
+
+Term sex 
+
+Adjusted mean at contrasts of sex:
+          
+0.9355205 
+
+Standard error:
+            
+0.007019497 
+---
+
+Term IQ 
+
+Adjusted slope for IQ:
+           
+0.05638468 
+
+Standard error:
+            
+0.001795053 
+---
+
+Term sex:IQ 
+
+Adjusted slope for IQ at contrasts of sex:
+            
+0.008716175 
+
+Standard error:
+            
+0.003460398 
+---
+
+------
+Chisq Test: 
+            Df      Chisq Pr(>Chisq)    
+(Intercept)  1 2.3195e+05    < 2e-16 ***
+sex          1 9.0161e+01    < 2e-16 ***
+IQ           1 9.8666e+02    < 2e-16 ***
+sex:IQ       1 6.3445e+00    0.01177 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #10.c
+> (x <- testFactors(models[[10]],levelslme,covariates=c(IQ=3,SES=20)))
+
+Call: testFactors(model = models[[10]], levels = levelslme, covariates = c(IQ = 3,      SES = 20)) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.9608472 
+
+Std. Error:
+           
+0.01602324 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM - 3 IQ:sexM - 20 SES:sexM - 60 IQ:SES:sexM = 0
+
+Model 1: restricted model
+Model 2: round(score) ~ IQ * SES * sex + (1 | school)
+
+  Df   Chisq Pr(>Chisq)  
+1                        
+2  1 6.21318    0.01268 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ glmer(formula = round(score) ~ IQ * SES * sex + (1 | school),      data = Snijders, family = "poisson") 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+
+---
+ 
+Specified values of covariates:
+ IQ SES 
+  3  20 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) IQ SES sexM IQ:SES IQ:sexM SES:sexM IQ:SES:sexM
+(Intercept)           0  0   0   -1      0      -3      -20         -60
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.9608472 
+
+Standard error:
+           
+0.01602324 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)  
+(Intercept)  1 6.2132    0.01268 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> #10.d
+> (x <- testFactors(models[[10]],levelslme,covariates=0))
+
+Call: testFactors(model = models[[10]], levels = levelslme, covariates = 0) 
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.9157283 
+
+Std. Error:
+          
+0.0193443 
+
+Linear hypothesis test
+
+Hypothesis:
+- sexM = 0
+
+Model 1: restricted model
+Model 2: round(score) ~ IQ * SES * sex + (1 | school)
+
+  Df    Chisq Pr(>Chisq)    
+1                           
+2  1 20.71146 5.3396e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------
+> summary(x)
+
+Adjusted values for factor combinations in model:
+ glmer(formula = round(score) ~ IQ * SES * sex + (1 | school),      data = Snijders, family = "poisson") 
+
+Values of predictor variables.
+ 
+Specified combinations of factor levels:
+
+     F  M
+sex1 1 -1
+
+---
+ 
+Specified values of covariates:
+ IQ SES 
+  0   0 
+------
+
+Linear hypothesis matrix
+
+            (Intercept) IQ SES sexM IQ:SES IQ:sexM SES:sexM IQ:SES:sexM
+(Intercept)           0  0   0   -1      0       0        0           0
+
+------
+
+Adjusted values
+
+Term (Intercept) 
+
+Adjusted mean:
+          
+0.9157283 
+
+Standard error:
+          
+0.0193443 
+---
+
+------
+Chisq Test: 
+            Df  Chisq Pr(>Chisq)    
+(Intercept)  1 20.712   5.34e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+------------
+> 
+> ## Steve Kohler's example
+> jeff <- read.table("behaviorHB.txt", header=T)
+> for(j in c("Trial","Tank","Obs")) jeff[,j]<- factor(jeff[,j])
+> ## start with a model that ignores random effects and omits the 3-way interaction
+> lm1 <- lm(normMoves~Heron+Bass+Day+Heron:Bass+Heron:Day+Bass:Day, data=jeff)
+> (Moves.means <- interactionMeans(lm1, factors=list("Heron","Bass")))
+  Heron  Bass adjusted mean std. error
+1  none  none     46.410714   4.628503
+2  once  none     12.571429   4.628503
+3 twice  none      8.357143   4.628503
+4  none  once     17.250000   4.628503
+5  once  once     15.660714   4.628503
+6 twice  once     11.071429   4.628503
+7  none twice     15.482143   4.628503
+8  once twice     14.000000   4.628503
+9 twice twice     15.696429   4.628503
+> ## custom contrasts in phia
+> noHeron.vs.others <- list(Heron=c(2,-1,-1))
+> noBass.vs.others <- list(Bass=c(2,-1,-1))
+> Honce.vs.Htwice <- list(Heron=c(0,1,-1))
+> Bonce.vx.Btwice <- list(Bass=c(0,1,-1))
+> noBass.vs.Bonce <- list(Bass=c(1,-1,0))
+> ## the following gives the 3 "partial interactions" comparing the no-Heron
+> ## treatment to the others for each level of Bass
+> testInteractions(lm1,custom=noHeron.vs.others, fixed="Bass", adjustment="none")
+F Test: 
+P-value adjustment method: none
+                Value  Df Sum of Sq       F    Pr(>F)    
+ none : Heron1 71.893   1     12060 40.2105 4.951e-09 ***
+ once : Heron1  7.768   1       141  0.4694    0.4947    
+twice : Heron1  1.268   1         4  0.0125    0.9112    
+Residuals             112     33591                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> ## the following gives the 3 individual contrasts ("partial interactions")
+> ## comparing the Bass control to Bass present for each level of Heron
+> testInteractions(lm1,custom=noBass.vs.others, fixed="Heron", adjustment="none")
+F Test: 
+P-value adjustment method: none
+                Value  Df Sum of Sq       F    Pr(>F)    
+ none : Bass1  60.089   1      8425 28.0906 5.868e-07 ***
+ once : Bass1  -4.518   1        48  0.1588    0.6910    
+twice : Bass1 -10.054   1       236  0.7863    0.3771    
+Residuals             112     33591                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> ## the following are "product interactions"
+> testInteractions(lm1,custom=c(noHeron.vs.others,noBass.vs.Bonce), adjustment="none")
+F Test: 
+P-value adjustment method: none
+                Value  Df Sum of Sq      F    Pr(>F)    
+Heron1 : Bass1 64.125   1      4797 15.995 0.0001142 ***
+Residuals             112     33591                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> testInteractions(lm1,custom=c(noHeron.vs.others,Bonce.vx.Btwice), adjustment="none")
+F Test: 
+P-value adjustment method: none
+               Value  Df Sum of Sq      F Pr(>F)
+Heron1 : Bass1   6.5   1        49 0.1643  0.686
+Residuals            112     33591              
+> testInteractions(lm1,custom=c(noBass.vs.others,Honce.vs.Htwice), adjustment="none")
+F Test: 
+P-value adjustment method: none
+                Value  Df Sum of Sq      F Pr(>F)
+Bass1 : Heron1 5.5357   1        36 0.1192 0.7305
+Residuals             112     33591              
+> ## examine a model that includes random effects
+> lmm1 <- lmer(normMoves~Heron+Bass+Day+Heron:Bass+Heron:Day+Bass:Day+(1|Trial)+(1|Tank:Trial), data=jeff)
+> ## the following gives the 3 "partial interactions" comparing the no-Heron
+> ## treatment to the others for each level of Bass
+> testInteractions(lmm1,custom=noHeron.vs.others, fixed="Bass", adjustment="none")
+Chisq Test: 
+P-value adjustment method: none
+                Value Df   Chisq Pr(>Chisq)    
+ none : Heron1 71.893  1 35.1302  3.084e-09 ***
+ once : Heron1  7.768  1  0.4101     0.5219    
+twice : Heron1  1.268  1  0.0109     0.9168    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> ## the following gives the 3 individual contrasts ("partial interactions")
+> ## comparing the Bass control to Bass present for each level of Heron
+> testInteractions(lmm1,custom=noBass.vs.others, fixed="Heron", adjustment="none")
+Chisq Test: 
+P-value adjustment method: none
+                Value Df   Chisq Pr(>Chisq)    
+ none : Bass1  60.089  1 24.5416  7.272e-07 ***
+ once : Bass1  -4.518  1  0.1387     0.7095    
+twice : Bass1 -10.054  1  0.6870     0.4072    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> ## the following are "product interactions"
+> testInteractions(lmm1,custom=c(noHeron.vs.others,noBass.vs.Bonce), adjustment="none")
+Chisq Test: 
+P-value adjustment method: none
+                Value Df  Chisq Pr(>Chisq)    
+Heron1 : Bass1 64.125  1 13.974  0.0001853 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> testInteractions(lmm1,custom=c(noHeron.vs.others,Bonce.vx.Btwice), adjustment="none")
+Chisq Test: 
+P-value adjustment method: none
+               Value Df  Chisq Pr(>Chisq)
+Heron1 : Bass1   6.5  1 0.1436     0.7047
+> testInteractions(lmm1,custom=c(noBass.vs.others,Honce.vs.Htwice), adjustment="none")
+Chisq Test: 
+P-value adjustment method: none
+                Value Df  Chisq Pr(>Chisq)
+Bass1 : Heron1 5.5357  1 0.1041     0.7469
+> ## examine a glm that does not include random effects
+> ## the model assumes that Moves values are Poisson distributed
+> ## an offset is included to account for loss of fish within a trial
+> glm1 <- glm(Moves~Heron+Bass+Day+Heron:Bass+Heron:Day+Bass:Day, offset=log(Fish), family="poisson", data=jeff)
+> ## look at the cell means
+> (Moves.means <- interactionMeans(glm1, factors=list("Heron","Bass")))
+  Heron  Bass adjusted mean std. error
+1  none  none     39.514497 0.04351769
+2  once  none     11.965373 0.07936712
+3 twice  none      7.624057 0.09712342
+4  none  once     16.149545 0.06638137
+5  once  once     13.470176 0.07275335
+6 twice  once     10.280059 0.08302904
+7  none twice     14.646632 0.06856925
+8  once twice     12.297301 0.07450074
+9 twice twice     14.424011 0.07078327
+> ## the following gives the 3 "partial interactions" comparing the no-Heron
+> ## treatment to the others for each level of Bass
+> testInteractions(glm1,custom=noHeron.vs.others, fixed="Bass", adjustment="none")
+Chisq Test: 
+P-value adjustment method: none
+                 Value  Df    Chisq Pr(>Chisq)    
+ none : Heron1 17.1159   1 343.5360  < 2.2e-16 ***
+ once : Heron1  1.8834   1  13.1550  0.0002867 ***
+twice : Heron1  1.2094   1   1.2052  0.2722939    
+Residuals              112                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> ## examine glmm with random effects, and assumes Moves values are Poisson distributed
+> ## an additional random effect for each observation is included to account for overdispersion
+> ## log(Fish) is included as an offset to account for loss of fish within a trial
+> glmm1 <- glmer(Moves~Heron+Bass+Day+Heron:Bass+Heron:Day+Bass:Day+(1|Trial)+(1|Tank:Trial)+(1|Obs), offset=log(Fish), family="poisson", data=jeff)
+Warning message:
+In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.0487095 (tol = 0.001, component 1)
+> ## look at the cell means
+> (Moves.means <- interactionMeans(glmm1, factors=list("Heron","Bass")))
+  Heron  Bass adjusted mean std. error
+1  none  none     30.845251  0.2924097
+2  once  none      6.447978  0.3132102
+3 twice  none      4.120188  0.3233216
+4  none  once     11.279228  0.3001316
+5  once  once     10.116457  0.3017307
+6 twice  once      7.013786  0.3081546
+7  none twice      8.916927  0.3052283
+8  once twice      8.223442  0.3060780
+9 twice twice     10.176104  0.3038060
+> ## the following gives the 3 "partial interactions" comparing the no-Heron
+> ## treatment to the others for each level of Bass
+> testInteractions(glmm1,custom=noHeron.vs.others, fixed="Bass", adjustment="none")
+Chisq Test: 
+P-value adjustment method: none
+                Value Df   Chisq Pr(>Chisq)    
+ none : Heron1 35.813  1 27.2241  1.812e-07 ***
+ once : Heron1  1.793  1  0.7256     0.3943    
+twice : Heron1  0.950  1  0.0054     0.9412    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> 
