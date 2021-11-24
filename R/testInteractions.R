@@ -102,7 +102,9 @@ testInteractions <- function(model, pairwise=NULL, fixed=NULL, residual=NULL, ac
 		# and attach them to the anova table
 		adjusted.values <- summary(test)$adjusted.values[[1]]
 		if (nrow(test.table <- summary(test)$anova.table) == 0) stop(test$terms[[1]]$test)
-		anova.table <- rbind(anova.table,c(as.numeric(adjusted.values),unlist(test.table[1,])))
+		anova.table <- rbind(anova.table,c(as.numeric(adjusted.values),
+		                                   c(SE=unname(unlist(summary(test)$std.error)),
+		                                     unlist(test.table[1,]))))
 	}
 	# Adjust p-values
 	nc <- ncol(anova.table)
