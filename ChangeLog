@@ -1,3 +1,7 @@
+2023-12-01 Helios De Rosario-Martinez <helios.derosario@gmail.com>
+
+* R/testInteractions.R (testInteractions): add SE to tables (ctb. Phil Chalmers)
+
 2015-08-18 Helios De Rosario-Martinez <helios.derosario@gmail.com>
 
 * man, R: clarify that std. errors reported in testFactors and interactionMeans
