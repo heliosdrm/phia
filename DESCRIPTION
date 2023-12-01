@@ -1,11 +1,12 @@
 Package: phia
-Version: 0.2-1
-Date: 2015-08-18
+Version: 0.2-2
+Date: 2023-12-01
 Title: Post-Hoc Interaction Analysis
 Authors@R: c(person("Helios", "De Rosario-Martinez", role=c("aut", "cre"), 
 	email="helios.derosario@gmail.com"), 
 	person("John", "Fox", role="ctb"), 
-	person("R Core Team", role="ctb"))
+	person("R Core Team", role="ctb"),
+	person("Chalmers", "Phil", role="ctb"))
 Description: Analysis of terms in linear, generalized and mixed linear models, 
 	on the basis of multiple comparisons of factor contrasts.  Specially suited 
 	for the analysis of interaction terms.
