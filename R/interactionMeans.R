@@ -271,6 +271,9 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					at <- fam$linkfun(ylabels)
 					yaxis <- list(at=at,labels=as.character(ylabels))
 				}else yaxis <- list(at=pretty(ylim),labels=TRUE)
+				xlab <- if("xlab" %in% names(dots)) dots$xlab else atx.pattern[f]
+				ylab <- if("ylab" %in% names(dots)) dots$ylab else ""
+				main <- if("main" %in% names(dots)) dots$main else y
 				# Draw with legend if there are multiple traces
 				if (legend && is.matrix(means)){
 					margins <- par("mar")
