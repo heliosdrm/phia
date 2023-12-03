@@ -7,6 +7,7 @@ importFrom("methods", "is", "languageEl")
 importFrom("utils", "combn")
 ## To run vignette succesfully
 importFrom("Matrix", "diag")
+S3method(testFactors, default)
 S3method(testFactors, lm)
 S3method(testFactors, mlm)
 S3method(testFactors, glm)

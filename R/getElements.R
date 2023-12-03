@@ -22,19 +22,19 @@ getCoef.lme <- function(model){nlme::fixef(model)}
 getCoef <- function(model){UseMethod("getCoef")}
 
 # Method for obtaning factor levels from model
-getXLevels.lm <- function(model){model$xlevels}
-getXLevels.lme <- function(model){lapply(model$contrasts, rownames)}
+getXLevels.lm <- function(object){object$xlevels}
+getXLevels.lme <- function(object){lapply(object$contrasts, rownames)}
 # Extract factors from a list (use it in the default method)
-getXLevels.list <- function(fr){
-	are.factors <- sapply(fr, is.factor)
-	lapply(fr[are.factors], "levels")
+getXLevels.list <- function(object){
+	are.factors <- sapply(object, is.factor)
+	lapply(object[are.factors], "levels")
 }
-getXLevels.default <- function(model){
-	predictors <- getPredictors(model)
-	mf <- model.frame(model)[predictors]
+getXLevels.default <- function(object){
+	predictors <- getPredictors(object)
+	mf <- model.frame(object)[predictors]
 	getXLevels.list(mf)
 }
-getXLevels <- function(model){UseMethod("getXLevels")}
+getXLevels <- function(object){UseMethod("getXLevels")}
 
 # Method for obtaining contrasts
 getContrasts <- function(model){attr(getModelMatrix(model),"contrasts")}

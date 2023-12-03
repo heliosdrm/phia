@@ -655,7 +655,7 @@ print.testFactors <- function(x,digits=getOption("digits"),...){
 		cat(":\n")
 		if (dim(term$std.error)[2]==1) dimnames(term$std.error)[2] <- list("")
 		print(drop(term$std.error),digits=digits,...)
-		if ("test" %in% names(term) && class(term$test)[1] != "try-error"){
+		if ("test" %in% names(term) && !is(term$test, "try-error")){
 			cat("\n") #cat("\nLinear hypothesis test:\n")
 			print(term$test,digits=digits,...)
 		}
@@ -724,7 +724,7 @@ summary.testFactors <- function(object,predictors=TRUE,matrices=TRUE,covmat=FALS
 anova.testFactors <- function(object,...){
 	tests <- lapply(object$terms,"[[","test")
 	# The ANOVA table will be built for terms where linearHypothesis was successfully used
-	successful.tests <- sapply(tests,function(x) !is.null(x) && class(x)[1]!="try-error")
+	successful.tests <- sapply(tests,function(x) !is.null(x) && !is(x, "try-error"))
 	anova.table <- matrix(NA,sum(successful.tests),3)
 	rownames(anova.table) <- names(object$terms[successful.tests])
 	for (term.label in names(object$terms)){
@@ -747,7 +747,7 @@ anova.testFactors <- function(object,...){
 anova.testFactors.lm <- function(object,predictors=TRUE,matrices=TRUE,...){
 	tests <- lapply(object$terms,"[[","test")
 	# The ANOVA table will be built for terms where linearHypothesis was successfully used
-	successful.tests <- sapply(tests,function(x) !is.null(x) && class(x)[1]!="try-error")
+	successful.tests <- sapply(tests,function(x) !is.null(x) && !is(x, "try-error"))
 	anova.table <- matrix(NA,sum(successful.tests),4)
 	rownames(anova.table) <- names(object$terms[successful.tests])
 	for (term.label in names(object$terms)){
@@ -770,7 +770,7 @@ anova.testFactors.lm <- function(object,predictors=TRUE,matrices=TRUE,...){
 anova.testFactors.mlm <- function(object,...){
 	tests <- lapply(object$terms,"[[","test")
 	# The ANOVA table will be built for terms where linearHypothesis was successfully used
-	successful.tests <- sapply(tests,function(x) !is.null(x) && class(x)[1]!="try-error")
+	successful.tests <- sapply(tests,function(x) !is.null(x) && !is(x, "try-error"))
 	anova.table <- matrix(NA,sum(successful.tests),4)
 	rownames(anova.table) <- names(object$terms[successful.tests])
 	for (term.label in names(object$terms)){
@@ -818,13 +818,13 @@ print.summary.testFactors <- function(x,digits=getOption("digits"),...){
 			cat(header,"\nDefault list of factor contrasts:\n")
 			header <- "\n---\n"
 			factor.contrasts <- sapply(x$factor.contrasts,"[")
-			if (class(factor.contrasts)=="character"){
+			if (is(factor.contrasts, "character")){
 				print(factor.contrasts,quote=FALSE)
 			}else{
 				for (nfac in names(factor.contrasts)){
 					cat("\n",nfac,"\n")
 					fac <- factor.contrasts[[nfac]]
-					if (class(fac)=="character"){
+					if (is(fac, "character")){
 						cat(":",fac,"\n")
 					}else{
 						print(fac)
