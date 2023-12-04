@@ -1,4 +1,8 @@
-[![Build Status](https://travis-ci.org/heliosdrm/phia.svg?branch=master)](https://travis-ci.org/heliosdrm/phia)
+[![Build Status](https://github.com/heliosdrm/phia/actions/workflows/check-standard.yaml/badge.svg?branch=master)](https://github.com/heliosdrm/phia/actions/workflows/check-standard.yaml)
+
+[![CRAN version](http://www.r-pkg.org/badges/version/phia)](http://www.r-pkg.org/pkg/phia)
+[![Downloads](http://cranlogs.r-pkg.org/badges/phia)]()
+
 
 # R package &ldquo;phia&rdquo;
 ## Post-hoc Interaction Analysis in R
