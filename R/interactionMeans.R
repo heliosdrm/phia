@@ -197,11 +197,15 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, xlab=atx
 		if (multiple){
 			# Create device with multiple figures
 			if (length(y)>1L) dev.new()
-			par(oma=c(1,4,4,2),mar=rep(0,4))
 			# Reserve extra column if there is y axis label
 			leftcol <- if (nchar(ylab)) 1 else 0
 			ylab.mar <- 0.25*leftcol
 			columnwidths <- if(leftcol) c(ylab.mar, rep(1,nc)) else rep(1,nc)
+			if (leftcol){
+				par(oma=c(1,1,4,2),mar=rep(0,4))
+			}else{
+				par(oma=c(1,4,4,2),mar=rep(0,4))
+			}
 			# Parameters for x label and title
 			cex.lab <- if("cex.lab" %in% names(dots)) dots$cex.lab else 1
 			col.lab <- if("col.lab" %in% names(dots)) dots$cex.lab else par("col")
