@@ -116,7 +116,7 @@ cimse <- function(m,se,ci){
     list(m+q*se, m-q*se)
 }
 
-plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2, cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, errorbar,...){
+plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, xlab=atx, ylab=NULL, main=NULL, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2, cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, errorbar,...){
 	# Define function for limits of the errorbars
 	if (missing(errorbar)) errorbar <- function(m,se) list(m-se,m+se)
 	ferrbar <- if(is.null(errorbar)) function(m,se) list(m,m) else errorbar
@@ -197,6 +197,10 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 			# Create device with multiple figures
 			if (length(y)>1L) dev.new()
 			par(oma=c(1,4,4,2),mar=rep(0,4))
+			# Reserve extra column if there is y axis label
+			leftcol <- length(ylab)
+			ylab.mar <- 0.25*leftcol
+			columnwidths <- if(leftcol) c(ylab.mar, rep(1,nc)) else rep(1,nc)
 			# Parameters for x label and title
 			cex.lab <- if("cex.lab" %in% names(dots)) dots$cex.lab else 1
 			col.lab <- if("col.lab" %in% names(dots)) dots$cex.lab else par("col")
@@ -205,12 +209,12 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 			col.main <- if("col.main" %in% names(dots)) dots$cex.lab else par("col")
 			font.main <- if("font.main" %in% names(dots)) dots$font.lab else par("font")
 			if (legend){
-				layout(matrix(1:((nr+1)*(nc+1)),nrow=nr+1,byrow=TRUE),
-					c(rep(1,nc),marginRatio(nc,legend.margin)),
+				layout(matrix(1:((nr+1)*(nc+1+leftcol)),nrow=nr+1,byrow=TRUE),
+					c(columnwidths,marginRatio(nc,legend.margin)),
 					c(rep(1,nr),xax.margin))
 			}else{
-				layout(matrix(1:((nr+1)*nc),nrow=nr+1,byrow=TRUE),
-					c(rep(1,nc)),
+				layout(matrix(1:((nr+1)*(nc+leftcol)),nrow=nr+1,byrow=TRUE),
+					columnwidths,
 					c(rep(1,nr),xax.margin))
 			}
 			# Get y limits to set common values
@@ -229,6 +233,11 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 				}else yaxis <- list(at=pretty(ylim),labels=TRUE)
 				# do not draw legend until a figure with traces is found in the row
 				legend.labels <- NULL
+				# column for y label if it exists
+				if (leftcol){
+					plot.new()
+					text(0.1,0.5,ylab,adj=0.5,srt=90,cex=cex.lab,col=col.lab,font=font.lab)
+				}
 				for(column in 1:nc){
 					# Increase plot counter, get and plot data without axes
 					f <- f+1
@@ -237,7 +246,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					lower <- as.matrix(errbardata[[1,f]])
 					upper <- as.matrix(errbardata[[2,f]])
 					matplot(means,type=type,pch=pch,
-						axes=FALSE,xlab="",ylab="",
+						axes=FALSE,xlab="",ylab="",main=NULL,
 						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,...)
 					if (!is.null(errorbar)) matploterrorbars(lower,upper,...)
 					box()
@@ -254,11 +263,13 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 				}
 			}
 			# Add x labels in the regions of the last row
+			if (leftcol) plot.new()
 			for (column in 1:nc){
 				plot.new()
-				text(0.5,0.1,atx[column],pos=3,cex=cex.lab,col=col.lab,font=font.lab)
+				text(0.5,0.1,xlab[column],pos=3,cex=cex.lab,col=col.lab,font=font.lab)
 			}
-			mtext(y,outer=TRUE,line=1,cex=cex.main,col=col.main,font=font.main)
+			if(is.null(main)) main <- y
+			mtext(main,outer=TRUE,line=1,cex=cex.main,col=col.main,font=font.main)
 		}else{
 			for (f in 1:length(plotdata)){
 				means <- plotdata[[f]]
@@ -271,9 +282,6 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, multiple
 					at <- fam$linkfun(ylabels)
 					yaxis <- list(at=at,labels=as.character(ylabels))
 				}else yaxis <- list(at=pretty(ylim),labels=TRUE)
-				xlab <- if("xlab" %in% names(dots)) dots$xlab else atx.pattern[f]
-				ylab <- if("ylab" %in% names(dots)) dots$ylab else ""
-				main <- if("main" %in% names(dots)) dots$main else y
 				# Draw with legend if there are multiple traces
 				if (legend && is.matrix(means)){
 					margins <- par("mar")
