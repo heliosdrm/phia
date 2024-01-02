@@ -116,7 +116,7 @@ cimse <- function(m,se,ci){
     list(m+q*se, m-q*se)
 }
 
-plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, xlab=atx, ylab=NULL, main=NULL, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2, cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, errorbar,...){
+plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, xlab=atx, ylab="", main=NULL, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2, cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, errorbar,...){
 	# Define function for limits of the errorbars
 	if (missing(errorbar)) errorbar <- function(m,se) list(m-se,m+se)
 	ferrbar <- if(is.null(errorbar)) function(m,se) list(m,m) else errorbar
@@ -156,6 +156,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, xlab=atx
 	xax.margin <- 0.25
 	# Loop over the numeric columns
 	for (y in attr(x,"values")){
+		maintitle <- if(is.null(main)) y else main
 		# List of data values for plots,
 		# setting legend to FALSE if there are no traces
 		if (is.null(traces)){
@@ -198,7 +199,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, xlab=atx
 			if (length(y)>1L) dev.new()
 			par(oma=c(1,4,4,2),mar=rep(0,4))
 			# Reserve extra column if there is y axis label
-			leftcol <- length(ylab)
+			leftcol <- if (nchar(ylab)) 1 else 0
 			ylab.mar <- 0.25*leftcol
 			columnwidths <- if(leftcol) c(ylab.mar, rep(1,nc)) else rep(1,nc)
 			# Parameters for x label and title
@@ -268,8 +269,7 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, xlab=atx
 				plot.new()
 				text(0.5,0.1,xlab[column],pos=3,cex=cex.lab,col=col.lab,font=font.lab)
 			}
-			if(is.null(main)) main <- y
-			mtext(main,outer=TRUE,line=1,cex=cex.main,col=col.main,font=font.main)
+			mtext(maintitle,outer=TRUE,line=1,cex=cex.main,col=col.main,font=font.main)
 		}else{
 			for (f in 1:length(plotdata)){
 				means <- plotdata[[f]]
@@ -291,8 +291,8 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, xlab=atx
 					par(oma=oma,mar=mar)
 					layout(matrix(1:2,1),c(1,marginRatio(1,legend.margin)),1)
 					matplot(means,type=type,pch=pch,
-						xaxt="n",yaxt="n",xlab=atx.pattern[f],ylab="",
-						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,main=y,...)
+						xaxt="n",yaxt="n",xlab=xlab[(f-1)%%nc + 1],ylab=ylab,
+						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,main=maintitle,...)
 					if (!is.null(errorbar)) matploterrorbars(lower,upper,...)
 					axis(1,at=1:nrow(means),labels=rownames(means),...)
 					axis(2,at=yaxis$at,labels=yaxis$labels,...)
@@ -302,8 +302,8 @@ plot.interactionMeans <- function(x, atx=attr(x,"factors"), traces=atx, xlab=atx
 				}else{
 					means <- as.matrix(means)
 					matplot(means,type=type,pch=pch,
-						xaxt="n",yaxt="n",xlab=atx.pattern[f],ylab="",
-						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,main=y,...)
+						xaxt="n",yaxt="n",xlab=xlab[(f-1)%%nc + 1],ylab=ylab,
+						xlim=c(0.5,nrow(means)+0.5),ylim=ylim,main=maintitle,...)
 					if (!is.null(errorbar)) matploterrorbars(lower,upper,...)
 					axis(1,at=1:nrow(means),labels=rownames(means),...)
 					axis(2,at=yaxis$at,labels=yaxis$labels,...)
