@@ -9,8 +9,8 @@ Creates a data frame with the adjusted means of a fitted model or the slopes ass
 }
 \usage{
 interactionMeans(model, factors=names(xlevels), slope=NULL, \dots)
-\method{plot}{interactionMeans}(x, atx=attr(x,"factors"), traces=atx,
-  multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2,
+\method{plot}{interactionMeans}(x, atx=attr(x,"factors"), traces=atx, xlab=atx,
+  ylab="", main=NULL, multiple=TRUE, y.equal=FALSE, legend=TRUE, legend.margin=0.2,
   cex.legend=1, abbrev.levels=FALSE, type="b", pch=0:6, errorbar, \dots)
 }
 \arguments{
@@ -20,6 +20,7 @@ interactionMeans(model, factors=names(xlevels), slope=NULL, \dots)
   \item{x}{an object created by the function \code{interactionMeans}.}
   \item{atx}{character vector with the names of factors that will be represented in the horizontal axis of the plots.  All the factors represented in \code{x} are used by default.}
   \item{traces}{character vector with the names of the factors that will be represented as different traces in a plot (the same as \code{atx} by default).}
+  \item{xlab, ylab, main}{values to override the default titles of plots and their axes (see \emph{Details}).}
   \item{multiple}{logical indicating if the plots shall be combined in multi-panel figures.}
   \item{y.equal}{logical indicating if all the plots should have the same range in the y-axis (all plots would be expanded to the maximum range).}
   \item{legend}{logical indicating if legends should be drawn in case of plots with multiple traces.}
@@ -40,6 +41,8 @@ The generic \code{plot} function creates matrices of interaction plots, with the
 The adjusted means and error bars of generalized models (fitted with \code{glm} or \code{glmer}) are plotted on the scale of the link function, although the y-axis is labelled on the scale of the response (unless the link function had been forced in the calculation of the means).
   
 If the interactions involve many factors, it may be convenient to plot each panel in a different device (with \code{multiple=FALSE}), or select a subset of factors to be plotted with the arguments \code{atx} and \code{traces}.  A panel will be plotted for each pair of factors defined by crossing these arguments; if the crossed factors are the same one, that panel will show its main effect.
+
+By default, the interaction plots show the names of the factors on the labels of their x-axes (only for the bottom row of panels, if there is more than one). Those labels can be overriden by the argument \code{xlab}, which should be a character vector with as many strings as the number of factors of the model (or the number of factors indicated in \code{atx}). The string passed as \code{ylab} will be used as the label of the y-axes on the left column of panels (no label is printed by default). The default main titles of the plots are the names of the dependent variables (e.g. "adjusted mean"), but they can be also replaced by a string passed in the argument \code{main}, which will be used for all the variables if there is more than one.
 }
 \value{
 \code{interactionMeans} returns an object of class \code{"interactionMeans"}, that contains a data frame with the factor interactions and the means or slopes of the model adjusted to them, and some attributes used for plotting.
