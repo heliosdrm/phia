@@ -12,8 +12,8 @@ Specially suited for the analysis of interaction effects.}
 \tabular{ll}{
 Package: \tab phia\cr
 Type: \tab Package\cr
-Version: \tab 0.3-0\cr
-Date: \tab 2023-12-03\cr
+Version: \tab 0.3-1\cr
+Date: \tab 2024-01-03\cr
 License: \tab GPL (>= 3)\cr
 }
 This package contains functions that may be used for the post-hoc analysis

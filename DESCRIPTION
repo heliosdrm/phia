@@ -1,6 +1,6 @@
 Package: phia
-Version: 0.3-0
-Date: 2023-12-03
+Version: 0.3-1
+Date: 2024-01-03
 Title: Post-Hoc Interaction Analysis
 Authors@R: c(person("Helios", "De Rosario-Martinez", role=c("aut", "cre"), 
 	email="helios.derosario@gmail.com"), 
