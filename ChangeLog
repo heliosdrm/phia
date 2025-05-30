@@ -1,3 +1,11 @@
+2025-05-30 Helios De Rosario-Martinez <helios.derosario@gmail.com>
+
+* R/testInteractions.R (testInteractions): fix number of columns in residual row of testInteractions.
+
+* man (various files): add anchors to package car in links to Anova and linearHypothesis.
+
+* Version 0.3-2
+
 2024-01-03 Helios De Rosario-Martinez <helios.derosario@gmail.com>
 
 * R/interactionMeans.R (plot): fix (non-functional) custom text in axis guides and title.
