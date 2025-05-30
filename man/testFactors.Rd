@@ -36,15 +36,15 @@ Calculates and tests the adjusted mean value of the response and other terms of 
   \item{terms.formula}{formula that defines the terms of the model that will be calculated and tested.  The default value is ~1, and stands for the adjusted mean value.  See the \emph{Details} for more information.}
   \item{inherit.contrasts}{logical value:  should the default contrasts of model factors be inherited from the model data frame?}
   \item{default.contrasts}{names of contrast-generating functions to be applied by default to factors and ordered factors, respectively, if \code{inherit.contrasts} is \code{FALSE} (the default); the contrasts must produce an intra-subjects model matrix in which different terms are orthogonal.  The default is \code{c("contr.sum", "contr.poly")}.}
-  \item{lht}{logical indicating if the adjusted values are tested (via \code{\link[car:linearHypothesis]{linearHypothesis}).}
+  \item{lht}{logical indicating if the adjusted values are tested (via \code{\link[car]{linearHypothesis}}).}
   \item{link}{for models fitted with \code{glm} or \code{glmer}, logical indicating if the adjusted mean values should represent the link function (\code{FALSE} by default, i.e. represent the adjusted means of the response variable).}
-  \item{idata}{an optional data frame giving a factor or factors defining the intra-subjects model for multivariate repeated-measures data, as defined in \code{\link[car:Anova]{Anova}} or \code{\link[car:linearHypothesis]{linearHypothesis}}.}
+  \item{idata}{an optional data frame giving a factor or factors defining the intra-subjects model for multivariate repeated-measures data, as defined in \code{\link[car]{Anova}} or \code{\link[car]{linearHypothesis}}.}
   \item{icontrasts}{names of contrast-generating functions to be applied in the within-subject \dQuote{data}.  The default is the same as \code{default.contrasts}.}
   \item{object}{object returned by \code{\link{testFactors}}.}
   \item{predictors}{logical value: should \code{\link{summary}} return the values of the predictor values used in the calculations?}
-  \item{matrices}{logical value: should \code{\link{summary}} return the matrices used for testing by \code{\link[car:linearHypothesis]{linearHypothesis}}?}
+  \item{matrices}{logical value: should \code{\link{summary}} return the matrices used for testing by \code{\link[car]{linearHypothesis}}?}
   \item{covmat}{logical value: should \code{\link{summary}} return the covariance matrix of the adjusted values?}
-  \item{\dots}{other arguments passed down to \code{\link[car:linearHypothesis]{linearHypothesis}}.}
+  \item{\dots}{other arguments passed down to \code{\link[car]{linearHypothesis}}.}
 }
 \details{
 The only mandatory argument is \code{model}, which may include any number of factor or numeric predictors, and one offset.  The simplest usage of this method, where no other argument is defined, calculates the adjusted mean of the model response variable, pooling over all the levels of factor predictors, and setting the numeric predictors (covariates and offset, ifany) to their average values in the model data frame.
@@ -66,20 +66,20 @@ If any of the variables in the term is a factor, the function analyses a full se
 
 In generalized linear models, the adjusted means represent the expected values of the response by default, but the expected value of the link function may be shown by setting the argument \code{link=FALSE}.  On the other hand, slope values and standard errors always refer to the link function.
 
-For multivariate models, the arguments \code{idata}, and \code{icontrasts} may be used to define an intra-subjects model for multivariate repeated-measures data, as described for \code{\link[car:Anova]{Anova}} or \code{\link[car:linearHypothesis]{linearHypothesis}} in package \pkg{car}.  Note, however, that the combinations of intra-subjects factor levels are defined in \code{levels}, and other arguments defined in those functions like \code{idesign}, \code{imatrix} or \code{iterms} will have no effect in \code{testFactors}.
+For multivariate models, the arguments \code{idata}, and \code{icontrasts} may be used to define an intra-subjects model for multivariate repeated-measures data, as described for \code{\link[car]{Anova}} or \code{\link[car]{linearHypothesis}} in package \pkg{car}.  Note, however, that the combinations of intra-subjects factor levels are defined in \code{levels}, and other arguments defined in those functions like \code{idesign}, \code{imatrix} or \code{iterms} will have no effect in \code{testFactors}.
 
-The significance of adjusted values is tested by a call to \code{\link[car:linearHypothesis]{linearHypothesis}} for each term, unless \code{lht} is set to \code{FALSE}.  Extra arguments may be passed down to that function, for instance to specify the test statistic that will be evaluated.
+The significance of adjusted values is tested by a call to \code{\link[car]{linearHypothesis}} for each term, unless \code{lht} is set to \code{FALSE}.  Extra arguments may be passed down to that function, for instance to specify the test statistic that will be evaluated.
 }
 \value{
-An object of class \code{"testFactors"}, that contains the adjusted values and their standard errors for each term, and the otuput of the test, plus other variables used in the calculations.  The \code{\link{summary}} method for this object will display those variables, unless they be omitted by setting the optional arguments \code{predictors}, \code{matrices} or \code{covmat} to \code{FALSE}.  The argument \code{predictors} refers to the coefficients of specified combinations of factor levels, the values of covariates, and the contrast matrices used for terms that include factors; \code{matrices} refers to the \dQuote{linear hypothesis matrix} used by \code{\link[car:linearHypothesis]{linearHypothesis}}, and in multivariate linear models, to the \dQuote{response transformation matrix} as well --- if it exists; \code{covmat} refers to the variance-covariance matrix of the adjusted values.
+An object of class \code{"testFactors"}, that contains the adjusted values and their standard errors for each term, and the otuput of the test, plus other variables used in the calculations.  The \code{\link{summary}} method for this object will display those variables, unless they be omitted by setting the optional arguments \code{predictors}, \code{matrices} or \code{covmat} to \code{FALSE}.  The argument \code{predictors} refers to the coefficients of specified combinations of factor levels, the values of covariates, and the contrast matrices used for terms that include factors; \code{matrices} refers to the \dQuote{linear hypothesis matrix} used by \code{\link[car]{linearHypothesis}}, and in multivariate linear models, to the \dQuote{response transformation matrix} as well --- if it exists; \code{covmat} refers to the variance-covariance matrix of the adjusted values.
 
-Moreover, \code{\link{summary}} groups the results of the tests for all terms in one table.  By default this table shows the test statistics, their degrees of freedom, and the \emph{p}-values.  If the model is of class \code{"lm"}, it also shows the sums of squares; and if it is of class \code{"mlm"}, only the first type of test statistic returned by \code{\link[car:linearHypothesis]{linearHypothesis}} (by default \dQuote{Pillai}) is shown.  This variable shape of the ANOVA table is controlled by additional classes assigned to the object (either \code{"testFactors.lm"} or \code{"testFactors.mlm"}, as suitable).
+Moreover, \code{\link{summary}} groups the results of the tests for all terms in one table.  By default this table shows the test statistics, their degrees of freedom, and the \emph{p}-values.  If the model is of class \code{"lm"}, it also shows the sums of squares; and if it is of class \code{"mlm"}, only the first type of test statistic returned by \code{\link[car]{linearHypothesis}} (by default \dQuote{Pillai}) is shown.  This variable shape of the ANOVA table is controlled by additional classes assigned to the object (either \code{"testFactors.lm"} or \code{"testFactors.mlm"}, as suitable).
 }
 \author{
 Helios De Rosario-Martinez, \email{helios.derosario@gmail.com}
 }
 \seealso{
-\code{\link[car:linearHypothesis]{linearHypothesis}} in package \pkg{car}.
+\code{\link[car]{linearHypothesis}} in package \pkg{car}.
 \code{\link{interactionMeans}}, and \code{\link{testInteractions}} as useful wrappers of \code{testFactors}.
 }
 \note{
