@@ -123,7 +123,8 @@ testInteractions <- function(model, pairwise=NULL, fixed=NULL, residual=NULL, ac
 	rownames(anova.table) <- combination.labels
 	# Add row for residuals, if existed in the anova table
 	if (nrow(test.table) > 1){
-		anova.table <- rbind(anova.table,Residuals=c(matrix(,ncol=length(adjusted.values)),unlist(test.table[2,])))
+		nblank <- ncol(anova.table) - ncol(test.table)
+		anova.table <- rbind(anova.table,Residuals=c(matrix(,ncol=nblank),unlist(test.table[2,])))
 	}
 	# Attach combination labels and make anova table class
 	heading <- attr(summary(test)$anova.table,"heading")
