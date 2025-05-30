@@ -36,7 +36,7 @@ Ommitted factors will be averaged across all their levels. Thus, to test the ove
 
 Other combinations of factor levels can be defined by \code{custom}.  This argument should be a list of numeric matrices or vectors, named as the model factors.  Each matrix must have as many rows as the number of levels of the corresponding factor, so that each column represents a linear combination of such levels that will be tested, crossed with the combinations of the other factors.  Vectors will be treated as column matrices.
 
-In multivariate linear models it is possible to define an intra-subjects design, with the argument \code{idata} passed down to \code{\link{testFactors}} (see \code{\link[car]{Anova}} or \code{\link[car]{linearHypothesis}} in package \pkg{car} for further details).  The factors defined by that argument can be included as any other factor of the model.
+In multivariate linear models it is possible to define an intra-subjects design, with the argument \code{idata} passed down to \code{\link{testFactors}} (see \code{\link{Anova}} or \code{\link{linearHypothesis}} in package \pkg{car} for further details).  The factors defined by that argument can be included as any other factor of the model.
 }
 \value{
 An anova table with one row for each different combination of levels and contrasts defined in \code{pairwise}, \code{fixed}, \code{across}, and \code{custom}.  The rownames represent the specific levels or contrasts used for the different factors, separated by \sQuote{:}. These names can be tweaked by the arguments \code{label.factors} and \code{abbrev.levels}, as done by \code{termMeans} in package \pkg{heplots}.
